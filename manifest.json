@@ -1,0 +1,17 @@
+{
+  "name": "Vaqueiro Prateado",
+  "short_name": "Vaqueiro Prateado",
+  "description": "Painel da Fazenda Conquista — mapa de piquetes, sanidade e pesagem do rebanho.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F2F7F2",
+  "theme_color": "#2A4F2E",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

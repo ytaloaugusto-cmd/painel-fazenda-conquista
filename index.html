@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vaqueiro Prateado</title>
+<meta name="theme-color" content="#2A4F2E">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vaqueiro Prateado">
+<meta name="application-name" content="Vaqueiro Prateado">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root {
+  --prata:      #C8D4DC;
+  --prata-d:    #8FA3B1;
+  --prata-esc:  #4A6070;
+
+  --campo:      #3A6B3F;
+  --campo-cl:   #EAF2EB;
+  --campo-d:    #2A4F2E;
+  --campo-bg:   #F2F7F2;
+
+  --couro:      #7B4F2E;
+  --couro-cl:   #F5EDE6;
+  --couro-d:    #5A3820;
+
+  --ambar:      #B8860B;
+  --ambar-cl:   #FEF8E7;
+
+  --vermelho:   #B83232;
+  --verm-cl:    #FDECEA;
+
+  --bg:         #F2F7F2;
+  --bg2:        #FFFFFF;
+  --bg3:        #E8F0E8;
+  --border:     #C8D8C8;
+  --border-d:   #A8BEA8;
+
+  --txt:        #1C2B1E;
+  --txt2:       #4A6050;
+  --txt3:       #8AA08A;
+
+  --mod-a:      #B83232;
+  --mod-b:      #2E6B3F;
+  --mod-c:      #8B6914;
+  --mod-d:      #1A5A9A;
+  --mod-a-bg:   #FDECEA;
+  --mod-b-bg:   #EAF2EB;
+  --mod-c-bg:   #FEF8E7;
+  --mod-d-bg:   #E8F0FA;
+
+  --r: 12px;
+  --r-sm: 8px;
+  --shadow: 0 1px 4px rgba(28,43,30,.10);
+  --shadow-md: 0 6px 20px rgba(28,43,30,.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14201A; --bg2: #1B2A22; --bg3: #22332A;
+    --border: #2E4536; --border-d: #3E5A47;
+    --txt: #EAF3EC; --txt2: #A9C2AF; --txt3: #6E8B76;
+    --campo-cl: #1E3324; --couro-cl: #2E2218; --ambar-cl: #2E2711; --verm-cl: #331C1C;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14201A; --bg2: #1B2A22; --bg3: #22332A;
+  --border: #2E4536; --border-d: #3E5A47;
+  --txt: #EAF3EC; --txt2: #A9C2AF; --txt3: #6E8B76;
+  --campo-cl: #1E3324; --couro-cl: #2E2218; --ambar-cl: #2E2711; --verm-cl: #331C1C;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: var(--bg); color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--border-d); border-radius: 4px; }
+
+/* ══ TOPO ══ */
+header.top {
+  position: sticky; top: 0; z-index: 20;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: linear-gradient(135deg, var(--campo-d), var(--campo));
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+.top-inner {
+  max-width: 1180px; margin: 0 auto;
+  padding: 16px 20px 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-badge {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.35);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.brand h1 { font-size: 17px; font-weight: 800; margin: 0; letter-spacing: .2px; }
+.brand span { font-size: 11.5px; opacity: .82; display: block; margin-top: 1px; }
+.top-meta { font-size: 11.5px; opacity: .82; text-align: right; }
+
+nav.tabs {
+  max-width: 1180px; margin: 14px auto 0;
+  display: flex; gap: 4px; padding: 0 20px;
+}
+nav.tabs button {
+  flex: 1; border: none; background: rgba(255,255,255,.08); color: rgba(255,255,255,.72);
+  font: inherit; font-size: 13.5px; font-weight: 700;
+  padding: 11px 10px; cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background .15s, color .15s;
+}
+nav.tabs button svg { width: 16px; height: 16px; flex-shrink: 0; }
+nav.tabs button.on { background: var(--bg); color: var(--campo-d); }
+nav.tabs button:not(.on):hover { background: rgba(255,255,255,.15); color: #fff; }
+
+main { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
+.view { display: none; }
+.view.on { display: block; animation: fadein .25s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r);
+  box-shadow: var(--shadow); padding: 18px;
+}
+.card + .card { margin-top: 14px; }
+.card-title {
+  font-size: 12px; font-weight: 800; letter-spacing: .3px; color: var(--txt2);
+  margin: 0 0 12px;
+}
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+.row > .card { flex: 1; min-width: 240px; }
+
+/* ══ STAT GRID ══ */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px; margin-bottom: 16px;
+}
+.stat {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 14px 14px 12px; box-shadow: var(--shadow);
+}
+.stat b { display: block; font-size: 24px; font-weight: 900; line-height: 1.1; color: var(--campo-d); }
+.stat span { font-size: 11.5px; color: var(--txt2); font-weight: 600; }
+
+/* ══ MAPA ══ */
+.mod-picker { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.map-wrap {
+  position: relative; width: 100%; aspect-ratio: 4/5; max-height: 760px;
+  background: var(--bg3); border-radius: var(--r-sm); overflow: hidden;
+  border: 1px solid var(--border);
+}
+@media (min-width: 720px) {
+  .map-wrap { aspect-ratio: 16/11; max-height: 820px; }
+}
+#map-svg { width: 100%; height: 100%; display: block; touch-action: pan-y pinch-zoom; }
+.piq-shape { stroke: rgba(0,0,0,.35); stroke-width: .8; cursor: pointer; transition: opacity .12s; fill-opacity: .55; }
+.piq-shape:hover { fill-opacity: .8; }
+.piq-shape.selecionado { stroke: var(--txt); stroke-width: 2.2; fill-opacity: .9; }
+.piq-shape.ocup { fill-opacity: .85; stroke: var(--campo-d); stroke-width: 1.4; }
+.piq-shape.venc { fill: var(--vermelho) !important; fill-opacity: .8; stroke: #7a1f1f; stroke-width: 1.4; }
+.piq-shape.hoje { fill: var(--ambar) !important; fill-opacity: .8; stroke: #7a5c05; stroke-width: 1.4; }
+.piq-shape.dim { fill-opacity: .18; }
+.piq-label { font-size: 3.4px; font-weight: 800; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.55); stroke-width: .6px; }
+.map-tip {
+  position: absolute; pointer-events: none; display: none;
+  background: var(--txt); color: var(--bg2); font-size: 11.5px; font-weight: 700;
+  padding: 6px 10px; border-radius: 7px; white-space: nowrap; transform: translate(-50%,-115%);
+  box-shadow: var(--shadow-md); z-index: 10;
+}
+.map-tip .sub { font-weight: 600; opacity: .82; display: block; font-size: 10px; margin-top: 2px; }
+.mod-btn {
+  border: 1.5px solid var(--border-d); background: var(--bg2); color: var(--txt2);
+  font: inherit; font-weight: 800; font-size: 13px; padding: 9px 18px;
+  border-radius: 20px; cursor: pointer; transition: all .15s;
+}
+.mod-btn .n { opacity: .65; font-weight: 600; margin-left: 4px; }
+.mod-btn.on-A { background: var(--mod-a-bg); border-color: var(--mod-a); color: var(--mod-a); }
+.mod-btn.on-B { background: var(--mod-b-bg); border-color: var(--mod-b); color: var(--mod-b); }
+.mod-btn.on-C { background: var(--mod-c-bg); border-color: var(--mod-c); color: var(--mod-c); }
+.mod-btn.on-D { background: var(--mod-d-bg); border-color: var(--mod-d); color: var(--mod-d); }
+
+.piq-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+  gap: 9px;
+}
+.piq {
+  border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg2);
+  padding: 10px 6px 8px; text-align: center; cursor: default; position: relative;
+  transition: transform .1s;
+}
+.piq .pn { font-size: 16px; font-weight: 900; line-height: 1; }
+.piq .ps { font-size: 9.5px; color: var(--txt3); margin-top: 4px; font-weight: 700; line-height: 1.25; }
+.piq.ocup { background: var(--campo-cl); border-color: var(--campo); }
+.piq.ocup .pn, .piq.ocup .ps { color: var(--campo-d); }
+.piq.venc { background: var(--verm-cl); border-color: var(--vermelho); }
+.piq.venc .pn, .piq.venc .ps { color: var(--vermelho); }
+.piq.hoje { background: var(--ambar-cl); border-color: var(--ambar); }
+.piq.hoje .pn, .piq.hoje .ps { color: #7a5c05; }
+.piq.livre { opacity: .55; }
+
+.legenda { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; font-size: 11.5px; color: var(--txt2); font-weight: 600; }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; border: 1.5px solid; vertical-align: -1px; }
+
+.lote-list { display: flex; flex-direction: column; gap: 8px; }
+.lote-row {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid var(--border); border-radius: var(--r-sm); padding: 11px 13px;
+  background: var(--bg2);
+}
+.lote-tag {
+  font-size: 11px; font-weight: 900; color: #fff; padding: 3px 9px; border-radius: 7px; flex-shrink: 0;
+}
+.lote-row .info { flex: 1; min-width: 0; }
+.lote-row .info b { font-size: 13.5px; display: block; }
+.lote-row .info span { font-size: 11.5px; color: var(--txt2); }
+.lote-row .dias { text-align: right; flex-shrink: 0; }
+.lote-row .dias b { font-size: 19px; font-weight: 900; display: block; line-height: 1; }
+.lote-row .dias span { font-size: 10px; color: var(--txt2); }
+
+/* ══ SANIDADE ══ */
+.tl { position: relative; padding-left: 22px; }
+.tl::before { content: ''; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--border); }
+.tl-item { position: relative; padding-bottom: 18px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { position: absolute; left: -22px; top: 3px; width: 11px; height: 11px; border-radius: 50%; background: var(--campo); border: 2px solid var(--bg2); box-shadow: 0 0 0 1.5px var(--campo); }
+.tl-dot.venc { background: var(--vermelho); box-shadow: 0 0 0 1.5px var(--vermelho); }
+.tl-dot.prox { background: var(--ambar); box-shadow: 0 0 0 1.5px var(--ambar); }
+.tl-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.tl-head b { font-size: 13.5px; }
+.tl-head .d { font-size: 11.5px; color: var(--txt2); font-weight: 700; white-space: nowrap; }
+.tl-sub { font-size: 12px; color: var(--txt2); margin-top: 2px; }
+
+.prod-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.prod-table th { text-align: left; font-size: 10.5px; font-weight: 800; color: var(--txt2); padding: 0 10px 8px; border-bottom: 1.5px solid var(--border); }
+.prod-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+.prod-table tr:last-child td { border-bottom: none; }
+.pill { display: inline-block; font-size: 10.5px; font-weight: 800; padding: 2.5px 9px; border-radius: 10px; }
+.pill.vac { background: var(--campo-cl); color: var(--campo-d); }
+.pill.verm { background: var(--couro-cl); color: var(--couro-d); }
+
+.empty {
+  text-align: center; padding: 32px 16px; color: var(--txt3);
+}
+.empty .ico { font-size: 30px; margin-bottom: 8px; }
+.empty p { font-size: 12.5px; margin: 0; line-height: 1.6; }
+
+/* ══ PESO / UPLOAD ══ */
+.drop {
+  border: 2px dashed var(--border-d); border-radius: var(--r);
+  padding: 34px 20px; text-align: center; cursor: pointer;
+  background: var(--bg3); transition: all .15s;
+}
+.drop:hover, .drop.drag { background: var(--campo-cl); border-color: var(--campo); }
+.drop .ico { font-size: 30px; margin-bottom: 8px; }
+.drop b { font-size: 14px; display: block; margin-bottom: 3px; }
+.drop span { font-size: 11.5px; color: var(--txt2); }
+input[type=file] { display: none; }
+
+.tbl-wrap { overflow-x: auto; border-radius: var(--r-sm); border: 1px solid var(--border); }
+table.dt { width: 100%; border-collapse: collapse; font-size: 12.5px; white-space: nowrap; }
+table.dt th {
+  position: sticky; top: 0; background: var(--campo-d); color: #fff;
+  text-align: left; font-size: 10.5px; font-weight: 800; padding: 9px 12px; letter-spacing: .2px;
+}
+table.dt td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+table.dt tr:nth-child(even) td { background: var(--bg3); }
+table.dt tr:hover td { background: var(--campo-cl); }
+.gmd-pos { color: var(--campo-d); font-weight: 800; }
+.gmd-neg { color: var(--vermelho); font-weight: 800; }
+
+.btn {
+  border: none; font: inherit; font-weight: 800; font-size: 12.5px;
+  padding: 9px 16px; border-radius: 9px; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-verde { background: var(--campo); color: #fff; }
+.btn-verde:hover { background: var(--campo-d); }
+.btn-out { background: transparent; border: 1.5px solid var(--border-d); color: var(--txt2); }
+.btn-out:hover { background: var(--bg3); }
+
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.filt {
+  border: 1.5px solid var(--border-d); background: var(--bg2); color: var(--txt2);
+  font: inherit; font-weight: 700; font-size: 12px; padding: 6px 13px;
+  border-radius: 16px; cursor: pointer;
+}
+.filt.on { background: var(--campo); border-color: var(--campo); color: #fff; }
+
+/* ══ AÇÕES DE LANÇAMENTO ══ */
+.acoes-lancamento { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.acoes-lancamento .btn { font-size: 13px; padding: 10px 16px; }
+.fila-badge {
+  font-size: 11.5px; font-weight: 700; color: var(--couro-d); background: var(--couro-cl);
+  border: 1.5px solid var(--couro); padding: 6px 12px; border-radius: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.fila-badge::before { content: '●'; font-size: 9px; }
+
+.btn-icon {
+  border: 1.5px solid var(--border-d); background: var(--bg2); color: var(--campo-d);
+  width: 32px; height: 32px; border-radius: 8px; font-size: 15px; font-weight: 900;
+  cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.btn-icon:hover { background: var(--campo-cl); }
+
+/* ══ MODAIS DE LANÇAMENTO ══ */
+.modal-bg {
+  display: none; position: fixed; inset: 0; background: rgba(20,32,26,.55);
+  z-index: 100; align-items: flex-end; justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.modal-bg.open { display: flex; }
+.modal-card {
+  background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 480px;
+  padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  max-height: 88vh; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.2);
+}
+@media (min-width: 640px) {
+  .modal-bg { align-items: center; }
+  .modal-card { border-radius: 16px; }
+}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-head b { font-size: 16px; font-weight: 800; }
+.modal-close { border: none; background: var(--bg3); color: var(--txt2); width: 30px; height: 30px; border-radius: 50%; font-size: 18px; cursor: pointer; }
+.fld-label { font-size: 11px; font-weight: 800; color: var(--txt2); letter-spacing: .2px; display: block; margin: 12px 0 5px; }
+.modal-card input, .modal-card select {
+  width: 100%; padding: 10px 12px; border-radius: 9px; border: 1.5px solid var(--border-d);
+  background: var(--bg); color: var(--txt); font: inherit; font-size: 14px;
+}
+.fld-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mv-atual {
+  background: var(--campo-cl); color: var(--campo-d); border-radius: 9px; padding: 10px 12px;
+  font-size: 12.5px; margin-bottom: 6px; line-height: 1.5;
+}
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal-actions .btn { flex: 1; justify-content: center; font-size: 14px; padding: 11px; }
+
+.painel-toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background: var(--txt); color: var(--bg2); font-size: 13px; font-weight: 700;
+  padding: 11px 20px; border-radius: 24px; box-shadow: var(--shadow-md);
+  opacity: 0; pointer-events: none; transition: all .25s; z-index: 200;
+}
+.painel-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.oc-item {
+  display: flex; align-items: center; gap: 12px; padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+.oc-item:last-child { border-bottom: none; }
+.oc-ico { font-size: 18px; width: 26px; text-align: center; flex-shrink: 0; }
+.oc-item .info { flex: 1; min-width: 0; }
+.oc-item .info b { font-size: 13px; display: block; }
+.oc-item .info span { font-size: 11.5px; color: var(--txt2); }
+.oc-item .when { font-size: 11px; color: var(--txt3); white-space: nowrap; }
+
+.painel-piquete {
+  margin-top: 14px; padding: 14px; border-radius: var(--r-sm);
+  background: var(--bg3); border: 1.5px solid var(--border-d);
+  animation: fadein .2s ease;
+}
+.pp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.pp-info { display: flex; gap: 22px; margin-bottom: 10px; }
+.pp-dado b { font-size: 20px; font-weight: 900; display: block; line-height: 1.1; color: var(--campo-d); }
+.pp-dado span { font-size: 10.5px; color: var(--txt2); font-weight: 700; }
+.pp-ocup { font-size: 12.5px; color: var(--txt); line-height: 1.5; padding: 10px; background: var(--bg2); border-radius: 8px; }
+
+footer.note {
+  text-align: center; font-size: 11px; color: var(--txt3); padding: 20px 20px 6px;
+}
+
+@media (max-width: 640px) {
+  .top-meta { display: none; }
+  nav.tabs button span.lbl { display: none; }
+  main { padding: 16px 12px 50px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="brand-badge" style="background:#fff;padding:2px;overflow:hidden">
+        <img src="header-logo.png" alt="Vaqueiro Prateado" style="width:100%;height:100%;object-fit:contain;border-radius:50%">
+      </div>
+      <div>
+        <h1>Vaqueiro Prateado</h1>
+        <span>Painel — Fazenda Conquista · Joaquim Gomes, AL</span>
+      </div>
+    </div>
+    <div class="top-meta" id="top-data"></div>
+  </div>
+  <nav class="tabs">
+    <button class="on" data-view="mapa" onclick="irPara('mapa')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5-2V6l5 2 6-2 5 2v14l-5-2-6 2z"/><path d="M9 4v16M15 6v16"/></svg>
+      <span class="lbl">Mapa &amp; Rotação</span>
+    </button>
+    <button data-view="sanidade" onclick="irPara('sanidade')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4M17 7 7 17M14 4l6 6M9 15l-5 5 4 1 1 3 5-5"/></svg>
+      <span class="lbl">Sanidade</span>
+    </button>
+    <button data-view="peso" onclick="irPara('peso')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 7h18M6 7l-3 7h6zM18 7l3 7h-6z"/></svg>
+      <span class="lbl">Peso &amp; GMD</span>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ══════════════ MAPA & ROTAÇÃO ══════════════ -->
+  <section id="v-mapa" class="view on">
+    <div class="stats" id="mapa-stats"></div>
+
+    <div class="acoes-lancamento">
+      <button class="btn btn-verde" onclick="abrirModalMovimento()">🔄 Registrar mudança de piquete</button>
+      <button class="btn btn-out" onclick="abrirModalOcorrencia()">⚠ Registrar ocorrência</button>
+      <span id="fila-badge" class="fila-badge" style="display:none"></span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">MAPA DA FAZENDA — TOQUE NUM PIQUETE PARA VER DETALHES</div>
+      <div class="mod-picker" id="mod-picker-map"></div>
+      <div class="map-wrap">
+        <svg id="map-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+        <div id="map-tooltip" class="map-tip"></div>
+      </div>
+      <div class="legenda">
+        <span><i style="background:var(--campo-cl);border-color:var(--campo)"></i>Ocupado</span>
+        <span><i style="background:var(--ambar-cl);border-color:var(--ambar)"></i>Último dia (limite)</span>
+        <span><i style="background:var(--verm-cl);border-color:var(--vermelho)"></i>Passou do prazo</span>
+        <span><i style="background:var(--bg2);border-color:var(--border)"></i>Em descanso</span>
+      </div>
+      <div id="painel-piquete" class="painel-piquete" style="display:none"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">LOTES — ONDE ESTÁ CADA UM</div>
+      <div class="lote-list" id="lote-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>OCORRÊNCIAS RECENTES</span>
+      </div>
+      <div id="ocorrencia-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">ENVIO PARA A NUVEM (opcional)</div>
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:10px;line-height:1.6">
+        Cole aqui o endereço do Google Apps Script para os lançamentos serem enviados
+        automaticamente para uma planilha na nuvem assim que houver internet.
+        Sem endereço configurado, tudo continua salvo neste aparelho normalmente.
+      </div>
+      <input type="url" id="cfg-nuvem-url" placeholder="https://script.google.com/.../exec" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-d);background:var(--bg2);color:var(--txt);font:inherit;margin-bottom:10px">
+      <button class="btn btn-verde" onclick="salvarCfgNuvem()">Salvar endereço</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">CARREGAR MOVIMENTAÇÕES (planilha do Vaqueiro Prateado)</div>
+      <div class="drop" id="drop-mov" onclick="document.getElementById('file-mov').click()">
+        <div class="ico">🔄</div>
+        <b>Arraste a planilha de Rotação aqui</b>
+        <span>ou toque para escolher o arquivo (.xlsx exportado do app)</span>
+      </div>
+      <input type="file" id="file-mov" accept=".xlsx,.xls,.csv">
+    </div>
+  </section>
+
+
+  <!-- ══════════════ SANIDADE ══════════════ -->
+  <section id="v-sanidade" class="view">
+    <div class="stats" id="san-stats"></div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-title">PRODUTOS CADASTRADOS</div>
+        <div id="san-produtos"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">PRÓXIMAS APLICAÇÕES / ALERTAS</div>
+        <div id="san-timeline"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">CARREGAR APLICAÇÕES (planilha de Sanidade do Vaqueiro Prateado)</div>
+      <div class="drop" id="drop-san" onclick="document.getElementById('file-san').click()">
+        <div class="ico">💉</div>
+        <b>Arraste a planilha de Sanidade aqui</b>
+        <span>ou toque para escolher o arquivo (.xlsx exportado do app)</span>
+      </div>
+      <input type="file" id="file-san" accept=".xlsx,.xls,.csv">
+    </div>
+  </section>
+
+  <!-- ══════════════ PESO & GMD ══════════════ -->
+  <section id="v-peso" class="view">
+    <div class="card">
+      <div class="card-title">CARREGAR PESAGEM</div>
+      <div class="drop" id="drop-peso" onclick="document.getElementById('file-peso').click()">
+        <div class="ico">⚖️</div>
+        <b>Arraste a planilha de pesagem aqui</b>
+        <span>Aceita o .xlsx exportado do Vaqueiro Prateado (colunas: Brinco, Peso, GMD, Destino, Origem...)</span>
+      </div>
+      <input type="file" id="file-peso" accept=".xlsx,.xls,.csv">
+    </div>
+
+    <div id="peso-resultado" style="display:none">
+      <div class="stats" id="peso-stats"></div>
+
+      <div class="card">
+        <div class="chip-row" id="peso-filtros"></div>
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+          <span>ANIMAIS DA SESSÃO</span>
+          <button class="btn btn-out" onclick="exportarCSV()">↓ Exportar CSV</button>
+        </div>
+        <div class="tbl-wrap">
+          <table class="dt" id="peso-table">
+            <thead><tr><th>#</th><th>Brinco</th><th>Peso</th><th>@</th><th>GMD</th><th>Destino</th><th>Origem</th><th>Obs.</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="note">Painel local — os dados ficam só neste navegador. Nada é enviado para nenhum servidor.</footer>
+<script>
+/* ═══════════════════════════════════════════════════════
+   PAINEL FAZENDA CONQUISTA
+   Offline, local. Módulos/piquetes vêm pré-carregados
+   (dados conhecidos da fazenda); Sanidade e Peso são
+   preenchidos carregando as planilhas exportadas do
+   Vaqueiro Prateado.
+   ═══════════════════════════════════════════════════════ */
+
+const PIQ_POR_MOD = { A: 18, B: 14, C: 17, D: 20 };
+const MOD_NOME = { A: 'Módulo A', B: 'Módulo B', C: 'Módulo C', D: 'Módulo D' };
+const MOD_FAIXA = {
+  A: 'até 260 kg · Recria',
+  D: '260–320 kg · Recria',
+  C: '320–380 kg · Engorda',
+  B: '380–450 kg · Engorda'
+};
+const MAX_DIAS = 3;
+
+const $ = id => document.getElementById(id);
+const hoje = () => new Date().toISOString().split('T')[0];
+const dias = (a, b) => Math.floor((new Date(b || hoje()) - new Date(a)) / 86400000);
+const fmtData = d => { if(!d) return '—'; const [y,m,dd]=String(d).split('-'); return dd&&m&&y?`${dd}/${m}/${y.slice(2)}`:d; };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+
+/* ══ ESTADO ══
+   MOVIMENTACOES é a fonte de verdade dos lançamentos do vaqueiro (entrada/saída de
+   piquete) — persistida em localStorage, funciona 100% offline. LOTES (ocupação
+   atual) é sempre RECALCULADO a partir dela + o que vier de planilha importada.
+   OCORRENCIAS é a lista de eventos (morte, doença, outro) por piquete, também
+   persistida em localStorage. */
+let LOTES = [];      // {id, nome, modulo, piquete, entrada, cabecas} — derivado, não editar direto
+let MOVIMENTACOES = carregarLocal('vp_movimentacoes', []);   // histórico completo de entradas/saídas
+let OCORRENCIAS = carregarLocal('vp_ocorrencias', []);        // eventos por piquete
+let FILA_ENVIO = carregarLocal('vp_fila_envio', []);          // pendentes de sincronizar com a nuvem
+let CFG_NUVEM = carregarLocal('vp_cfg_nuvem', { url: '' });
+let SANIDADE = { produtos: [], aplicacoes: [] };
+let PESO = { animais: [], sessaoInfo: {} };
+let modAtual = 'A';
+
+function carregarLocal(chave, padrao) {
+  try { const v = localStorage.getItem(chave); return v ? JSON.parse(v) : padrao; }
+  catch(e) { return padrao; }
+}
+function salvarLocal(chave, valor) {
+  try { localStorage.setItem(chave, JSON.stringify(valor)); } catch(e) {}
+}
+
+// Recalcula LOTES (ocupação atual) a partir de MOVIMENTACOES: para cada lote,
+// pega o lançamento de entrada mais recente que ainda não tem saída registrada.
+function recalcularLotes() {
+  const porLote = {};
+  MOVIMENTACOES.slice().sort((a,b) => a.entrada.localeCompare(b.entrada)).forEach(m => {
+    porLote[m.lote] = m;   // o mais recente por ordem de entrada vence
+  });
+  LOTES = Object.values(porLote)
+    .filter(m => !m.saida)   // só lotes ainda sem saída registrada estão "no piquete"
+    .map(m => ({ id: m.id, nome: m.lote, modulo: m.modulo, piquete: m.piquete, entrada: m.entrada, cabecas: m.cabecas }));
+}
+
+window.addEventListener('load', () => {
+  $('top-data').textContent = new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  recalcularLotes();
+  montarModPickerMapa();
+  renderMapaSVG();
+  renderLotes();
+  renderSanidade();
+  configurarDropzones();
+  configurarLancamentos();
+  renderFilaEnvio();
+  window.addEventListener('online', tentarEnviarFila);
+  // tenta enviar ao abrir, caso já esteja online e haja pendências de sessão anterior
+  if (navigator.onLine) tentarEnviarFila();
+});
+
+/* ══ NAVEGAÇÃO ══ */
+function irPara(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('on'));
+  $('v-' + view).classList.add('on');
+  document.querySelector(`nav.tabs button[data-view="${view}"]`).classList.add('on');
+}
+
+
+/* ══════════════════ MAPA & ROTAÇÃO ══════════════════ */
+/* Dataset real dos piquetes — extraído do mapa georreferenciado (KML) da fazenda.
+   Formato: {modulo: {numero: [hectares, perimetro_m, [[lon,lat],...]]}}.
+   Coordenadas em WGS84 (graus). Projetadas localmente para SVG na função proj(). */
+const PIQUETES_GEO = {"A":{"17":[7.36,1312,[[-35.854771085889,-9.14935130949416],[-35.8563792053412,-9.14959062162741],[-35.8576011741785,-9.15020143649412],[-35.8585799275146,-9.15009016943164],[-35.8592500756132,-9.15150345722492],[-35.8575682214089,-9.15137305963792],[-35.8570226299517,-9.15131943609614],[-35.8565257330244,-9.15142746275261],[-35.8545295513428,-9.15034989721939],[-35.854541008519,-9.15027018104209],[-35.8545561702681,-9.15004891415087],[-35.8545352834127,-9.14982558581081],[-35.8544938264026,-9.14974062298411],[-35.8544299419153,-9.14942186339298],[-35.8546517988605,-9.14949167045251],[-35.854771085889,-9.14935130949416]]],"16":[9.11,1574,[[-35.8576833469492,-9.15313957243314],[-35.8572351686388,-9.15337358666561],[-35.8562068802598,-9.15424989429355],[-35.8556854364684,-9.15365556061202],[-35.8544950008776,-9.15063541061402],[-35.8545300160144,-9.15034852849288],[-35.8565301693125,-9.15144182874805],[-35.8565396577066,-9.15180524324428],[-35.8568875171761,-9.15202989650752],[-35.8573161129523,-9.1518336288673],[-35.857458147349,-9.15159295949884],[-35.8574515927622,-9.15136559485103],[-35.8592545888957,-9.15151896241959],[-35.8576833469492,-9.15313957243314]]],"18":[7.49,1208,[[-35.8547796779633,-9.14936715822836],[-35.8547871443789,-9.14899127012269],[-35.85470656736,-9.14847222580365],[-35.8545475770527,-9.14800531219418],[-35.8546435848069,-9.14778014871351],[-35.8550101913163,-9.14754568150465],[-35.855360134899,-9.14752976952751],[-35.8558265117423,-9.14769284119461],[-35.8560589726958,-9.14773531587429],[-35.8565233461312,-9.14790959511329],[-35.8567824289694,-9.14796188590858],[-35.8568945617684,-9.14791244187492],[-35.856995346603,-9.14747923967023],[-35.8572536702555,-9.14746419297675],[-35.8578905090831,-9.14758677399729],[-35.8580688229589,-9.14837680103511],[-35.8581743454074,-9.14898389314896],[-35.8583810483083,-9.14944813274251],[-35.8575859157787,-9.14937113261352],[-35.8568257381396,-9.14952936979212],[-35.8563601830004,-9.14958224289316],[-35.8547796779633,-9.14936715822836]]],"1":[5.14,1014,[[-35.8441270942076,-9.15486663861381],[-35.8437517150439,-9.15619050164689],[-35.843129709704,-9.15705725909683],[-35.8426768168645,-9.15675907237163],[-35.8418473986876,-9.15690620435186],[-35.8421388903033,-9.15639571163183],[-35.842128193372,-9.15608320358131],[-35.8421366391327,-9.1557812653502],[-35.8419627638812,-9.15554038568363],[-35.8414923909833,-9.15524461005849],[-35.8416830423079,-9.15453386029023],[-35.8417888993796,-9.1546327999094],[-35.841853241479,-9.15463386915469],[-35.8419012050998,-9.1545828808838],[-35.8419410897235,-9.15450546220626],[-35.8441270942076,-9.15486663861381]]],"2":[4.11,918,[[-35.8416783562648,-9.15451712314705],[-35.8414270385231,-9.1553935740189],[-35.8400873704661,-9.15491989028279],[-35.8385766823706,-9.15415617019164],[-35.8389505204695,-9.15302101121592],[-35.8416783562648,-9.15451712314705]]],"3":[3.14,1017,[[-35.8417209682693,-9.15383713225271],[-35.8417267073474,-9.15441671524221],[-35.841693721561,-9.15453666096693],[-35.8403759007173,-9.15381045598087],[-35.8389565490282,-9.15302594773206],[-35.8390259602294,-9.15269310950097],[-35.8391981392572,-9.15145373243156],[-35.8393354498009,-9.1515694227999],[-35.8395082966552,-9.15181162480473],[-35.839545185702,-9.15210213411892],[-35.8398010569655,-9.1525509818925],[-35.8411380493472,-9.15346349446536],[-35.8413543758141,-9.15348894941912],[-35.8413080513759,-9.15374166425952],[-35.8417209682693,-9.15383713225271]]],"4":[3.28,823,[[-35.8417314973379,-9.15440902632346],[-35.8417221181581,-9.15383638415222],[-35.8417854305211,-9.15356486983161],[-35.8420233647228,-9.15360817248341],[-35.8427943159454,-9.15331720475915],[-35.8431716852538,-9.15307608224301],[-35.8433082750863,-9.15278469919115],[-35.844127304644,-9.15486835915097],[-35.8419401734652,-9.1545012623355],[-35.8419057163825,-9.15438170325919],[-35.8418345218412,-9.1543449362767],[-35.8417314973379,-9.15440902632346]]],"15":[13.56,1780,[[-35.8544969833518,-9.15063617529692],[-35.8553090758635,-9.15272011261272],[-35.8556848027412,-9.15364739598748],[-35.8562098969609,-9.15424981735339],[-35.8527033839622,-9.15710847274812],[-35.8518106009994,-9.1556346534743],[-35.8534306652578,-9.15340450539162],[-35.8543584932756,-9.15168497537112],[-35.8544026136629,-9.15120898354822],[-35.8544171791498,-9.15062690099449],[-35.8544969833518,-9.15063617529692]]],"6":[3.93,841,[[-35.8441300681839,-9.15488856898917],[-35.8441145631173,-9.15477984483589],[-35.8458100415054,-9.15390321334528],[-35.8458678223438,-9.15390054983305],[-35.8460860526722,-9.15441510370111],[-35.846227570137,-9.15461611934108],[-35.8463103646809,-9.15490998332261],[-35.8464229031474,-9.15546250894111],[-35.8437940037966,-9.15602966940604],[-35.8441300681839,-9.15488856898917]]],"7":[8.45,1287,[[-35.8437033681667,-9.15940680962401],[-35.8432177885876,-9.15818652206526],[-35.8431957625787,-9.15782585735797],[-35.8431416928804,-9.15707819008505],[-35.8437583414927,-9.1561904193119],[-35.8438068452609,-9.15603081859986],[-35.8464125331109,-9.15545775476469],[-35.8467806603217,-9.15559305204079],[-35.8454853815236,-9.15729239512344],[-35.8442377010808,-9.15907555361139],[-35.8437033681667,-9.15940680962401]]],"8":[6.22,1275,[[-35.8467740357989,-9.15558984111015],[-35.8464636221169,-9.15547727642371],[-35.846309605147,-9.1547440220066],[-35.8462554405443,-9.1545619819995],[-35.8461320944587,-9.15435317266507],[-35.8458898106968,-9.15386639962443],[-35.8454827422053,-9.15364861276768],[-35.8455483513039,-9.15358495601624],[-35.8452610649928,-9.15334477851066],[-35.8451969963311,-9.1533805989476],[-35.8450779651518,-9.15280344925596],[-35.8449785426767,-9.15263317152297],[-35.8449062445085,-9.15256241027052],[-35.8448288018886,-9.15246716879281],[-35.8451067416379,-9.15213633627676],[-35.8451276403131,-9.15195677578729],[-35.8455525625737,-9.15138444170802],[-35.846010585179,-9.1518062093585],[-35.8465866840902,-9.15332369983343],[-35.8481469811081,-9.15372937225915],[-35.8467740357989,-9.15558984111015]]],"9":[6.58,1073,[[-35.8481466398428,-9.15372872175648],[-35.846578945634,-9.15332839643773],[-35.8460131063606,-9.15179907873032],[-35.8455553900683,-9.15138594702923],[-35.8456137287234,-9.1511066803311],[-35.8458213909627,-9.1508674780148],[-35.8462907960257,-9.15062327712388],[-35.8463707711366,-9.15039703783168],[-35.8466933183644,-9.15049812113598],[-35.8470541534108,-9.15070348788921],[-35.8474605062774,-9.15114915633345],[-35.8473984626853,-9.15120385430099],[-35.8476674950818,-9.15162996723981],[-35.8486362363146,-9.15294539753483],[-35.8481466398428,-9.15372872175648]]],"10":[10.43,1620,[[-35.8479201287058,-9.15146553159261],[-35.8480690525318,-9.15134797955423],[-35.8482152283075,-9.15115935945424],[-35.8484850048116,-9.1509880754064],[-35.849450263245,-9.15073323207096],[-35.8513696823583,-9.15015068929679],[-35.8515253075874,-9.15096276276785],[-35.851812285677,-9.15218637668055],[-35.8519133241999,-9.15260352075629],[-35.852043560764,-9.152981601132],[-35.8520610836299,-9.15344174632087],[-35.8516653020847,-9.15375635837873],[-35.8508890340626,-9.15393731243345],[-35.8500251157373,-9.15257916850439],[-35.8496587748646,-9.15160921055606],[-35.8486397958895,-9.15294505307713],[-35.8476678190413,-9.15162738280275],[-35.8479201287058,-9.15146553159261]]],"11":[8.84,1517,[[-35.850424844732,-9.14768285711204],[-35.8513677319566,-9.15015623617672],[-35.8492955171078,-9.15078146286015],[-35.8488300293941,-9.15088357452184],[-35.8484866847885,-9.15098876883001],[-35.848229853557,-9.15115698920131],[-35.8480630976944,-9.15134761911838],[-35.8479218171414,-9.15145719161639],[-35.8475948684567,-9.15107463994612],[-35.847467778937,-9.15115646370954],[-35.8473199793011,-9.15097085068989],[-35.8470810736308,-9.15070966501485],[-35.846739856484,-9.1505284533822],[-35.8463597888747,-9.15038724990341],[-35.8466622026611,-9.1499165622933],[-35.8476691052761,-9.15010392400252],[-35.8481740968622,-9.14996443391708],[-35.848515325158,-9.14967356436255],[-35.8487004754181,-9.14936817893767],[-35.8495107040613,-9.14869501913855],[-35.8500007193708,-9.14798501632344],[-35.850424844732,-9.14768285711204]]],"12":[10.04,1258,[[-35.8514037532932,-9.14704983639214],[-35.8521441532963,-9.14707252954643],[-35.8533349704972,-9.14782131457182],[-35.8536135339764,-9.14817631005809],[-35.8541001241993,-9.14928652202487],[-35.8542794271915,-9.14939997899408],[-35.8544066891013,-9.14985288390142],[-35.8513913987795,-9.15024825985144],[-35.8504377930824,-9.14771116921956],[-35.8514037532932,-9.14704983639214]]],"13":[5.07,1007,[[-35.8517656576004,-9.15211368795439],[-35.851909036086,-9.15218876885663],[-35.8514302148311,-9.15022914871405],[-35.85440850926588,-9.14987516260862],[-35.85444112043653,-9.150036918050375],[-35.85444741586716,-9.150229833787987],[-35.85443009473481,-9.150763479343224],[-35.85325729329355,-9.151436742369604],[-35.8518950481646,-9.15220306870657],[-35.8517656576004,-9.15211368795439]]],"14":[8.09,1471,[[-35.8507949402038,-9.15396627294906],[-35.8516562264058,-9.15376376167502],[-35.8520652282514,-9.15343559653474],[-35.8520435134853,-9.1529635506081],[-35.85193196913043,-9.152554549235107],[-35.85186839185081,-9.15225732290024],[-35.8544311423514,-9.15064130277931],[-35.854395695448,-9.15121983867412],[-35.8543496462,-9.15169527472835],[-35.8534135921489,-9.15344208535005],[-35.8518163410137,-9.15562664547864],[-35.8507949402038,-9.15396627294906]]],"5":[3.68,936,[[-35.8433872896206,-9.15263951900987],[-35.8438976131618,-9.15246708441385],[-35.8443263875505,-9.15249291647281],[-35.8446189297154,-9.15258846494353],[-35.8447793806457,-9.1525312955722],[-35.8447987195381,-9.15257295140395],[-35.8449499228906,-9.1526872793702],[-35.8450620788963,-9.15298865306587],[-35.8451442961581,-9.15343779935353],[-35.8447373953135,-9.15373939669551],[-35.8448377246685,-9.15390836615686],[-35.8452667818434,-9.15381449090816],[-35.8454233498352,-9.15369158050612],[-35.8458210196171,-9.15390096577181],[-35.8441069175231,-9.15478813872089],[-35.8433128682192,-9.15279191360272],[-35.8433872896206,-9.15263951900987]]]},"B":{"1":[3.82,757,[[-35.8525455622095,-9.14490942736286],[-35.8524818405231,-9.14515993557654],[-35.8524291161806,-9.14605702147183],[-35.8524390717426,-9.14648532299526],[-35.8521288576742,-9.14699606927016],[-35.8516033295792,-9.14701462016525],[-35.8505999520096,-9.14559282835348],[-35.8510759878813,-9.14481578285053],[-35.8518997117328,-9.14471508627818],[-35.8519693551138,-9.14473541001672],[-35.8525455622095,-9.14490942736286]]],"2":[3.04,756,[[-35.8506046080978,-9.14560702274502],[-35.851606169151,-9.14702099262522],[-35.8513583735743,-9.14703714616735],[-35.8509588664773,-9.14724922584641],[-35.8506231927928,-9.14742065002104],[-35.8501309198223,-9.14776641894402],[-35.84909121816219,-9.146574920579102],[-35.84951082002763,-9.146382415893076],[-35.84979912627227,-9.146323200513638],[-35.85011632614862,-9.1462181710671],[-35.8506046080978,-9.14560702274502]]],"3":[4.12,1102,[[-35.8481881372911,-9.1487569325955],[-35.84848538627226,-9.148477540836742],[-35.8485875114762,-9.14814408471038],[-35.84865399422929,-9.147628201976115],[-35.84865375898686,-9.147034537909475],[-35.84884111869815,-9.146733590165688],[-35.84910044290294,-9.146570211827557],[-35.8498297983577,-9.14741426373101],[-35.8497980667331,-9.14745970913462],[-35.8497884643232,-9.14750831619803],[-35.8498244654786,-9.14757869849945],[-35.8499019298145,-9.14761350451225],[-35.8499637708843,-9.14757756250397],[-35.8501263273773,-9.14775588206852],[-35.8500885541544,-9.14779201757861],[-35.8500316403908,-9.1478489913202],[-35.8499307544372,-9.14792168156587],[-35.8498450553072,-9.14798414698602],[-35.8497409090722,-9.14808868636401],[-35.8496310239414,-9.14822674376207],[-35.8495447156426,-9.1483500429381],[-35.8494704731566,-9.14845869518883],[-35.8493915524201,-9.14860762653324],[-35.8493535270359,-9.14872005550311],[-35.8492802033923,-9.14878580393983],[-35.8491549944937,-9.14887151815483],[-35.8490047246744,-9.1489912987212],[-35.8488764906602,-9.14909303266927],[-35.8487333447566,-9.14924199767708],[-35.8486012011685,-9.1493905593328],[-35.8484731813942,-9.14955368627014],[-35.8483540040406,-9.14968403964501],[-35.8482209851283,-9.1497933952315],[-35.848041894915,-9.14989002570008],[-35.8479311754221,-9.1499487412175],[-35.847802640704,-9.1500007812204],[-35.8476673161526,-9.15000349715444],[-35.8475494068747,-9.14997737673713],[-35.8474198206964,-9.14994042795186],[-35.8473144771157,-9.14989860572558],[-35.8471594777967,-9.14983302672671],[-35.8472313772494,-9.1497730514153],[-35.8473720792807,-9.14972292118725],[-35.8475208053823,-9.14963999834356],[-35.8476048821839,-9.14957378141691],[-35.8476369457501,-9.14946396739932],[-35.8476681650506,-9.14939702649571],[-35.8476243009058,-9.14929919555492],[-35.8476363078272,-9.14918811812619],[-35.8476840499538,-9.1491217745919],[-35.8477994862705,-9.14900829980932],[-35.8480775756557,-9.14894824587542],[-35.8480276173565,-9.1487667962203],[-35.8481881372911,-9.1487569325955]]],"8":[2.55,763,[[-35.84125123226702,-9.150491982384892],[-35.84054325208436,-9.149983303956557],[-35.84055574283848,-9.149933004595068],[-35.84050856647827,-9.149896933728215],[-35.84043186623669,-9.149889916435631],[-35.84034283297732,-9.149971200742796],[-35.84028370754873,-9.150058610467239],[-35.84026737017871,-9.150098818483105],[-35.84016897489889,-9.150100954974697],[-35.84008769089665,-9.150091483752895],[-35.83999046795113,-9.150130306895306],[-35.83992119633731,-9.150165646104915],[-35.83985356202961,-9.150161058229804],[-35.83982530537182,-9.1501090047602],[-35.83989082382637,-9.150017197466566],[-35.83996006440753,-9.149923566341124],[-35.84000345012177,-9.149851097662665],[-35.84007871733787,-9.149808508254825],[-35.84015179052595,-9.149764761403583],[-35.84016458074571,-9.149696936511894],[-35.84014778749541,-9.149614497477351],[-35.84004758881821,-9.149624516760294],[-35.84011245650634,-9.14922983254746],[-35.84025022211434,-9.149249927430821],[-35.84039985220767,-9.149041037070353],[-35.84065800892272,-9.148959297754315],[-35.84114305519496,-9.149009430380332],[-35.84143771982844,-9.148892007310081],[-35.8417170422041,-9.148717112152355],[-35.84179710854623,-9.149194214619472],[-35.84189012154694,-9.149772632703984],[-35.84177222164779,-9.149832861970435],[-35.84156522351445,-9.150346459479053],[-35.84142507031716,-9.150315292180402],[-35.84134220798015,-9.15034817199533],[-35.84128292826884,-9.15041101978795],[-35.84125123226702,-9.150491982384892]]],"14":[2.9,1215,[[-35.84393338762209,-9.143746346682413],[-35.84428137242374,-9.143617726853288],[-35.84442626458485,-9.143359106956405],[-35.84477706905152,-9.141852720715763],[-35.84495128293465,-9.142206320519879],[-35.84487420596359,-9.143286921541135],[-35.84497015991428,-9.143382295866589],[-35.84526854365586,-9.143330845916621],[-35.84573970137402,-9.143201237642389],[-35.84620581023317,-9.142908015287274],[-35.8464046827437,-9.142658388302356],[-35.84641278960435,-9.142556148277354],[-35.84639027796673,-9.142213373686202],[-35.84648223815338,-9.142015029568611],[-35.84672024602777,-9.141954286363253],[-35.84682056399195,-9.142461253378963],[-35.846820374748,-9.142992798527283],[-35.84658300536812,-9.143269854440282],[-35.84585869554683,-9.143795173311016],[-35.8444821468632,-9.14403859341007],[-35.8438915884664,-9.14406494739867],[-35.84393338762209,-9.143746346682413]]],"13":[3.24,1032,[[-35.84264312361746,-9.139659780322306],[-35.84233071766719,-9.14365137093668],[-35.84223827367245,-9.143632097320104],[-35.84181136419247,-9.141579573450391],[-35.84127929652858,-9.139889169627502],[-35.84264312361746,-9.139659780322306]]],"11":[2.21,1045,[[-35.84221610175975,-9.143668045466994],[-35.84218668223659,-9.14387190899862],[-35.84224733043651,-9.143879922790179],[-35.84219193933808,-9.145051121692132],[-35.8419753676249,-9.146861180312772],[-35.84169878621336,-9.146852372187372],[-35.8417014169074,-9.14499582649845],[-35.84166235115354,-9.144038868070439],[-35.84148700786677,-9.142405285696727],[-35.84221610175975,-9.143668045466994]]],"12":[2.94,1319,[[-35.84086937972469,-9.139694939895156],[-35.84106604368002,-9.13991624233403],[-35.84127937984339,-9.139886095596863],[-35.84179954075019,-9.141527981585797],[-35.84223934200055,-9.143627464881078],[-35.8422106233078,-9.143660618480645],[-35.84148890110023,-9.14240258074434],[-35.84143577892917,-9.14204562079396],[-35.84129859446433,-9.141081414293575],[-35.84069749135237,-9.140250545226714],[-35.8391632243263,-9.13938977284491],[-35.83956199712731,-9.13906935106204],[-35.84086937972469,-9.139694939895156]]],"10":[2.92,1011,[[-35.84219172006662,-9.145047640080746],[-35.84224869117459,-9.143880522783196],[-35.84231619713503,-9.143885501260923],[-35.84232616777754,-9.143644826220422],[-35.84261470795931,-9.14374207127242],[-35.84390552127699,-9.143756841818025],[-35.8439315284667,-9.143744069665052],[-35.84388961491518,-9.144060536533098],[-35.84288766532385,-9.144891640553343],[-35.84235630122616,-9.146191079681385],[-35.84236366665864,-9.146409452822637],[-35.84249435945385,-9.146740487901265],[-35.84248156397941,-9.146872039324695],[-35.84197523413272,-9.146860216800404],[-35.84219172006662,-9.145047640080746]]],"9":[2.45,763,[[-35.84249557813055,-9.14863492274615],[-35.84228501218294,-9.149420980763464],[-35.84189975888788,-9.14980852068464],[-35.84187736483513,-9.149710183447299],[-35.84171860706169,-9.14871968815571],[-35.84167628230922,-9.148557245269116],[-35.84168671051047,-9.146845654193363],[-35.84248446003389,-9.146871452013368],[-35.84249557813055,-9.14863492274615]]],"7":[4.98,1308,[[-35.84089138265565,-9.152851669928374],[-35.84004011070853,-9.151108191974886],[-35.83961535655278,-9.150230512335234],[-35.83927597956821,-9.149324762517093],[-35.83889311288923,-9.14926740520015],[-35.83885609275373,-9.149037013437464],[-35.84010353148071,-9.149230978026305],[-35.84003815202763,-9.14961133642205],[-35.84013533612902,-9.149615352577937],[-35.84016689444211,-9.14967836091512],[-35.84014940155892,-9.149765126462565],[-35.83999808429464,-9.14985306589803],[-35.83982324718514,-9.150096739272005],[-35.83984821988624,-9.150138134275288],[-35.83992248542743,-9.150169044629862],[-35.84007829742817,-9.150090783912372],[-35.84026161349318,-9.150101168959882],[-35.84028987281245,-9.150047838998946],[-35.84033970451502,-9.149967372764795],[-35.84042817446559,-9.149886209420554],[-35.84051118058303,-9.149901186382518],[-35.84055231772864,-9.149932013821388],[-35.84054024822076,-9.14998279225565],[-35.84125249868941,-9.150487483413482],[-35.84127384999688,-9.150577930791902],[-35.8413309148112,-9.1506521867581],[-35.84138074558133,-9.15067730464329],[-35.84144172278064,-9.150688792738766],[-35.84149607153517,-9.15068210877305],[-35.8415550388912,-9.1506582418096],[-35.84155403010752,-9.151248841854134],[-35.84185848480514,-9.151686051461581],[-35.84106594738211,-9.152869314703064],[-35.84102610842525,-9.152843072833127],[-35.84097777261879,-9.152833044643412],[-35.84093478882425,-9.15283464019064],[-35.84089138265565,-9.152851669928374]]],"6":[3.01,1003,[[-35.84083872884095,-9.152927106507036],[-35.84082894685759,-9.152994774830132],[-35.84086775592942,-9.15304533385346],[-35.84083298336197,-9.153089790883175],[-35.84006849007226,-9.152586017866925],[-35.8397407513663,-9.152119996578692],[-35.83948830673683,-9.15160644355647],[-35.83920201926673,-9.151327407063032],[-35.83889653105486,-9.149270933811366],[-35.83927148759034,-9.149325618624127],[-35.83956135560545,-9.150106689188446],[-35.84089365706956,-9.152851068396126],[-35.84084651666064,-9.152885166868714],[-35.84083872884095,-9.152927106507036]]],"4":[2.96,882,[[-35.8444421025774,-9.150914944548287],[-35.84452220735407,-9.151378705437848],[-35.84469898344314,-9.151893287777899],[-35.84492012776372,-9.152151888077478],[-35.84480525105545,-9.152367859534474],[-35.84460288375971,-9.15241884459243],[-35.84438170724443,-9.152312977167337],[-35.84385610172456,-9.152311962318759],[-35.84317491034456,-9.15255568133779],[-35.84293520392316,-9.153056302062476],[-35.84254060099546,-9.153212004116341],[-35.84305521257059,-9.15156026648211],[-35.84284354656339,-9.15147422781818],[-35.84292079304571,-9.151394499543088],[-35.843245891213,-9.15118312394148],[-35.84407550081374,-9.151151056002645],[-35.8444421025774,-9.150914944548287]]],"5":[2.89,749,[[-35.84185883555694,-9.151688723024268],[-35.842026013364,-9.151782928403826],[-35.84222702614299,-9.151769358197882],[-35.84267267930596,-9.151639883386112],[-35.8428414973826,-9.151476155299067],[-35.84305452412431,-9.15156120465694],[-35.84254021729483,-9.153205527952545],[-35.84184416826002,-9.15347507202234],[-35.84116191573104,-9.153273698678664],[-35.8408284517599,-9.153084440137263],[-35.84086405569715,-9.153049366685284],[-35.84089291728085,-9.15307046481298],[-35.84092308895295,-9.153091678909801],[-35.84095470367717,-9.153097143022165],[-35.84099178322122,-9.153094284790308],[-35.84102365715938,-9.15308504002668],[-35.84106124283845,-9.153063470047424],[-35.84110047003213,-9.153005526863778],[-35.84110301046942,-9.152953583116044],[-35.84109795620056,-9.152921035347513],[-35.84106509372055,-9.15286537028717],[-35.84185883555694,-9.151688723024268]]]},"C":{"1":[3.93,913,[[-35.8456512400756,-9.14992748226815],[-35.8452128542467,-9.15031432014194],[-35.8444095648519,-9.1508535295825],[-35.8443084850876,-9.15055023239569],[-35.8438327687343,-9.15002529517549],[-35.8432431694213,-9.1503455194682],[-35.8433833940657,-9.14933370311435],[-35.8439506445735,-9.14903795826137],[-35.8441973157964,-9.14891607910798],[-35.8444642000339,-9.1486763797107],[-35.8447032356751,-9.14807294230778],[-35.8456512400756,-9.14992748226815]]],"2":[4.55,954,[[-35.8472874299437,-9.14883313456884],[-35.8469580427448,-9.14883295153125],[-35.8467433625913,-9.14895197423197],[-35.8469196757356,-9.14921877985607],[-35.8462555115698,-9.14921858520851],[-35.846070245433,-9.14940169881258],[-35.8458580919209,-9.1497520505867],[-35.8456530385281,-9.14992188787162],[-35.8447033251697,-9.14807027081814],[-35.8448536342904,-9.1477574803426],[-35.8455493011634,-9.14740531689899],[-35.8458510471981,-9.14716962021699],[-35.8475306784676,-9.14877396881391],[-35.8474052062594,-9.14879152455497],[-35.8472874299437,-9.14883313456884]]],"3":[5.41,923,[[-35.8465986615189,-9.1465039167544],[-35.8470365456115,-9.1459448528245],[-35.8486823490366,-9.14738964927755],[-35.8485893572754,-9.14814776591568],[-35.8481786951771,-9.14875633059783],[-35.8475315760058,-9.14877912842111],[-35.8458531189207,-9.14716606246937],[-35.8465986615189,-9.1465039167544]]],"4":[5.16,957,[[-35.8486811856721,-9.14739205370593],[-35.8470366091777,-9.1459457805875],[-35.8478892370172,-9.14527956353219],[-35.8488069496671,-9.14483289832985],[-35.8503963097954,-9.14589915976846],[-35.850183702086,-9.14631556126946],[-35.8495117311743,-9.14646148631352],[-35.8486975345433,-9.1471124037756],[-35.8486811856721,-9.14739205370593]]],"5":[4.13,900,[[-35.8504658859507,-9.14332680616482],[-35.852002443003,-9.14469609242119],[-35.8510671066889,-9.14481526542968],[-35.8503986250611,-9.14589848310932],[-35.8489882748105,-9.1449606589515],[-35.8504658859507,-9.14332680616482]]],"6":[4.38,860,[[-35.8504702082144,-9.14331897146505],[-35.8507049631466,-9.14313326844738],[-35.8509783364182,-9.14276045595183],[-35.8514444055328,-9.1422579519553],[-35.8523303008893,-9.14305970979141],[-35.8532119082,-9.14366904881048],[-35.8525923434101,-9.14491657521178],[-35.8520078983212,-9.1447242681064],[-35.8504702082144,-9.14331897146505]]],"7":[4.87,868,[[-35.8523335795439,-9.14306670113403],[-35.8514377038772,-9.14225422474685],[-35.851762490604,-9.14192013769022],[-35.8526002902469,-9.14093945406917],[-35.8528234141758,-9.14112770019383],[-35.8536624197441,-9.14135837815363],[-35.853953725575,-9.141704779111],[-35.8540432622573,-9.14206667620066],[-35.8539752099961,-9.14259049125139],[-35.8534698673022,-9.14303580265536],[-35.8532136895787,-9.14364983203131],[-35.8523335795439,-9.14306670113403]]],"8":[4.46,846,[[-35.8498548157965,-9.14059340722668],[-35.8498730910829,-9.14051061553844],[-35.8502635231732,-9.14032714048487],[-35.851024387321,-9.13963309618532],[-35.8517168040617,-9.14002322096051],[-35.8526049434126,-9.14093601756925],[-35.851869278202,-9.14180571627064],[-35.8514439010639,-9.14225845992312],[-35.8498548157965,-9.14059340722668]]],"9":[5.03,920,[[-35.8483277786739,-9.14145493078691],[-35.8490144528814,-9.14093194844809],[-35.8494370408456,-9.14070304822205],[-35.8498577829834,-9.14059519586285],[-35.850710565528,-9.14149189964907],[-35.8514439010639,-9.14225845992312],[-35.8509799013006,-9.14276887705307],[-35.8507063882271,-9.14313786703938],[-35.8504651439064,-9.14330837771569],[-35.8483277786739,-9.14145493078691]]],"10":[3.74,975,[[-35.8488071168121,-9.14483459617438],[-35.8489539270582,-9.14459845271003],[-35.8489947238258,-9.14428063183004],[-35.8489907011124,-9.14397467230429],[-35.8489126972828,-9.14361036828937],[-35.8482631754661,-9.14212883379641],[-35.8483040087505,-9.14147082465493],[-35.8504747903803,-9.14332661071177],[-35.8500106039907,-9.14385037038319],[-35.8489881939968,-9.14495979834473],[-35.8488071168121,-9.14483459617438]]],"11":[5.75,1192,[[-35.8490877488322,-9.14080653387268],[-35.8485799064826,-9.13949852077191],[-35.848417136185,-9.13917182181612],[-35.8480510859144,-9.13886911838999],[-35.8473096944845,-9.13719862641141],[-35.8477075637102,-9.13745799541781],[-35.8483905274385,-9.13790305619924],[-35.8490199639962,-9.13829754771105],[-35.8510303469589,-9.13962892770455],[-35.8502767714875,-9.14030543830811],[-35.8498690611779,-9.14050837745047],[-35.8490877488322,-9.14080653387268]]],"12":[7.8,1526,[[-35.8489757248633,-9.14086157446724],[-35.8463174346974,-9.13890489990711],[-35.846281396104,-9.1385724984354],[-35.8460278717797,-9.13795677006865],[-35.8457562464653,-9.13782446582891],[-35.8456109092842,-9.13745360647457],[-35.8452398823967,-9.1368609708423],[-35.8449423492589,-9.13574178812894],[-35.8473083237145,-9.13720220267924],[-35.848052493797,-9.13888788412896],[-35.8484235433248,-9.13918310905618],[-35.848589681302,-9.1395102255339],[-35.8490894489679,-9.14080499926372],[-35.8489757248633,-9.14086157446724]]],"13":[6.74,1457,[[-35.8467014645176,-9.141977772489],[-35.8466672912055,-9.14167766136943],[-35.8466739181408,-9.14136836196395],[-35.8469598295596,-9.14081909636674],[-35.8465598982256,-9.14040295178489],[-35.8465441664572,-9.1400945705002],[-35.8466311841239,-9.13994843044402],[-35.8469078044813,-9.1397438706893],[-35.8470187812143,-9.1394193667874],[-35.8489763796703,-9.14086198853974],[-35.8483122532994,-9.14135146405305],[-35.8482406610198,-9.14127128273239],[-35.8480858298183,-9.14128179293818],[-35.8480271080166,-9.14136966147921],[-35.8480102869676,-9.14145770368293],[-35.8481417602821,-9.14154900422713],[-35.8480984276725,-9.14186256935941],[-35.8482070536107,-9.14246358375348],[-35.8485858716852,-9.14322036234887],[-35.8488518306184,-9.14373966786866],[-35.8489216173225,-9.14441606875542],[-35.8467543998157,-9.14219000755583],[-35.8467014645176,-9.141977772489]]],"14":[7.22,1202,[[-35.8459019883109,-9.14378821408168],[-35.8466057039974,-9.14324860516584],[-35.8468185354234,-9.14299931130401],[-35.8468229063919,-9.14253545146508],[-35.8467638696482,-9.14217989457004],[-35.8489255820554,-9.14442740679841],[-35.8487539968969,-9.14477181319758],[-35.8480338954953,-9.1451256403912],[-35.8469833578852,-9.14589528884573],[-35.845277203887,-9.14390943330404],[-35.8459019883109,-9.14378821408168]]],"15":[8.19,1219,[[-35.8438830525846,-9.14407994366508],[-35.844377063783,-9.14404254623899],[-35.8452657752964,-9.14391182077188],[-35.8469860282938,-9.14589210983681],[-35.8467102938109,-9.14621142962176],[-35.8465814962813,-9.14612759600382],[-35.8464249889991,-9.14614913683835],[-35.8463873980827,-9.14622940586362],[-35.8463704073778,-9.1463396117692],[-35.846418114029,-9.14642434326492],[-35.8465531758571,-9.14644567964181],[-35.8465882620673,-9.14650460893754],[-35.8455041397698,-9.14735241506322],[-35.8432070135771,-9.14465570634165],[-35.8438830525846,-9.14407994366508]]],"16":[6.45,1143,[[-35.8455153648344,-9.14734854838009],[-35.8448004982651,-9.14765818950912],[-35.8443114147154,-9.14869796693655],[-35.84244895323,-9.1460329260287],[-35.8428831515588,-9.14489101664092],[-35.8431938682029,-9.14464330420899],[-35.8455153648344,-9.14734854838009]]],"17":[7.87,1521,[[-35.8443077206541,-9.14869763844988],[-35.8433141619544,-9.14927381760403],[-35.8431805295706,-9.1503821161857],[-35.8432531744815,-9.15109902096708],[-35.8427273602445,-9.15149100636677],[-35.8424717477548,-9.15162230295993],[-35.8423177676444,-9.15167070688969],[-35.8418836591918,-9.15167590756217],[-35.841676733545,-9.15133188649805],[-35.8416469123484,-9.15040607893972],[-35.8418863750116,-9.14977495350843],[-35.8422882429404,-9.14942487824739],[-35.8424818748512,-9.14861590859605],[-35.8424817870379,-9.14677187253928],[-35.8423661939096,-9.14639086044773],[-35.8423575100047,-9.14619351080132],[-35.8424505589167,-9.14602423374058],[-35.8443077206541,-9.14869763844988]]]},"D":{"0":[8.98,1236,[[-35.8378736037149,-9.13366910730596],[-35.8378851195291,-9.13242703923328],[-35.8381689322601,-9.13077842658461],[-35.8398847001956,-9.13202029258341],[-35.8403840140256,-9.13242393318073],[-35.8412995927861,-9.13327842568963],[-35.840433299918,-9.13458141742637],[-35.8398748696641,-9.13440974030548],[-35.8378736037149,-9.13366910730596]]],"1":[4.14,845,[[-35.8402446814197,-9.14879352154162],[-35.8401149110748,-9.14876805650139],[-35.8402334848051,-9.14840340188717],[-35.8403355676998,-9.14757459082779],[-35.8405367282377,-9.14632017955561],[-35.841697649548,-9.14656226508272],[-35.8416777054207,-9.14802206437153],[-35.8416840430274,-9.14856043014132],[-35.8417110474465,-9.14872181630063],[-35.8414622379849,-9.14888218126561],[-35.8411420313968,-9.14901811349229],[-35.84066422947291,-9.14896008506342],[-35.84046118235236,-9.149025295458722],[-35.8404044178878,-9.14903937521253],[-35.8402446814197,-9.14879352154162]]],"2":[4.53,972,[[-35.8416703068237,-9.14404159189362],[-35.8417044626186,-9.14456182534056],[-35.8416967360044,-9.14656070403292],[-35.8405293392345,-9.1463332937176],[-35.8402570076557,-9.14514988475404],[-35.8398063998043,-9.14452172865326],[-35.8392577482752,-9.14407650435368],[-35.8416703068237,-9.14404159189362]]],"3":[7.05,1044,[[-35.8387983437901,-9.14378927901755],[-35.8387397628739,-9.14342030387237],[-35.8388787682754,-9.14320000644125],[-35.8394171926341,-9.14179242432678],[-35.8413638871836,-9.14162451845113],[-35.8416525748683,-9.1440397784622],[-35.8392528499041,-9.14408340067553],[-35.8387983437901,-9.14378927901755]]],"4":[7.54,1200,[[-35.8423274645598,-9.14364554085257],[-35.8426087695445,-9.14135708120856],[-35.8426376717036,-9.13967153168972],[-35.8436435204705,-9.1408180953327],[-35.84421083941,-9.14140958069537],[-35.844761196076,-9.14183620552869],[-35.8447086427638,-9.14214757262379],[-35.8446952383661,-9.14227268861529],[-35.8446795532418,-9.1424385333389],[-35.8445978857301,-9.14274318674547],[-35.8445648192548,-9.14287636986451],[-35.8445242142703,-9.1430425320104],[-35.8445001292544,-9.14316886905363],[-35.8444443507164,-9.14335192179593],[-35.8443023038907,-9.1435859027421],[-35.8439297871936,-9.143745047561],[-35.842615088865,-9.14373899669359],[-35.8423274645598,-9.14364554085257]]],"5":[6.53,1439,[[-35.8439622126976,-9.14047748075077],[-35.8443924735043,-9.14070343753281],[-35.845023349988,-9.14083569832954],[-35.846765212109,-9.14059305628854],[-35.8468498930172,-9.14067917505674],[-35.8468847736389,-9.14072560576314],[-35.8469240290954,-9.14077572847154],[-35.8469446979855,-9.14084070210807],[-35.8469237218918,-9.14090491637937],[-35.8468816359959,-9.14100025700572],[-35.8468226364685,-9.14110596398257],[-35.8467682400308,-9.14118836094923],[-35.8467172343064,-9.14127077503384],[-35.8466816065966,-9.14133848188608],[-35.8466473262207,-9.1414066273927],[-35.8466269593318,-9.14151360961992],[-35.8466087608059,-9.14166903526895],[-35.8466077997585,-9.14179476023786],[-35.8465695380745,-9.14191249722049],[-35.8465404605526,-9.14197701516017],[-35.8464937851439,-9.14204390852604],[-35.8464485147228,-9.14212184918778],[-35.8464008845696,-9.14222226313218],[-35.8464037824774,-9.14229676278012],[-35.8464198670189,-9.14236024627163],[-35.8464383614678,-9.14248562472955],[-35.8464231781521,-9.14259401132412],[-35.8463994076408,-9.142673948655],[-35.8463528437635,-9.1427627386319],[-35.8462533815742,-9.14287069861925],[-35.8461731275703,-9.14294813415505],[-35.8460264183906,-9.14303514606846],[-35.845879322159,-9.14313554410815],[-35.8457307469996,-9.14320494217788],[-35.8455828629259,-9.14325464174912],[-35.8454089476009,-9.14329933381484],[-35.8451633014474,-9.14334660364369],[-35.8449775963811,-9.14338651964699],[-35.8448961211454,-9.14330816196825],[-35.8449003762228,-9.14319765690476],[-35.8449718728019,-9.14221338741819],[-35.8448033246421,-9.14185970486046],[-35.8442214771431,-9.14142373636539],[-35.8436486306383,-9.14081926998425],[-35.8426376717036,-9.13967153168972],[-35.8439622126976,-9.14047748075077]]],"6":[6.87,1247,[[-35.8425297358336,-9.13885633052525],[-35.8455328733792,-9.13916172112435],[-35.8460652713653,-9.13940581992105],[-35.846449540851,-9.13940991087023],[-35.8469930621442,-9.13941054025342],[-35.8469162904986,-9.13971269996017],[-35.8466115916374,-9.13991762262898],[-35.8465117505319,-9.14011212871189],[-35.8465546215515,-9.14040016203919],[-35.8467588824576,-9.14059103402843],[-35.8450286843047,-9.14083790253079],[-35.8443979621759,-9.14070530748582],[-35.8439707061323,-9.14048038077238],[-35.8426393698043,-9.13967449333791],[-35.8426653641614,-9.13959402139338],[-35.8426861338693,-9.13953476833019],[-35.8427078160049,-9.13947428022225],[-35.8427257655872,-9.13943971288343],[-35.8427333579861,-9.13941263940458],[-35.8427409511062,-9.13936556645357],[-35.8427340306999,-9.13931095093629],[-35.8426979947542,-9.13924741245954],[-35.8426640648835,-9.1392152119317],[-35.8426144786608,-9.13912758779187],[-35.8425643422957,-9.13906985890091],[-35.8425354340029,-9.13901469808913],[-35.8425204299721,-9.13893581996786],[-35.8425194478457,-9.13889520412896],[-35.8425297358336,-9.13885633052525]]],"7":[5.93,1235,[[-35.842790831851,-9.13766763612278],[-35.8441232523898,-9.1379661095562],[-35.8451622042232,-9.13751793213291],[-35.8455839810893,-9.13750623924102],[-35.8457566668373,-9.13782606163593],[-35.8460259998733,-9.13795942313054],[-35.8462666850369,-9.1385615275843],[-35.8463099341141,-9.13890612583564],[-35.8469803899627,-9.13940694479149],[-35.8460682903109,-9.1394055194243],[-35.8455370565537,-9.13916756762339],[-35.8425368129759,-9.13885669706528],[-35.8426668794554,-9.13858816257013],[-35.8426835324726,-9.13834533260695],[-35.8426577233126,-9.13794585156787],[-35.8426488595267,-9.13776900405627],[-35.842790831851,-9.13766763612278]]],"8":[7.52,1185,[[-35.8426595461755,-9.13736134413863],[-35.8426828885057,-9.13720349515531],[-35.8426567925715,-9.13705039066575],[-35.8426132791697,-9.13688209809871],[-35.8425653460409,-9.13677612823519],[-35.8427196339931,-9.13678870826362],[-35.8428123916387,-9.13673997509242],[-35.8427777192631,-9.13669083276458],[-35.8427055538816,-9.13667149278013],[-35.8430950226426,-9.13454587497887],[-35.8439975987252,-9.13512457261948],[-35.8447976391161,-9.1356348753369],[-35.8448303554534,-9.13583731841379],[-35.8450489728367,-9.13636877174695],[-35.8451198720569,-9.13660253965636],[-35.8451935364943,-9.13689379698724],[-35.845592854775,-9.13750998418593],[-35.8454686573167,-9.13749763247806],[-35.845179217399,-9.13751727126894],[-35.8448535574726,-9.13765423882422],[-35.8441282394637,-9.13796961851016],[-35.8427890028182,-9.13766257136824],[-35.8426496017244,-9.1377669323847],[-35.8426595461755,-9.13736134413863]]],"9":[5.75,1037,[[-35.8425684963449,-9.13677875828389],[-35.8424979055462,-9.13669181512129],[-35.8423964400187,-9.13664094452489],[-35.8422915041328,-9.13664162385573],[-35.8422299925832,-9.13677954426396],[-35.8416064532215,-9.13562386054726],[-35.8404471168134,-9.13457700745469],[-35.8413020846519,-9.13330123989534],[-35.8430914797364,-9.1345552453917],[-35.8427071259916,-9.13666561906509],[-35.8425684963449,-9.13677875828389]]],"10":[4.19,887,[[-35.8404367140738,-9.13456763239292],[-35.8416082290478,-9.13563306362727],[-35.8422284517375,-9.13677041613574],[-35.8421850413374,-9.13684289664436],[-35.8421392892183,-9.13690300675799],[-35.8421174068786,-9.13698376949403],[-35.8406667937614,-9.13709112201865],[-35.84049958591,-9.13637480285972],[-35.8403899450735,-9.1361946841765],[-35.8401328118703,-9.13598236118519],[-35.8398596787263,-9.13514309553349],[-35.8398718427479,-9.1344236493152],[-35.8404367140738,-9.13456763239292]]],"11":[5.02,1068,[[-35.8412045044115,-9.13874258616497],[-35.8409083482583,-9.13797786577528],[-35.8406752637774,-9.13708542550316],[-35.8421198098642,-9.13698745113692],[-35.8421258013086,-9.13707238989225],[-35.8421627553687,-9.13710145019154],[-35.8422496542593,-9.13710271803035],[-35.8423017921247,-9.13706562804468],[-35.8423028918903,-9.13698443808926],[-35.8422628262601,-9.13685716384588],[-35.8423267402565,-9.13681627667205],[-35.842370899835,-9.1366896163024],[-35.8424398833764,-9.13674101500781],[-35.8425368400388,-9.13680298529336],[-35.8425581461968,-9.13692522633403],[-35.8425848453242,-9.1370786653581],[-35.8426082951694,-9.13736269265228],[-35.8424129809523,-9.13736833460518],[-35.8424025898474,-9.13774944511023],[-35.8426317940091,-9.1377624126269],[-35.8426281251815,-9.13787567893683],[-35.8426283653,-9.13811220316529],[-35.8426316135345,-9.13842834879635],[-35.8426083901677,-9.13858471302242],[-35.8425388207138,-9.13874848805345],[-35.8424903292648,-9.13888012873849],[-35.8425023789228,-9.13898812153447],[-35.8425084412185,-9.13907278610404],[-35.8425873669209,-9.13917116397031],[-35.8426761506178,-9.13934591742061],[-35.8426781519549,-9.13942373755578],[-35.8426478780694,-9.13953349466596],[-35.8426108266698,-9.13967697168081],[-35.8415608686673,-9.13984015876917],[-35.8412045044115,-9.13874258616497]]],"12":[3.5,803,[[-35.8410621335769,-9.13991756305914],[-35.8408675890568,-9.13970409587067],[-35.8401657260987,-9.13936566081028],[-35.8395818455625,-9.13906695852581],[-35.8394396997301,-9.13902218583743],[-35.8392833095153,-9.13891980849505],[-35.8391716269219,-9.13884143570374],[-35.8390983390459,-9.13868816389811],[-35.8390575467412,-9.13845361848914],[-35.8390497262936,-9.13827818581962],[-35.8391172662895,-9.1382148979818],[-35.8390699948758,-9.13811640172187],[-35.8409200506294,-9.13799707909521],[-35.8412167226981,-9.1387718175755],[-35.8415542538933,-9.13984892770102],[-35.8410621335769,-9.13991756305914]]],"13":[6.09,1015,[[-35.8390952021081,-9.1381279981545],[-35.8389627995623,-9.13789895717223],[-35.8386205123523,-9.13777231022799],[-35.8385460558068,-9.1376915645323],[-35.8383801241951,-9.13746090076716],[-35.8380658625747,-9.1370846246421],[-35.8380075437606,-9.1369197186727],[-35.8398674214957,-9.13512360473225],[-35.8399150828249,-9.13530464317379],[-35.8399730902288,-9.13556290956476],[-35.8401431800584,-9.13597695029848],[-35.8403871349422,-9.13616201566301],[-35.8404811816418,-9.13632827409653],[-35.8409065057325,-9.13799631313753],[-35.8390952021081,-9.1381279981545]]],"14":[5.39,1015,[[-35.8380118543319,-9.13692776149532],[-35.8377196684812,-9.13709804775577],[-35.8377526787343,-9.13524336924884],[-35.8378662390778,-9.13367947483574],[-35.8398768954602,-9.13441275386903],[-35.839868335085,-9.13512680883507],[-35.8380118543319,-9.13692776149532]]],"15":[2.74,828,[[-35.8378367968128,-9.13939972752689],[-35.8377217615775,-9.13711606414514],[-35.8378534805929,-9.13702335548878],[-35.8380047797694,-9.13691491647686],[-35.838054086115,-9.13706980553484],[-35.8382594872317,-9.13732522690008],[-35.8384148232684,-9.13750567101854],[-35.8386033956579,-9.13773166768052],[-35.8383987235062,-9.13792105312337],[-35.83846521451,-9.13807998060095],[-35.8385821715119,-9.13819422880746],[-35.8387462736861,-9.13831620721614],[-35.8388176721996,-9.13842463954994],[-35.8390465024216,-9.13828112982339],[-35.8390594172796,-9.13837265641684],[-35.8390679921354,-9.1385224395677],[-35.8390955041747,-9.13869868659694],[-35.8391582279926,-9.13881879546396],[-35.8393056227949,-9.13893101577181],[-35.8394513504865,-9.13901557141929],[-35.8384954022937,-9.13946559327613],[-35.8383004762096,-9.13940233213932],[-35.8378367968128,-9.13939972752689]]],"16":[4.15,871,[[-35.8390713207464,-9.13933355548632],[-35.8407361286069,-9.14023587953616],[-35.8412849124376,-9.14105637177403],[-35.8413758061323,-9.14162378964077],[-35.8394261192534,-9.1417978723925],[-35.8390713207464,-9.13933355548632]]],"17":[5.64,1166,[[-35.8394029254056,-9.14179368595764],[-35.8388751515583,-9.14320994818174],[-35.8387287914282,-9.14341161456371],[-35.8387800129545,-9.14378986036694],[-35.8383856443555,-9.14358583559103],[-35.8378866347469,-9.14052092314611],[-35.8378323505112,-9.13940335296409],[-35.8383249021868,-9.139417355064],[-35.8384896766762,-9.13946502598221],[-35.8387885551508,-9.13939508817149],[-35.8390713391176,-9.13932934099868],[-35.8394029254056,-9.14179368595764]]],"18":[4.65,1259,[[-35.8397069962728,-9.14868596938613],[-35.8388048351749,-9.14867731039347],[-35.8383937938445,-9.14358757868556],[-35.8387442198456,-9.14409706264546],[-35.8392837947504,-9.14503049790323],[-35.8395073925213,-9.1458279367061],[-35.8396207840737,-9.1479684376164],[-35.8397069962728,-9.14868596938613]]],"19":[4.69,1326,[[-35.8398179446692,-9.14869278630471],[-35.8397099762314,-9.14868886177349],[-35.8396257124629,-9.14800977773902],[-35.8395111343509,-9.14582020010467],[-35.8392822921178,-9.14502140814867],[-35.8387798692628,-9.14414028967026],[-35.8383833651584,-9.14357246848684],[-35.8386478043445,-9.14372495068138],[-35.8391058493025,-9.143964580889],[-35.8397825042722,-9.14450215352406],[-35.8402700365299,-9.14517140053898],[-35.8405279164662,-9.14632872737377],[-35.84023694747,-9.14839815130803],[-35.8401144487423,-9.14876782538318],[-35.8398179446692,-9.14869278630471]]]}};
+const PIQUETES_GEO_SAOJORGE = {"1":{"1":[4.48,1014,[[-35.8683443233971,-9.15024447038721],[-35.8675767031297,-9.15024758968773],[-35.8672592173272,-9.1502197169263],[-35.8667917909953,-9.15005917527089],[-35.8666390888797,-9.14979312327355],[-35.8665635403195,-9.14953459975336],[-35.8663272316458,-9.14944149812579],[-35.8662316257588,-9.14952856265876],[-35.8660354144149,-9.14949551602359],[-35.8657963636654,-9.14936072241815],[-35.8656655987848,-9.14925026050764],[-35.8658429459171,-9.14908425278284],[-35.866016936954,-9.14864222233649],[-35.8661466048703,-9.14828650688179],[-35.8664480100006,-9.14742552945783],[-35.8665732046597,-9.14715419239614],[-35.8673039359805,-9.14845572455922],[-35.8674558513187,-9.14878216996757],[-35.8678507487018,-9.14944335262777],[-35.8682710417421,-9.14963186602703],[-35.8683443233971,-9.15024447038721]]],"2":[6.12,1215,[[-35.8685569091811,-9.14965505183116],[-35.868277249019,-9.14963452509381],[-35.8678473688884,-9.14943750741731],[-35.8674628764153,-9.14879513541648],[-35.8673019416588,-9.1484442914026],[-35.8665870755688,-9.14716605250583],[-35.8664079716392,-9.14654067541136],[-35.8659481546441,-9.14610364674398],[-35.8661584666854,-9.14595255859],[-35.8661483347268,-9.14564853256824],[-35.8665598402574,-9.14549822543565],[-35.8669288390282,-9.14541635112427],[-35.867163512674,-9.14531935943674],[-35.8673802703516,-9.14530052497301],[-35.868218295747,-9.14779367767832],[-35.8685569091811,-9.14965505183116]]],"3":[6.29,1215,[[-35.8685576021191,-9.14964943689066],[-35.8682189747725,-9.14778905407135],[-35.867382140423,-9.14530055522315],[-35.8674589218114,-9.1452882265581],[-35.8675833658111,-9.14531875398935],[-35.8678790418023,-9.14555696091822],[-35.8682563484766,-9.14597823220382],[-35.8684152836767,-9.14604319634519],[-35.8684953363236,-9.14605548700557],[-35.8686522870449,-9.14617022292072],[-35.8688620075743,-9.14622720846517],[-35.8698425818193,-9.14669389835186],[-35.8699228457007,-9.14674945165569],[-35.8699901865589,-9.14681044114879],[-35.8701200306188,-9.1470549129049],[-35.8701933831586,-9.14722873436042],[-35.8694808996375,-9.14859002945667],[-35.8685576021191,-9.14964943689066]]],"4":[5.3,1064,[[-35.8704957234705,-9.14830015397937],[-35.8705587787572,-9.14847668877685],[-35.870694076021,-9.14880188100656],[-35.8708737421086,-9.14904309833258],[-35.8712670145043,-9.14923848488363],[-35.8705538221392,-9.15094828013878],[-35.8703322403845,-9.15078912454829],[-35.8700480389834,-9.15061941276893],[-35.8699009164382,-9.15026325182265],[-35.8696141544377,-9.15016628654322],[-35.8693926486668,-9.15005123187843],[-35.868964316864,-9.14995220964863],[-35.8685609392697,-9.14964593869133],[-35.8694810809632,-9.14858468263717],[-35.8701886795558,-9.14725295662892],[-35.8705115959466,-9.14805208769834],[-35.8704957234705,-9.14830015397937]]]},"2":{"1":[4.2,853,[[-35.869232567358,-9.15280556113559],[-35.8673981552237,-9.15072567002042],[-35.8675124902286,-9.15040762654894],[-35.8680025731193,-9.15038675354349],[-35.8682227638017,-9.15030238729143],[-35.8684075150163,-9.15032126561172],[-35.8685796960413,-9.15035345323559],[-35.8688934387963,-9.15030344813977],[-35.8693841624152,-9.15065057609007],[-35.869573078823,-9.15081463458421],[-35.8696803062318,-9.15119663543752],[-35.8697450659014,-9.15177270668037],[-35.8699596941423,-9.1520336909433],[-35.869232567358,-9.15280556113559]]],"2":[4.31,925,[[-35.8690983603212,-9.15297352155836],[-35.8663571741162,-9.15315962322737],[-35.8673759817744,-9.15071943191609],[-35.8692291275582,-9.15280238388735],[-35.8690983603212,-9.15297352155836]]],"3":[4.1,888,[[-35.8681699343028,-9.15480259983325],[-35.867391892018,-9.15443926502709],[-35.8669427219232,-9.1542662411719],[-35.8659870491854,-9.15402085120696],[-35.8663604021463,-9.15316433171024],[-35.8691069155188,-9.15297948525719],[-35.8681699343028,-9.15480259983325]]],"5":[4.13,879,[[-35.8693853979422,-9.15295275809059],[-35.8692271975289,-9.15280190065933],[-35.8699573107052,-9.15203583060995],[-35.8704115965824,-9.15223983363006],[-35.8717147322447,-9.15218542950035],[-35.8709529343115,-9.15465136926774],[-35.8693853979422,-9.15295275809059]]],"4":[5.44,947,[[-35.8691100593546,-9.1529771124701],[-35.8692591597743,-9.1531316028228],[-35.8693806139464,-9.15295080057911],[-35.8709500481234,-9.15466144874645],[-35.8697433659111,-9.15600112599117],[-35.8681695750025,-9.15481006091197],[-35.8691100593546,-9.1529771124701]]]}};
+const COR_MOD = { A:'#e5484d', B:'#30a46c', C:'#f2820b', D:'#3b82f6' };
+
+// projeção equiretangular local (mesma técnica do mapa original da fazenda):
+// converte lon/lat em metros relativos ao centro de todos os piquetes carregados.
+let _proj = null;
+function construirProjecao() {
+  let lon0=0, lat0=0, cnt=0;
+  Object.values(PIQUETES_GEO).forEach(porMod => Object.values(porMod).forEach(([,,coords]) => {
+    coords.forEach(([lon,lat]) => { lon0+=lon; lat0+=lat; cnt++; });
+  }));
+  lon0/=cnt; lat0/=cnt;
+  const R = Math.cos(lat0*Math.PI/180);
+  _proj = p => [(p[0]-lon0)*111320*R, -(p[1]-lat0)*110540];
+}
+function proj(p) { if(!_proj) construirProjecao(); return _proj(p); }
+
+function pathFromCoords(coords) {
+  return coords.map((p,i) => { const q=proj(p); return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1); }).join(' ') + ' Z';
+}
+function centroidFromCoords(coords) {
+  let x=0,y=0; coords.forEach(p=>{ const q=proj(p); x+=q[0]; y+=q[1]; });
+  return [x/coords.length, y/coords.length];
+}
+
+let modMapa = 'TODOS';  // 'TODOS' ou 'A'|'B'|'C'|'D'
+let piqueteSelecionado = null;  // {mod, num} — piquete tocado no mapa, mostra painel de detalhe
+
+function montarModPickerMapa() {
+  const el = $('mod-picker-map');
+  const opcoes = ['TODOS', ...Object.keys(PIQ_POR_MOD)];
+  el.innerHTML = opcoes.map(m => {
+    const label = m==='TODOS' ? 'Fazenda toda' : MOD_NOME[m];
+    const n = m==='TODOS' ? Object.values(PIQ_POR_MOD).reduce((a,b)=>a+b,0) : PIQ_POR_MOD[m];
+    const cls = m===modMapa ? (m==='TODOS' ? 'on' : 'on-'+m) : '';
+    return `<button class="mod-btn ${cls}" onclick="selecionarModuloMapa('${m}')">${label}<span class="n">· ${n}</span></button>`;
+  }).join('');
+}
+function selecionarModuloMapa(m) {
+  modMapa = m;
+  montarModPickerMapa();
+  renderMapaSVG();
+}
+
+function ocupacaoAtual(modulo, piquete) {
+  const alvo = parseInt(piquete, 10);
+  return LOTES.find(l => l.modulo === modulo && parseInt(l.piquete, 10) === alvo);
+}
+
+function renderMapaSVG() {
+  const svg = $('map-svg');
+  const mods = modMapa==='TODOS' ? ['A','B','C','D'] : [modMapa];
+
+  // calcula bounding box só dos módulos visíveis
+  let minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
+  mods.forEach(mod => {
+    const porMod = PIQUETES_GEO[mod] || {};
+    Object.values(porMod).forEach(([,,coords]) => coords.forEach(p => {
+      const q = proj(p);
+      minx=Math.min(minx,q[0]); maxx=Math.max(maxx,q[0]);
+      miny=Math.min(miny,q[1]); maxy=Math.max(maxy,q[1]);
+    }));
+  });
+  if (minx > maxx) { svg.innerHTML=''; return; }
+  const pad = (maxx-minx)*0.06 + 5;
+  const vbx = minx-pad, vby = miny-pad, vbw = (maxx-minx)+2*pad, vbh = (maxy-miny)+2*pad;
+  svg.setAttribute('viewBox', `${vbx.toFixed(1)} ${vby.toFixed(1)} ${vbw.toFixed(1)} ${vbh.toFixed(1)}`);
+
+  let html = '';
+  mods.forEach(mod => {
+    const porMod = PIQUETES_GEO[mod] || {};
+    const cor = COR_MOD[mod];
+    Object.entries(porMod).forEach(([num, [ha, perim, coords]]) => {
+      const oc = ocupacaoAtual(mod, num);
+      let cls = '', fill = cor;
+      if (oc) {
+        const d = dias(oc.entrada);
+        cls = d > MAX_DIAS ? 'venc' : d === MAX_DIAS ? 'hoje' : 'ocup';
+      }
+      if (piqueteSelecionado && piqueteSelecionado.mod===mod && String(piqueteSelecionado.num)===String(num)) cls += ' selecionado';
+      const d3 = pathFromCoords(coords);
+      const [cx, cy] = centroidFromCoords(coords);
+      const haTxt = ha ? ha.toFixed(1)+' ha' : '';
+      const tip = oc ? `${oc.nome} · ${dias(oc.entrada)}d${haTxt?' · '+haTxt:''}` : haTxt;
+      html += `<path class="piq-shape ${cls}" d="${d3}" fill="${fill}"
+        data-mod="${mod}" data-num="${num}" data-ha="${ha||''}"
+        data-tip="${mod}-${String(num).padStart(2,'0')}${tip?' · '+tip:''}"
+        onmouseenter="mostrarTip(event)" onmouseleave="esconderTip()" onclick="selecionarPiquete(event)"></path>`;
+      html += `<text class="piq-label" x="${cx.toFixed(1)}" y="${cy.toFixed(1)}">${mod}${num}</text>`;
+    });
+  });
+  svg.innerHTML = html;
+
+  // stats gerais do topo (todos os módulos, sempre)
+  const totalPiq = Object.values(PIQ_POR_MOD).reduce((a,b)=>a+b,0);
+  const ocupados = LOTES.length;
+  const vencidos = LOTES.filter(l => dias(l.entrada) > MAX_DIAS).length;
+  const totalCab = LOTES.reduce((a,l)=>a+(l.cabecas||0),0);
+  $('mapa-stats').innerHTML = `
+    <div class="stat"><b>${totalPiq}</b><span>Piquetes na fazenda</span></div>
+    <div class="stat"><b>${ocupados}</b><span>Lotes ativos</span></div>
+    <div class="stat" style="${vencidos?'border-color:var(--vermelho)':''}"><b style="${vencidos?'color:var(--vermelho)':''}">${vencidos}</b><span>Passaram do prazo</span></div>
+    <div class="stat"><b>${totalCab || '—'}</b><span>Cabeças no campo</span></div>
+  `;
+}
+
+function mostrarTip(ev) {
+  const el = ev.currentTarget;
+  const tip = $('map-tooltip');
+  const wrap = document.querySelector('.map-wrap');
+  const r = wrap.getBoundingClientRect();
+  tip.textContent = el.dataset.tip;
+  tip.style.left = (ev.clientX - r.left) + 'px';
+  tip.style.top = (ev.clientY - r.top) + 'px';
+  tip.style.display = 'block';
+}
+function esconderTip() { $('map-tooltip').style.display = 'none'; }
+
+/* Toca num piquete do mapa: mostra o painel de detalhe (área, ocupação atual)
+   com um botão de ação já pré-preenchido para aquele piquete específico. */
+function selecionarPiquete(ev) {
+  const el = ev.currentTarget;
+  const mod = el.dataset.mod, num = el.dataset.num;
+  esconderTip();
+  piqueteSelecionado = { mod, num };
+  renderMapaSVG();
+  renderPainelPiquete();
+}
+function fecharPainelPiquete() {
+  piqueteSelecionado = null;
+  renderMapaSVG();
+  renderPainelPiquete();
+}
+function renderPainelPiquete() {
+  const el = $('painel-piquete');
+  if (!piqueteSelecionado) { el.style.display = 'none'; el.innerHTML = ''; return; }
+  const { mod, num } = piqueteSelecionado;
+  const dados = (PIQUETES_GEO[mod] || {})[num];
+  if (!dados) { el.style.display = 'none'; return; }
+  const [ha, perim] = dados;
+  const oc = ocupacaoAtual(mod, num);
+  const nomePiq = `${mod}-${String(num).padStart(2,'0')}`;
+
+  let ocupInfo = '<span style="color:var(--txt2)">Piquete em descanso — sem lote registrado.</span>';
+  if (oc) {
+    const d = dias(oc.entrada);
+    const cor = d > MAX_DIAS ? 'var(--vermelho)' : d === MAX_DIAS ? 'var(--ambar)' : 'var(--campo-d)';
+    ocupInfo = `<b>${oc.nome}</b> · ${oc.cabecas||'—'} cab. · desde ${fmtData(oc.entrada)} · <b style="color:${cor}">${d} dias</b>`;
+  }
+
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="pp-head">
+      <span class="lote-tag" style="background:var(--mod-${mod.toLowerCase()})">${nomePiq}</span>
+      <button class="modal-close" onclick="fecharPainelPiquete()">×</button>
+    </div>
+    <div class="pp-info">
+      <div class="pp-dado"><b>${ha ? ha.toFixed(2) : '—'}</b><span>hectares</span></div>
+      <div class="pp-dado"><b>${perim ? perim : '—'}</b><span>metros de cerca</span></div>
+    </div>
+    <div class="pp-ocup">${ocupInfo}</div>
+    <button class="btn btn-verde" style="width:100%;margin-top:12px" onclick="abrirModalMovimento(${oc?`'${oc.nome}'`:'null'}, '${mod}', '${num}')">
+      🔄 ${oc ? 'Mover este lote' : 'Registrar entrada neste piquete'}
+    </button>
+    <button class="btn btn-out" style="width:100%;margin-top:8px" onclick="abrirModalOcorrencia('${mod}', '${num}')">⚠ Registrar ocorrência aqui</button>
+  `;
+}
+
+function renderLotes() {
+  const el = $('lote-list');
+  // popula o datalist de lotes conhecidos (para autocompletar no modal de movimento)
+  const dl = $('lista-lotes');
+  if (dl) {
+    const nomes = [...new Set(MOVIMENTACOES.map(m => m.lote))];
+    dl.innerHTML = nomes.map(n => `<option value="${n}">`).join('');
+  }
+  if (!LOTES.length) {
+    el.innerHTML = `<div class="empty"><div class="ico">🐄</div><p>Nenhum lote no campo ainda.<br>Toque em "Registrar mudança de piquete" para lançar a primeira entrada, ou carregue a planilha de Rotação.</p></div>`;
+    return;
+  }
+  el.innerHTML = LOTES.slice().sort((a,b)=>dias(b.entrada)-dias(a.entrada)).map(l => {
+    const d = dias(l.entrada);
+    const cor = d > MAX_DIAS ? 'var(--vermelho)' : d === MAX_DIAS ? 'var(--ambar)' : 'var(--campo-d)';
+    return `<div class="lote-row">
+      <span class="lote-tag" style="background:var(--mod-${l.modulo.toLowerCase()})">${l.modulo}</span>
+      <div class="info"><b>${l.nome}</b><span>Piquete ${l.modulo}-${String(l.piquete).padStart(2,'0')} · desde ${fmtData(l.entrada)} · ${l.cabecas||'—'} cab.</span></div>
+      <div class="dias"><b style="color:${cor}">${d}</b><span>dias</span></div>
+      <button class="btn-icon" title="Mudar de piquete" onclick="abrirModalMovimento('${l.nome}')">→</button>
+    </div>`;
+  }).join('');
+  renderOcorrencias();
+}
+
+function renderOcorrencias() {
+  const el = $('ocorrencia-list');
+  if (!el) return;
+  if (!OCORRENCIAS.length) {
+    el.innerHTML = `<div class="empty"><div class="ico">✓</div><p>Nenhuma ocorrência registrada.</p></div>`;
+    return;
+  }
+  const icones = { morte: '⚫', doenca: '🤒', outro: '⚠' };
+  const labels = { morte: 'Animal morto', doenca: 'Animal doente', outro: 'Ocorrência' };
+  el.innerHTML = OCORRENCIAS.slice().sort((a,b) => b.data.localeCompare(a.data)).slice(0, 12).map(o => `
+    <div class="oc-item">
+      <span class="oc-ico">${icones[o.tipo] || '⚠'}</span>
+      <div class="info">
+        <b>${labels[o.tipo] || 'Ocorrência'} — ${o.modulo}-${String(o.piquete).padStart(2,'0')}</b>
+        <span>${o.lote ? o.lote + ' · ' : ''}${o.obs || 'sem observação'}</span>
+      </div>
+      <span class="when">${fmtData(o.data)}</span>
+    </div>`).join('');
+}
+
+/* ══════════════════ LANÇAMENTOS DO VAQUEIRO (offline-first) ══════════════════ */
+
+function configurarLancamentos() {
+  // popula o select de lote existente no modal de movimento a cada abertura
+  $('mv-modulo-destino').addEventListener('change', popularPiquetesDestino);
+  popularPiquetesDestino();
+  $('cfg-nuvem-url').value = CFG_NUVEM.url || '';
+}
+
+function abrirModalMovimento(nomeLotePreset, modDestinoPreset, piqDestinoPreset) {
+  const lote = LOTES.find(l => l.nome === nomeLotePreset);
+  $('mv-lote').value = nomeLotePreset || '';
+  $('mv-data').value = hoje();
+  $('mv-cabecas').value = lote ? (lote.cabecas || '') : '';
+  $('mv-modulo-destino').value = modDestinoPreset || (lote ? lote.modulo : 'A');
+  popularPiquetesDestino();
+  if (piqDestinoPreset) $('mv-piquete-destino').value = piqDestinoPreset;
+  $('mv-obs').value = '';
+  if (lote) {
+    $('mv-atual').style.display = 'block';
+    $('mv-atual').innerHTML = `Está agora em <b>${lote.modulo}-${String(lote.piquete).padStart(2,'0')}</b> desde ${fmtData(lote.entrada)} (${dias(lote.entrada)} dias). Registrar esta mudança fecha esse período automaticamente.`;
+  } else {
+    $('mv-atual').style.display = 'none';
+  }
+  $('modal-movimento').classList.add('open');
+}
+function fecharModalMovimento() { $('modal-movimento').classList.remove('open'); }
+
+function popularPiquetesDestino() {
+  const mod = $('mv-modulo-destino').value;
+  const n = PIQ_POR_MOD[mod] || 0;
+  const sel = $('mv-piquete-destino');
+  sel.innerHTML = Array.from({length:n}, (_,i) => i+1).map(i => `<option value="${i}">${mod}-${String(i).padStart(2,'0')}</option>`).join('');
+}
+
+function salvarMovimento() {
+  const lote = $('mv-lote').value.trim();
+  const data = $('mv-data').value;
+  const modulo = $('mv-modulo-destino').value;
+  const piquete = $('mv-piquete-destino').value;
+  const cabecas = parseInt($('mv-cabecas').value) || null;
+  const obs = $('mv-obs').value.trim();
+
+  if (!lote) { alert('Informe o nome ou número do lote.'); return; }
+  if (!data) { alert('Informe a data.'); return; }
+
+  // fecha o registro anterior desse lote, se houver um em aberto
+  const anterior = MOVIMENTACOES.filter(m => m.lote === lote && !m.saida)
+    .sort((a,b) => b.entrada.localeCompare(a.entrada))[0];
+  if (anterior) anterior.saida = data;
+
+  const novo = { id: uid(), lote, modulo, piquete, entrada: data, saida: null, cabecas, obs, ts: Date.now() };
+  MOVIMENTACOES.push(novo);
+  salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+  enfileirarEnvio('movimento', novo);
+
+  recalcularLotes();
+  renderLotes();
+  renderMapaSVG();
+  renderPainelPiquete();
+  fecharModalMovimento();
+  toastPainel(`✓ ${lote} registrado em ${modulo}-${String(piquete).padStart(2,'0')}`);
+}
+
+function abrirModalOcorrencia(modPreset, numPreset) {
+  $('oc-modulo').value = modPreset || 'A';
+  popularPiquetesOcorrencia();
+  if (numPreset) $('oc-piquete').value = numPreset;
+  $('oc-data').value = hoje();
+  $('oc-tipo').value = 'doenca';
+  $('oc-obs').value = '';
+  $('modal-ocorrencia').classList.add('open');
+}
+function fecharModalOcorrencia() { $('modal-ocorrencia').classList.remove('open'); }
+function popularPiquetesOcorrencia() {
+  const mod = $('oc-modulo').value;
+  const n = PIQ_POR_MOD[mod] || 0;
+  $('oc-piquete').innerHTML = Array.from({length:n}, (_,i) => i+1).map(i => `<option value="${i}">${mod}-${String(i).padStart(2,'0')}</option>`).join('');
+}
+
+function salvarOcorrencia() {
+  const modulo = $('oc-modulo').value;
+  const piquete = $('oc-piquete').value;
+  const data = $('oc-data').value;
+  const tipo = $('oc-tipo').value;
+  const obs = $('oc-obs').value.trim();
+  if (!data) { alert('Informe a data.'); return; }
+
+  const loteAtual = LOTES.find(l => l.modulo === modulo && String(l.piquete) === String(piquete));
+  const nova = { id: uid(), modulo, piquete, data, tipo, obs, lote: loteAtual ? loteAtual.nome : '', ts: Date.now() };
+  OCORRENCIAS.push(nova);
+  salvarLocal('vp_ocorrencias', OCORRENCIAS);
+  enfileirarEnvio('ocorrencia', nova);
+
+  fecharModalOcorrencia();
+  toastPainel(`✓ Ocorrência registrada em ${modulo}-${String(piquete).padStart(2,'0')}`);
+  renderOcorrencias();
+  if (document.getElementById('v-mapa').classList.contains('on')) renderMapaSVG();
+}
+
+function toastPainel(msg) {
+  let t = $('painel-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'painel-toast';
+    t.className = 'painel-toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ══ FILA DE ENVIO — offline-first: guarda local, tenta mandar quando online ══ */
+function enfileirarEnvio(tipo, registro) {
+  FILA_ENVIO.push({ id: uid(), tipo, registro, criado: Date.now() });
+  salvarLocal('vp_fila_envio', FILA_ENVIO);
+  renderFilaEnvio();
+  if (navigator.onLine && CFG_NUVEM.url) tentarEnviarFila();
+}
+
+function renderFilaEnvio() {
+  const badge = $('fila-badge');
+  if (!badge) return;
+  const n = FILA_ENVIO.length;
+  if (!n) {
+    badge.style.display = 'none';
+  } else {
+    badge.style.display = 'inline-flex';
+    badge.textContent = navigator.onLine
+      ? `${n} aguardando envio…`
+      : `${n} salvos no aparelho — sem internet`;
+  }
+}
+
+async function tentarEnviarFila() {
+  if (!CFG_NUVEM.url || !FILA_ENVIO.length) { renderFilaEnvio(); return; }
+  const restantes = [];
+  for (const item of FILA_ENVIO) {
+    try {
+      await fetch(CFG_NUVEM.url, {
+        method: 'POST',
+        mode: 'no-cors',   // Apps Script Web Apps geralmente exigem isso; sem leitura de resposta
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ origem: 'painel-fazenda-conquista', ...item })
+      });
+      // com no-cors não dá para checar status; assume sucesso se não lançou exceção de rede
+    } catch (e) {
+      restantes.push(item);
+    }
+  }
+  FILA_ENVIO = restantes;
+  salvarLocal('vp_fila_envio', FILA_ENVIO);
+  renderFilaEnvio();
+  if (restantes.length === 0) toastPainel('✓ Lançamentos enviados para a nuvem');
+}
+
+function salvarCfgNuvem() {
+  CFG_NUVEM.url = $('cfg-nuvem-url').value.trim();
+  salvarLocal('vp_cfg_nuvem', CFG_NUVEM);
+  toastPainel('✓ Endereço salvo');
+  if (navigator.onLine) tentarEnviarFila();
+}
+
+/* ══════════════════ SANIDADE ══════════════════ */
+function renderSanidade() {
+
+  const prods = SANIDADE.produtos, apls = SANIDADE.aplicacoes;
+
+  const vac = apls.filter(a => a.tipo === 'vacina').reduce((s,a)=>s+(a.qtd||1),0);
+  const verm = apls.filter(a => a.tipo === 'vermifugo').reduce((s,a)=>s+(a.qtd||1),0);
+  const ultimaData = apls.length ? apls.slice().sort((a,b)=>b.data.localeCompare(a.data))[0].data : null;
+  $('san-stats').innerHTML = `
+    <div class="stat"><b>${prods.length}</b><span>Produtos cadastrados</span></div>
+    <div class="stat"><b>${vac||'—'}</b><span>Doses de vacina</span></div>
+    <div class="stat"><b>${verm||'—'}</b><span>Vermifugações</span></div>
+    <div class="stat"><b>${ultimaData?dias(ultimaData):'—'}</b><span>Dias desde a última</span></div>
+  `;
+
+  const elP = $('san-produtos');
+  if (!prods.length) {
+    elP.innerHTML = `<div class="empty"><div class="ico">💊</div><p>Nenhum produto carregado.<br>Carregue a planilha de Sanidade para ver o cadastro.</p></div>`;
+  } else {
+    elP.innerHTML = `<table class="prod-table"><thead><tr><th>Produto</th><th>Tipo</th><th>Carência</th></tr></thead>
+      <tbody>${prods.map(p=>`<tr><td><b>${p.nome}</b></td><td><span class="pill ${p.tipo==='vacina'?'vac':'verm'}">${p.tipo==='vacina'?'Vacina':p.tipo==='vermifugo'?'Vermífugo':'Outro'}</span></td><td>${p.carencia?p.carencia+' d':'—'}</td></tr>`).join('')}</tbody></table>`;
+  }
+
+  const elT = $('san-timeline');
+  if (!apls.length) {
+    elT.innerHTML = `<div class="empty"><div class="ico">📅</div><p>Nenhuma aplicação carregada ainda.</p></div>`;
+  } else {
+    const recentes = apls.slice().sort((a,b)=>b.data.localeCompare(a.data)).slice(0,8);
+    elT.innerHTML = `<div class="tl">${recentes.map(a=>{
+      const d = dias(a.data);
+      const dotCls = d>90?'venc':d>60?'prox':'';
+      return `<div class="tl-item"><div class="tl-dot ${dotCls}"></div>
+        <div class="tl-head"><b>${a.produto}</b><span class="d">${d}d atrás</span></div>
+        <div class="tl-sub">${fmtData(a.data)}${a.modulo?' · Módulo '+a.modulo:''}${a.qtd?' · '+a.qtd+' animais':''}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+}
+
+/* ══════════════════ PESO & GMD ══════════════════ */
+function renderPeso() {
+  const animais = PESO.animais;
+  if (!animais.length) { $('peso-resultado').style.display = 'none'; return; }
+  $('peso-resultado').style.display = 'block';
+
+  const pesos = animais.map(a=>a.peso).filter(Boolean);
+  const soma = pesos.reduce((a,b)=>a+b,0);
+  const media = soma / (pesos.length||1);
+  const comGmd = animais.filter(a=>a.gmd!=null);
+  const gmdMedio = comGmd.length ? comGmd.reduce((s,a)=>s+a.gmd,0)/comGmd.length : null;
+
+  $('peso-stats').innerHTML = `
+    <div class="stat"><b>${animais.length}</b><span>Animais na sessão</span></div>
+    <div class="stat"><b>${media.toFixed(0)}</b><span>Peso médio (kg)</span></div>
+    <div class="stat"><b>${gmdMedio!=null?gmdMedio.toFixed(2):'—'}</b><span>GMD médio (kg/dia)</span></div>
+    <div class="stat"><b>${(soma/15).toFixed(0)}</b><span>Arrobas totais</span></div>
+  `;
+
+  // filtros por destino
+  const destinos = [...new Set(animais.map(a=>a.destino).filter(Boolean))];
+  $('peso-filtros').innerHTML = `<button class="filt on" data-f="__all" onclick="filtrarPeso('__all')">Todos</button>` +
+    destinos.map(d=>`<button class="filt" data-f="${d}" onclick="filtrarPeso('${d}')">${d}</button>`).join('');
+
+  desenharTabelaPeso(animais);
+}
+
+function filtrarPeso(f) {
+  document.querySelectorAll('.filt').forEach(b=>b.classList.toggle('on', b.dataset.f===f));
+  const animais = f==='__all' ? PESO.animais : PESO.animais.filter(a=>a.destino===f);
+  desenharTabelaPeso(animais);
+}
+
+function desenharTabelaPeso(lista) {
+  const tbody = document.querySelector('#peso-table tbody');
+  tbody.innerHTML = lista.map(a => `<tr>
+    <td>${a.seq||''}</td>
+    <td><b>${a.brinco||'—'}</b></td>
+    <td>${a.peso!=null?a.peso+' kg':'—'}</td>
+    <td>${a.peso!=null?(a.peso/15).toFixed(1):'—'}</td>
+    <td class="${a.gmd>=0?'gmd-pos':a.gmd<0?'gmd-neg':''}">${a.gmd!=null?(a.gmd>=0?'+':'')+a.gmd.toFixed(2):'—'}</td>
+    <td>${a.destino||'—'}</td>
+    <td>${a.origem||'—'}</td>
+    <td>${a.obs||''}</td>
+  </tr>`).join('');
+}
+
+async function exportarCSV() {
+  if (!PESO.animais.length) return;
+  const rows = [['#','Brinco','Peso (kg)','Arrobas','GMD','Destino','Origem','Obs']];
+  PESO.animais.forEach(a => rows.push([a.seq,a.brinco,a.peso,a.peso?(a.peso/15).toFixed(2):'',a.gmd!=null?a.gmd.toFixed(3):'',a.destino||'',a.origem||'',a.obs||'']));
+  const csv = rows.map(r=>r.map(c=>`"${String(c==null?'':c).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const filename = 'painel_pesagem_' + hoje() + '.csv';
+  try {
+    const downloads = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+    if (downloads) { await downloads.save({ filename, data: blob }); return; }
+  } catch (e) { /* recusado/indispon\u00edvel \u2014 cai no download direto abaixo */ }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+/* ══════════════════ CARREGAMENTO DE PLANILHAS ══════════════════ */
+function configurarDropzones() {
+  setupDrop('drop-peso', 'file-peso', processarPlanilhaPeso);
+  setupDrop('drop-san', 'file-san', processarPlanilhaSanidade);
+  setupDrop('drop-mov', 'file-mov', processarPlanilhaRotacao);
+}
+
+function setupDrop(dropId, inputId, handler) {
+  const drop = $(dropId), input = $(inputId);
+  input.addEventListener('change', e => { if (e.target.files[0]) handler(e.target.files[0]); });
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
+  drop.addEventListener('drop', e => {
+    e.preventDefault(); drop.classList.remove('drag');
+    if (e.dataTransfer.files[0]) handler(e.dataTransfer.files[0]);
+  });
+}
+
+function lerPlanilha(file, callback) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(e.target.result, { type: 'binary', cellDates: true });
+      callback(wb);
+    } catch (err) {
+      alert('Não consegui ler esse arquivo. Confira se é a planilha exportada do Vaqueiro Prateado.');
+    }
+  };
+  reader.readAsBinaryString(file);
+}
+
+// Encontra a linha de cabeçalho real dentro da planilha (o app exporta com
+// título e metadados nas primeiras linhas antes da tabela de fato)
+function acharCabecalho(rows, colunaChave) {
+  for (let i = 0; i < Math.min(rows.length, 10); i++) {
+    if (rows[i] && rows[i].some(c => String(c).trim() === colunaChave)) return i;
+  }
+  return -1;
+}
+
+function processarPlanilhaPeso(file) {
+  lerPlanilha(file, wb => {
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true });
+    const hIdx = acharCabecalho(rows, 'Brinco');
+    if (hIdx === -1) { alert('Não encontrei a coluna "Brinco" nessa planilha.'); return; }
+    const headers = rows[hIdx].map(h => String(h).trim());
+    const col = name => headers.indexOf(name);
+
+    const animais = [];
+    for (let i = hIdx+1; i < rows.length; i++) {
+      const r = rows[i];
+      if (!r || !r[col('Brinco')]) continue;
+      animais.push({
+        seq: r[col('#')] ?? (animais.length+1),
+        brinco: r[col('Brinco')],
+        peso: parseFloat(r[col('Peso (kg)')]) || null,
+        gmd: (() => { const v = parseFloat(r[col('GMD')]); return isNaN(v) ? null : v; })(),
+        destino: r[col('Destino')] || '',
+        origem: r[col('Origem')] || '',
+        obs: r[col('Obs')] || ''
+      });
+    }
+    PESO.animais = animais;
+    renderPeso();
+    irPara('peso');
+  });
+}
+
+function processarPlanilhaSanidade(file) {
+  lerPlanilha(file, wb => {
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true });
+    const hIdx = acharCabecalho(rows, 'Produto');
+    if (hIdx === -1) { alert('Não encontrei a coluna "Produto" nessa planilha.'); return; }
+    const headers = rows[hIdx].map(h => String(h).trim());
+    const col = name => headers.indexOf(name);
+
+    const aplicacoes = [];
+    for (let i = hIdx+1; i < rows.length; i++) {
+      const r = rows[i];
+      if (!r || !r[col('Produto')]) continue;
+      let dataRaw = r[col('Data')];
+      let dataStr = dataRaw instanceof Date ? dataRaw.toISOString().split('T')[0] : String(dataRaw||'');
+      aplicacoes.push({
+        data: dataStr,
+        produto: r[col('Produto')],
+        tipo: (String(r[col('Tipo')]||'')).toLowerCase(),
+        modulo: r[col('Módulo')] || '',
+        qtd: parseInt(r[col('Nº de animais')] || r[col('Animais')]) || 1
+      });
+    }
+    SANIDADE.aplicacoes = aplicacoes;
+    // deriva lista de produtos únicos
+    const nomes = [...new Set(aplicacoes.map(a=>a.produto))];
+    SANIDADE.produtos = nomes.map(n => {
+      const ex = aplicacoes.find(a=>a.produto===n);
+      return { nome: n, tipo: ex.tipo, carencia: null };
+    });
+    renderSanidade();
+    irPara('sanidade');
+  });
+}
+
+function processarPlanilhaRotacao(file) {
+  lerPlanilha(file, wb => {
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true });
+    const hIdx = acharCabecalho(rows, 'Lote');
+    if (hIdx === -1) { alert('Não encontrei a coluna "Lote" nessa planilha.'); return; }
+    const headers = rows[hIdx].map(h => String(h).trim());
+    const col = name => headers.indexOf(name);
+
+    let importados = 0;
+    for (let i = hIdx+1; i < rows.length; i++) {
+      const r = rows[i];
+      if (!r || !r[col('Lote')]) continue;
+      let entradaRaw = r[col('Entrada')];
+      let entradaStr = entradaRaw instanceof Date ? entradaRaw.toISOString().split('T')[0] : String(entradaRaw||'');
+      const saidaRaw = r[col('Saída')];
+      let saidaStr = saidaRaw instanceof Date ? saidaRaw.toISOString().split('T')[0] : (saidaRaw ? String(saidaRaw) : null);
+      const piqueteNum = String(r[col('Piquete')] || '').replace(/^[A-D]-?/, '');
+      const nome = r[col('Lote')];
+
+      // evita duplicar se essa mesma movimentação (lote+entrada+piquete) já foi importada antes
+      const jaExiste = MOVIMENTACOES.some(m => m.lote===nome && m.entrada===entradaStr && String(m.piquete)===piqueteNum);
+      if (jaExiste) continue;
+
+      MOVIMENTACOES.push({
+        id: uid(), lote: nome, modulo: r[col('Módulo')] || '', piquete: piqueteNum,
+        entrada: entradaStr, saida: saidaStr, cabecas: parseInt(r[col('Cabeças')]) || null,
+        obs: '', ts: Date.now(), origem: 'planilha'
+      });
+      importados++;
+    }
+    salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+    recalcularLotes();
+    renderMapaSVG();
+    renderLotes();
+    irPara('mapa');
+  });
+}
+</script>
+<!-- Modal: registrar mudança de piquete -->
+<div class="modal-bg" id="modal-movimento">
+  <div class="modal-card">
+    <div class="modal-head">
+      <b>Registrar mudança de piquete</b>
+      <button class="modal-close" onclick="fecharModalMovimento()">×</button>
+    </div>
+    <div id="mv-atual" class="mv-atual" style="display:none"></div>
+    <label class="fld-label">Lote</label>
+    <input type="text" id="mv-lote" placeholder="Nome ou número do lote" list="lista-lotes">
+    <datalist id="lista-lotes"></datalist>
+
+    <label class="fld-label">Data</label>
+    <input type="date" id="mv-data">
+
+    <div class="fld-row">
+      <div>
+        <label class="fld-label">Módulo de destino</label>
+        <select id="mv-modulo-destino">
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+        </select>
+      </div>
+      <div>
+        <label class="fld-label">Piquete</label>
+        <select id="mv-piquete-destino"></select>
+      </div>
+    </div>
+
+    <label class="fld-label">Quantidade de animais</label>
+    <input type="number" id="mv-cabecas" placeholder="Nº de cabeças">
+
+    <label class="fld-label">Observação (opcional)</label>
+    <input type="text" id="mv-obs" placeholder="Ex: pasto fraco, precisou antecipar...">
+
+    <div class="modal-actions">
+      <button class="btn btn-out" onclick="fecharModalMovimento()">Cancelar</button>
+      <button class="btn btn-verde" onclick="salvarMovimento()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: registrar ocorrência -->
+<div class="modal-bg" id="modal-ocorrencia">
+  <div class="modal-card">
+    <div class="modal-head">
+      <b>Registrar ocorrência</b>
+      <button class="modal-close" onclick="fecharModalOcorrencia()">×</button>
+    </div>
+
+    <div class="fld-row">
+      <div>
+        <label class="fld-label">Módulo</label>
+        <select id="oc-modulo" onchange="popularPiquetesOcorrencia()">
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+        </select>
+      </div>
+      <div>
+        <label class="fld-label">Piquete</label>
+        <select id="oc-piquete"></select>
+      </div>
+    </div>
+
+    <label class="fld-label">Data</label>
+    <input type="date" id="oc-data">
+
+    <label class="fld-label">Tipo</label>
+    <select id="oc-tipo">
+      <option value="morte">Animal morto</option>
+      <option value="doenca">Animal doente</option>
+      <option value="outro">Outro</option>
+    </select>
+
+    <label class="fld-label">Observação</label>
+    <input type="text" id="oc-obs" placeholder="Descreva o que aconteceu">
+
+    <div class="modal-actions">
+      <button class="btn btn-out" onclick="fecharModalOcorrencia()">Cancelar</button>
+      <button class="btn btn-verde" onclick="salvarOcorrencia()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
