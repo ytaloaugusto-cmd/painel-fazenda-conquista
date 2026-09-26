@@ -60,6 +60,22 @@
   --r-sm: 8px;
   --shadow: 0 1px 4px rgba(28,43,30,.10);
   --shadow-md: 0 6px 20px rgba(28,43,30,.14);
+
+  /* aliases para as classes do Cocho Digital (mesmos tokens do Painel) */
+  --surface: var(--bg2);
+  --surface-alt: var(--bg3);
+  --text: var(--txt);
+  --text-secondary: var(--txt2);
+  --text-muted: var(--txt3);
+  --accent: var(--campo);
+  --accent-ink: #ffffff;
+  --accent-2: var(--ambar);
+  --accent-2-ink: #ffffff;
+  --accent-3: var(--couro);
+  --good: var(--campo);
+  --warn: var(--ambar);
+  --critical: var(--vermelho);
+  --critical-bg: var(--verm-cl);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -389,6 +405,196 @@ footer.note {
   nav.tabs button span.lbl { display: none; }
   main { padding: 16px 12px 50px; }
 }
+
+/* ===== Cocho Digital + Estoque (escopado em .cocho-scope para nao afetar as demais abas) ===== */
+.cocho-scope { max-width: 920px; margin: 0 auto; }
+.cocho-scope, .cocho-scope * { min-width: 0; }
+.cocho-scope .mono { font-variant-numeric: tabular-nums; }
+
+.cocho-scope .card { margin-bottom: 18px; overflow: hidden; }
+.cocho-scope .card h2 { font-size: 16.5px; font-weight: 700; margin-bottom: 2px; }
+.cocho-scope .card .sub { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+
+.cocho-scope label { font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 4px; }
+.cocho-scope input[type=text], .cocho-scope input[type=number], .cocho-scope input[type=date], .cocho-scope select {
+  width: 100%; font: inherit; font-size: 14px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg); color: var(--text);
+}
+.cocho-scope input:focus, .cocho-scope select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cocho-scope input[type=number] { font-variant-numeric: tabular-nums; }
+
+.cocho-scope .lote-name { max-width: 320px; margin-bottom: 16px; }
+
+.cocho-scope .ing-table { width: 100%; border-collapse: collapse; }
+.cocho-scope .ing-table th {
+  text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--text-muted); padding: 0 6px 8px; border-bottom: 1px solid var(--border);
+}
+.cocho-scope .ing-table td { padding: 6px; vertical-align: middle; }
+.cocho-scope .ing-row td { border-top: 1px solid var(--border); }
+.cocho-scope .col-pct, .cocho-scope .col-preco, .cocho-scope .col-peso { width: 92px; }
+.cocho-scope .col-kg { width: 108px; text-align: right; }
+.cocho-scope .col-frete-btn { width: 40px; }
+.cocho-scope .col-del { width: 34px; }
+.cocho-scope .kgcell { text-align: right; }
+.cocho-scope .kgcell .base { font-size: 13px; color: var(--text-secondary); }
+.cocho-scope .kgcell .frete-badge {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 700;
+  color: var(--accent-2); margin-top: 2px;
+}
+.cocho-scope .del-btn, .cocho-scope .frete-btn {
+  width: 30px; height: 30px; border-radius: var(--r-sm); border: 1px solid var(--border); background: var(--surface-alt);
+  cursor: pointer; font-size: 15px; line-height: 1;
+}
+.cocho-scope .del-btn { color: var(--critical); }
+.cocho-scope .del-btn:hover { background: var(--critical-bg); }
+.cocho-scope .frete-btn { color: var(--text-secondary); font-size: 14px; }
+.cocho-scope .frete-btn.active { background: var(--accent-2); color: var(--accent-2-ink); border-color: var(--accent-2); }
+.cocho-scope .frete-btn:hover { filter: brightness(0.96); }
+
+.cocho-scope .table-wrap { overflow-x: auto; }
+
+.cocho-scope .row-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; gap: 10px; flex-wrap: wrap; }
+.cocho-scope .add-btn {
+  font: inherit; font-size: 13px; font-weight: 700; color: var(--accent); background: none;
+  border: 1px dashed var(--accent); border-radius: var(--r-sm); padding: 7px 12px; cursor: pointer;
+}
+.cocho-scope .add-btn:hover { background: var(--surface-alt); }
+
+.cocho-scope .pct-total { font-size: 13px; font-weight: 700; }
+.cocho-scope .pct-total.ok { color: var(--good); }
+.cocho-scope .pct-total.warn { color: var(--warn); }
+
+.cocho-scope .frete-row td { border-top: none; padding: 0 6px 12px; }
+.cocho-scope .frete-panel {
+  background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 12px 14px;
+}
+.cocho-scope .frete-panel-title {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--accent-2); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.cocho-scope .frete-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.cocho-scope .frete-grid label { font-size: 11px; }
+.cocho-scope .frete-result {
+  margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border);
+  display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px;
+}
+.cocho-scope .frete-result strong { font-variant-numeric: tabular-nums; }
+.cocho-scope .frete-note { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+.cocho-scope .result-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cocho-scope .result-panel { border-radius: var(--r); padding: 16px; color: var(--accent-ink); }
+.cocho-scope .result-panel.sem { background: linear-gradient(155deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #10190f)); }
+.cocho-scope .result-panel.com { background: linear-gradient(155deg, var(--accent-2), color-mix(in srgb, var(--accent-2) 65%, #10190f)); color: var(--accent-2-ink); }
+.cocho-scope .result-panel .tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.88; }
+.cocho-scope .result-panel .val-kg { font-variant-numeric: tabular-nums; font-size: 29px; font-weight: 700; margin: 4px 0 10px; }
+.cocho-scope .result-panel .mini-row { display: flex; justify-content: space-between; font-size: 12.5px; opacity: 0.94; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.3); }
+.cocho-scope .result-panel .mini-row + .mini-row { border-top: none; padding-top: 2px; }
+.cocho-scope .result-panel .mini-row span:last-child { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+.cocho-scope .diff-banner {
+  margin-top: 14px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--surface-alt);
+  border: 1px solid var(--border); font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cocho-scope .diff-banner strong { font-variant-numeric: tabular-nums; color: var(--critical); }
+.cocho-scope .diff-banner.zero strong { color: var(--text-secondary); }
+
+.cocho-scope .save-row { margin-top: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cocho-scope .save-btn {
+  font: inherit; font-size: 14px; font-weight: 700; padding: 10px 18px; border-radius: var(--r-sm);
+  background: var(--accent); color: var(--accent-ink); border: none; cursor: pointer;
+}
+.cocho-scope .save-btn:hover { filter: brightness(0.95); }
+.cocho-scope .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.cocho-scope .save-status { font-size: 13px; color: var(--text-secondary); }
+
+.cocho-scope .hist-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.cocho-scope .filter-select { max-width: 220px; }
+
+.cocho-scope .legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 4px 0 10px; }
+.cocho-scope .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+.cocho-scope .swatch { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.cocho-scope .swatch.dashed { border-radius: 2px; background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 7px); background-color: transparent !important; height: 2px; width: 16px; align-self: center; }
+
+.cocho-scope .chart-wrap { position: relative; }
+.cocho-scope svg.chart { width: 100%; height: auto; overflow: visible; }
+.cocho-scope .gridline { stroke: var(--border); stroke-width: 1; }
+.cocho-scope .axis-label { fill: var(--text-muted); font-size: 10px; }
+.cocho-scope .series-line { fill: none; stroke-width: 2; }
+.cocho-scope .series-line.com-frete { stroke-dasharray: 5 4; }
+.cocho-scope .series-area { opacity: 0.10; }
+.cocho-scope .series-dot { stroke: var(--surface); stroke-width: 2; cursor: pointer; }
+
+.cocho-scope .tooltip {
+  position: absolute; pointer-events: none; background: var(--text); color: var(--bg);
+  font-size: 12px; padding: 6px 9px; border-radius: 7px; transform: translate(-50%, -110%);
+  white-space: nowrap; opacity: 0; transition: opacity 0.1s; z-index: 5;
+}
+.cocho-scope .tooltip.show { opacity: 1; }
+
+.cocho-scope .hist-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+.cocho-scope .hist-table th {
+  text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--text-muted); padding: 0 8px 8px; border-bottom: 1px solid var(--border);
+}
+.cocho-scope .hist-table td { padding: 9px 8px; border-top: 1px solid var(--border); }
+.cocho-scope .hist-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.cocho-scope .hist-table tr:hover td { background: var(--surface-alt); }
+.cocho-scope .lote-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; }
+.cocho-scope .lote-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+.cocho-scope .empty-state { text-align: center; padding: 34px 16px; color: var(--text-muted); font-size: 13px; }
+.cocho-scope .empty-state .big-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.6; }
+
+/* ---- Estoque ---- */
+.cocho-scope .formula-pick { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.cocho-scope .formula-pill {
+  font: inherit; font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface-alt); color: var(--text-secondary); cursor: pointer;
+}
+.cocho-scope .formula-pill.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.cocho-scope .formulas-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 4px; }
+.cocho-scope .formulas-table th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 0 6px 8px; border-bottom: 1px solid var(--border); }
+.cocho-scope .formulas-table td { padding: 6px; border-top: 1px solid var(--border); }
+.cocho-scope .formulas-table td.num input { text-align: right; max-width: 84px; }
+.cocho-scope .milho-input-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin: 4px 0 18px; }
+.cocho-scope .milho-input-row > div { min-width: 160px; flex: 1; }
+.cocho-scope .milho-input-row .grow { flex: 2; min-width: 220px; }
+.cocho-scope .estoque-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.cocho-scope .estoque-table th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 0 6px 8px; border-bottom: 1px solid var(--border); }
+.cocho-scope .estoque-table td { padding: 8px 6px; border-top: 1px solid var(--border); vertical-align: middle; }
+.cocho-scope .estoque-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.cocho-scope .estoque-table input[type=number] { max-width: 100px; text-align: right; }
+.cocho-scope .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.cocho-scope .badge.ok { background: var(--surface-alt); color: var(--good); }
+.cocho-scope .badge.falta { background: var(--critical-bg); color: var(--critical); }
+.cocho-scope .estoque-totais { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 13px; }
+.cocho-scope .estoque-totais strong { font-variant-numeric: tabular-nums; }
+.cocho-scope .detail-row td { border-top: none; padding: 0 6px 14px; background: var(--surface-alt); }
+.cocho-scope .detail-row.hidden { display: none; }
+.cocho-scope .link-btn { font: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .cocho-scope .ing-table thead, .cocho-scope .estoque-table thead { display: none; }
+  .cocho-scope .ing-row td, .cocho-scope .estoque-row td { display: block; padding: 3px 6px; }
+  .cocho-scope .ing-row, .cocho-scope .estoque-row { display: block; padding-top: 10px; border-top: 1px solid var(--border); }
+  .cocho-scope .ing-row td::before, .cocho-scope .estoque-row td::before { content: attr(data-label); display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .cocho-scope .col-del, .cocho-scope .col-frete-btn { display: flex !important; justify-content: flex-end; }
+  .cocho-scope .col-del::before, .cocho-scope .col-frete-btn::before { content: none !important; }
+  .cocho-scope .frete-row td { padding: 0 6px 10px; }
+  .cocho-scope .result-panel .val-kg { font-size: 25px; }
+  .cocho-scope .result-pair { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 380px) {
+  .cocho-scope .card { padding: 13px; }
+  .cocho-scope .result-panel { padding: 12px; }
+  .cocho-scope .result-panel .val-kg { font-size: 21px; }
+  .cocho-scope .diff-banner { font-size: 12px; }
+  .cocho-scope .frete-grid { grid-template-columns: 1fr 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -417,6 +623,14 @@ footer.note {
     <button data-view="peso" onclick="irPara('peso')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 7h18M6 7l-3 7h6zM18 7l3 7h-6z"/></svg>
       <span class="lbl">Peso &amp; GMD</span>
+    </button>
+    <button data-view="cocho" onclick="irPara('cocho')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h16l-1.5 9h-13z"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/></svg>
+      <span class="lbl">Cocho Digital</span>
+    </button>
+    <button data-view="estoque" onclick="irPara('estoque')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
+      <span class="lbl">Estoque</span>
     </button>
   </nav>
 </header>
@@ -539,6 +753,208 @@ footer.note {
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ══════════════ COCHO DIGITAL ══════════════ -->
+  <section id="v-cocho" class="view">
+  <div class="cocho-scope">
+
+  <div class="card">
+    <h2>Composição da mistura</h2>
+    <div class="sub">Ajuste ingredientes, % de inclusão e preço do saco. Clique em 🚚 para calcular o frete de um ingrediente buscado na origem.</div>
+
+    <div class="lote-name">
+      <label for="loteInput">Nome do lote</label>
+      <input type="text" id="loteInput" value="Proteico Energético" maxlength="40">
+    </div>
+
+    <div class="table-wrap">
+      <table class="ing-table" id="ingTable">
+        <thead>
+          <tr>
+            <th style="width:auto">Ingrediente</th>
+            <th class="col-pct">% inclusão</th>
+            <th class="col-preco">Preço saco origem (R$)</th>
+            <th class="col-peso">Peso saco (kg)</th>
+            <th class="col-kg">R$ / kg</th>
+            <th class="col-frete-btn"></th>
+            <th class="col-del"></th>
+          </tr>
+        </thead>
+        <tbody id="ingBody"></tbody>
+      </table>
+    </div>
+
+    <div class="row-actions">
+      <button class="add-btn" id="addIngBtn" type="button">+ adicionar ingrediente</button>
+      <span class="pct-total" id="pctTotal"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Custo do lote agora</h2>
+    <div class="sub">Comparação direta: composição sem considerar frete x composição com o frete calculado nos ingredientes marcados com 🚚.</div>
+
+    <div class="result-pair">
+      <div class="result-panel sem">
+        <div class="tag">Sem frete</div>
+        <div class="val-kg mono" id="resKgSem">—</div>
+        <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoSem">—</span></div>
+        <div class="mini-row"><span>Tonelada</span><span id="resTonSem">—</span></div>
+      </div>
+      <div class="result-panel com">
+        <div class="tag">Com frete</div>
+        <div class="val-kg mono" id="resKgCom">—</div>
+        <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoCom">—</span></div>
+        <div class="mini-row"><span>Tonelada</span><span id="resTonCom">—</span></div>
+      </div>
+    </div>
+
+    <div class="diff-banner" id="diffBanner">—</div>
+
+    <div class="save-row">
+      <button class="save-btn" id="saveBtn" type="button">Salvar no histórico</button>
+      <span class="save-status" id="saveStatus"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="hist-header">
+      <div>
+        <h2>Histórico de custos</h2>
+        <div class="sub">Filtre um lote para ver as duas linhas (sem e com frete); "todos os lotes" mostra o custo com frete de cada um.</div>
+      </div>
+      <div class="filter-select">
+        <label for="loteFilter">Filtrar lote</label>
+        <select id="loteFilter">
+          <option value="__all__">Todos os lotes</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="legendWrap" class="legend"></div>
+    <div class="chart-wrap" id="chartWrap">
+      <div class="empty-state" id="emptyState">
+        <div class="big-icon">⟡</div>
+        Nenhum registro salvo ainda.<br>Calcule um lote acima e clique em "Salvar no histórico".
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="hist-table" id="histTable" style="display:none">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Lote</th>
+            <th style="text-align:right">Sem frete (R$/kg)</th>
+            <th style="text-align:right">Com frete (R$/kg)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="histBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  </div>
+  </section>
+
+  <!-- ══════════════ ESTOQUE ══════════════ -->
+  <section id="v-estoque" class="view">
+  <div class="cocho-scope">
+
+  <div class="card">
+    <h2>Formulações do Proteico Energético</h2>
+    <div class="sub">Percentuais fixos da fábrica (PROBEEF NC Topmost+). Ajuste aqui apenas se a receita mudar — servem de base para o cálculo de estoque abaixo.</div>
+    <div class="table-wrap">
+      <table class="formulas-table" id="formulasTable">
+        <thead>
+          <tr><th>Insumo</th><th>Peso saco (kg)</th><th style="text-align:right">Recria (0,3% PV)</th><th style="text-align:right">Engorda (0,5% PV)</th></tr>
+        </thead>
+        <tbody id="formulasBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Lançar produção / estoque do dia</h2>
+    <div class="sub">Informe a quantidade planejada de um insumo e o estoque atual de cada um — o app calcula o necessário e o que falta ou sobra.</div>
+
+    <div class="formula-pick" id="formulaPick">
+      <button class="formula-pill on" data-formula="recria" type="button">Recria (0,3% PV)</button>
+      <button class="formula-pill" data-formula="engorda" type="button">Engorda (0,5% PV)</button>
+    </div>
+
+    <div class="milho-input-row">
+      <div>
+        <label for="estDataInput">Data</label>
+        <input type="date" id="estDataInput">
+      </div>
+      <div>
+        <label for="insumoBaseSelect">Lançar quantidade de</label>
+        <select id="insumoBaseSelect">
+          <option value="milho">Milho</option>
+          <option value="soja">Farelo de soja</option>
+          <option value="probeef">Núcleo (PROBEEF)</option>
+          <option value="sal">Sal</option>
+          <option value="ureia">Ureia</option>
+        </select>
+      </div>
+      <div class="grow">
+        <label for="milhoQtdInput" id="milhoQtdLabel">Milho planejado (kg)</label>
+        <input type="number" id="milhoQtdInput" min="0" step="1" value="1000">
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="estoque-table" id="estoqueTable">
+        <thead>
+          <tr>
+            <th style="width:auto">Insumo</th>
+            <th class="num">Necessário (kg)</th>
+            <th class="num">Necessário (sacos)</th>
+            <th class="num">Estoque atual (kg)</th>
+            <th class="num">Saldo (kg)</th>
+            <th class="num">Comprar (sacos)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="estoqueBody"></tbody>
+      </table>
+    </div>
+
+    <div class="estoque-totais" id="estoqueTotais"></div>
+
+    <div class="save-row">
+      <button class="save-btn" id="saveEstBtn" type="button">Salvar registro de estoque</button>
+      <span class="save-status" id="saveEstStatus"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Histórico de estoque</h2>
+    <div class="sub">Cada linha é uma data lançada. Clique em "ver detalhes" para revisar insumo a insumo.</div>
+    <div class="table-wrap">
+      <table class="hist-table" id="estHistTable" style="display:none">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Fórmula</th>
+            <th style="text-align:right">Insumo lançado</th>
+            <th>Situação</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="estHistBody"></tbody>
+      </table>
+      <div class="empty-state" id="estEmptyState">
+        <div class="big-icon">⟡</div>
+        Nenhum registro de estoque salvo ainda.
+      </div>
+    </div>
+  </div>
+
+  </div>
   </section>
 
 </main>
@@ -1345,6 +1761,844 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
 }
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var SERIES_COLORS_LIGHT = ["#3A6B3F", "#B8860B", "#7B4F2E"];
+  var SERIES_COLORS_DARK  = ["#5C9463", "#D4A429", "#A87A52"];
+  function isDark() {
+    var t = document.documentElement.getAttribute("data-theme");
+    if (t === "dark") return true;
+    if (t === "light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function seriesColors() { return isDark() ? SERIES_COLORS_DARK : SERIES_COLORS_LIGHT; }
+
+  var fmtBRL = function (n) {
+    if (!isFinite(n)) return "—";
+    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  };
+  var fmtKg = function (n) {
+    if (!isFinite(n)) return "—";
+    return n.toLocaleString("pt-BR", { maximumFractionDigits: 1, minimumFractionDigits: 0 });
+  };
+  var fmtDate = function (ts) {
+    var d = new Date(ts);
+    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit" }) +
+      " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  };
+
+  var ingredientes = [
+    {
+      nome: "Milho moído", pct: 70, precoSaco: 80.00, pesoSaco: 50,
+      freteAtivo: true, freteAberto: false,
+      frete: { distancia: 450, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 230 }
+    },
+    {
+      nome: "Soja", pct: 23, precoSaco: 141.00, pesoSaco: 50,
+      freteAtivo: false, freteAberto: false,
+      frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
+    },
+    {
+      nome: "Núcleo", pct: 6, precoSaco: 223.50, pesoSaco: 25,
+      freteAtivo: false, freteAberto: false,
+      frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
+    },
+    {
+      nome: "Ureia", pct: 1, precoSaco: 123.00, pesoSaco: 25,
+      freteAtivo: false, freteAberto: false,
+      frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
+    }
+  ];
+
+  var ingBody = document.getElementById("ingBody");
+  var pctTotalEl = document.getElementById("pctTotal");
+  var loteInput = document.getElementById("loteInput");
+
+  function freteCustoPorSaca(ing) {
+    if (!ing.freteAtivo) return 0;
+    var f = ing.frete;
+    var litros = f.consumo > 0 ? f.distancia / f.consumo : 0;
+    var custoDiesel = litros * f.diesel;
+    var custoTotal = custoDiesel + f.diaria;
+    return f.numSacas > 0 ? custoTotal / f.numSacas : 0;
+  }
+
+  function precoKgIngrediente(ing, comFrete) {
+    var preco = ing.precoSaco + (comFrete ? freteCustoPorSaca(ing) : 0);
+    return ing.pesoSaco ? preco / ing.pesoSaco : 0;
+  }
+
+  function renderFretePanel(ing, idx) {
+    var wrap = document.createElement("div");
+    wrap.className = "frete-panel";
+
+    var title = document.createElement("div");
+    title.className = "frete-panel-title";
+    title.textContent = "🚚 Frete de " + (ing.nome || "ingrediente") + " (buscar na origem)";
+    wrap.appendChild(title);
+
+    var grid = document.createElement("div");
+    grid.className = "frete-grid";
+
+    function field(labelText, key, step) {
+      var box = document.createElement("div");
+      var lbl = document.createElement("label");
+      lbl.textContent = labelText;
+      box.appendChild(lbl);
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.step = step; inp.min = "0";
+      inp.value = ing.frete[key];
+      inp.addEventListener("input", function () {
+        ing.frete[key] = parseFloat(inp.value) || 0;
+        recalc();
+      });
+      box.appendChild(inp);
+      grid.appendChild(box);
+    }
+    field("Distância (km)", "distancia", "1");
+    field("Consumo (km/l)", "consumo", "0.1");
+    field("Diesel (R$/l)", "diesel", "0.01");
+    field("Diária motorista (R$)", "diaria", "1");
+    field("Nº de sacas no frete", "numSacas", "1");
+
+    wrap.appendChild(grid);
+
+    var result = document.createElement("div");
+    result.className = "frete-result";
+    var custoFrete = freteCustoPorSaca(ing);
+    var origemMaisFrete = ing.precoSaco + custoFrete;
+    result.innerHTML =
+      "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
+      "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
+    wrap.appendChild(result);
+
+    var note = document.createElement("div");
+    note.className = "frete-note";
+    note.textContent = "Baseado em: distância ÷ consumo × diesel + diária, dividido pelo nº de sacas transportadas.";
+    wrap.appendChild(note);
+
+    return wrap;
+  }
+
+  function renderIngredientes() {
+    ingBody.innerHTML = "";
+    ingredientes.forEach(function (ing, idx) {
+      var tr = document.createElement("tr");
+      tr.className = "ing-row";
+
+      var tdNome = document.createElement("td");
+      tdNome.setAttribute("data-label", "Ingrediente");
+      var inpNome = document.createElement("input");
+      inpNome.type = "text"; inpNome.value = ing.nome; inpNome.maxLength = 30;
+      inpNome.addEventListener("input", function () { ing.nome = inpNome.value; renderLegendAndFilters(); });
+      tdNome.appendChild(inpNome);
+
+      var tdPct = document.createElement("td");
+      tdPct.className = "col-pct"; tdPct.setAttribute("data-label", "% inclusão");
+      var inpPct = document.createElement("input");
+      inpPct.type = "number"; inpPct.step = "0.1"; inpPct.min = "0"; inpPct.value = ing.pct;
+      inpPct.addEventListener("input", function () { ing.pct = parseFloat(inpPct.value) || 0; recalc(); });
+      tdPct.appendChild(inpPct);
+
+      var tdPreco = document.createElement("td");
+      tdPreco.className = "col-preco"; tdPreco.setAttribute("data-label", "Preço saco origem (R$)");
+      var inpPreco = document.createElement("input");
+      inpPreco.type = "number"; inpPreco.step = "0.01"; inpPreco.min = "0"; inpPreco.value = ing.precoSaco;
+      inpPreco.addEventListener("input", function () { ing.precoSaco = parseFloat(inpPreco.value) || 0; recalc(); });
+      tdPreco.appendChild(inpPreco);
+
+      var tdPeso = document.createElement("td");
+      tdPeso.className = "col-peso"; tdPeso.setAttribute("data-label", "Peso saco (kg)");
+      var inpPeso = document.createElement("input");
+      inpPeso.type = "number"; inpPeso.step = "1"; inpPeso.min = "1"; inpPeso.value = ing.pesoSaco;
+      inpPeso.addEventListener("input", function () { ing.pesoSaco = parseFloat(inpPeso.value) || 1; recalc(); });
+      tdPeso.appendChild(inpPeso);
+
+      var tdKg = document.createElement("td");
+      tdKg.className = "kgcell col-kg"; tdKg.setAttribute("data-label", "R$ / kg");
+      tdKg.appendChild(document.createElement("div")).className = "base";
+
+      var tdFreteBtn = document.createElement("td");
+      tdFreteBtn.className = "col-frete-btn";
+      var freteBtn = document.createElement("button");
+      freteBtn.className = "frete-btn" + (ing.freteAtivo ? " active" : "");
+      freteBtn.type = "button"; freteBtn.textContent = "🚚";
+      freteBtn.title = "Calcular frete deste ingrediente";
+      freteBtn.addEventListener("click", function () {
+        ing.freteAtivo = !ing.freteAtivo;
+        ing.freteAberto = ing.freteAtivo;
+        renderIngredientes(); recalc();
+      });
+      tdFreteBtn.appendChild(freteBtn);
+
+      var tdDel = document.createElement("td");
+      tdDel.className = "col-del";
+      var delBtn = document.createElement("button");
+      delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
+      delBtn.title = "Remover ingrediente";
+      delBtn.addEventListener("click", function () {
+        ingredientes.splice(idx, 1);
+        renderIngredientes(); recalc();
+      });
+      tdDel.appendChild(delBtn);
+
+      tr.appendChild(tdNome); tr.appendChild(tdPct); tr.appendChild(tdPreco);
+      tr.appendChild(tdPeso); tr.appendChild(tdKg); tr.appendChild(tdFreteBtn); tr.appendChild(tdDel);
+      ingBody.appendChild(tr);
+
+      if (ing.freteAtivo) {
+        var freteTr = document.createElement("tr");
+        freteTr.className = "frete-row";
+        var freteTd = document.createElement("td");
+        freteTd.colSpan = 7;
+        freteTd.appendChild(renderFretePanel(ing, idx));
+        freteTr.appendChild(freteTd);
+        ingBody.appendChild(freteTr);
+      }
+    });
+  }
+
+  document.getElementById("addIngBtn").addEventListener("click", function () {
+    ingredientes.push({
+      nome: "Novo ingrediente", pct: 0, precoSaco: 0, pesoSaco: 25,
+      freteAtivo: false, freteAberto: false,
+      frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
+    });
+    renderIngredientes(); recalc();
+  });
+
+  var resKgSem = document.getElementById("resKgSem");
+  var resSacoSem = document.getElementById("resSacoSem");
+  var resTonSem = document.getElementById("resTonSem");
+  var resKgCom = document.getElementById("resKgCom");
+  var resSacoCom = document.getElementById("resSacoCom");
+  var resTonCom = document.getElementById("resTonCom");
+  var diffBanner = document.getElementById("diffBanner");
+
+  var lastCusto = { semFrete: 0, comFrete: 0 };
+
+  function recalc() {
+    var custoSem = 0, custoCom = 0, pctSum = 0;
+    ingredientes.forEach(function (ing) {
+      custoSem += (ing.pct / 100) * 100 * precoKgIngrediente(ing, false);
+      custoCom += (ing.pct / 100) * 100 * precoKgIngrediente(ing, true);
+      pctSum += ing.pct;
+    });
+    var kgSem = custoSem / 100;
+    var kgCom = custoCom / 100;
+    lastCusto = { semFrete: kgSem, comFrete: kgCom };
+
+    resKgSem.textContent = fmtBRL(kgSem);
+    resSacoSem.textContent = fmtBRL(kgSem * 30);
+    resTonSem.textContent = fmtBRL(kgSem * 1000);
+    resKgCom.textContent = fmtBRL(kgCom);
+    resSacoCom.textContent = fmtBRL(kgCom * 30);
+    resTonCom.textContent = fmtBRL(kgCom * 1000);
+
+    var diffKg = kgCom - kgSem;
+    if (Math.abs(diffKg) < 0.001) {
+      diffBanner.className = "diff-banner zero";
+      diffBanner.innerHTML = "Nenhum ingrediente com frete ativo no momento — os dois valores coincidem.";
+    } else {
+      var pct = kgSem > 0 ? (diffKg / kgSem) * 100 : 0;
+      diffBanner.className = "diff-banner";
+      diffBanner.innerHTML = "O frete adiciona <strong>" + fmtBRL(diffKg) + " / kg</strong> (" +
+        pct.toFixed(1).replace(".", ",") + "%) — " + fmtBRL(diffKg * 30) + " a mais por saco de 30 kg.";
+    }
+
+    pctTotalEl.textContent = "Total: " + pctSum.toFixed(1).replace(".", ",") + "%";
+    pctTotalEl.className = "pct-total " + (Math.abs(pctSum - 100) < 0.05 ? "ok" : "warn");
+
+    var rows = ingBody.querySelectorAll("tr.ing-row");
+    rows.forEach(function (tr, i) {
+      var ing = ingredientes[i];
+      if (!ing) return;
+      var kgCell = tr.querySelector(".col-kg");
+      if (!kgCell) return;
+      var semV = precoKgIngrediente(ing, false);
+      var comV = precoKgIngrediente(ing, true);
+      var html = "<div class=\"base\">" + fmtBRL(semV) + "</div>";
+      if (ing.freteAtivo) {
+        html += "<div class=\"frete-badge\">🚚 " + fmtBRL(comV) + "</div>";
+      }
+      kgCell.innerHTML = html;
+    });
+
+    refreshFreteResults();
+  }
+
+  function refreshFreteResults() {
+    var freteRows = ingBody.querySelectorAll(".frete-row");
+    var activeIngs = ingredientes.filter(function (i) { return i.freteAtivo; });
+    freteRows.forEach(function (row, i) {
+      var ing = activeIngs[i];
+      if (!ing) return;
+      var result = row.querySelector(".frete-result");
+      if (!result) return;
+      var custoFrete = freteCustoPorSaca(ing);
+      var origemMaisFrete = ing.precoSaco + custoFrete;
+      result.innerHTML =
+        "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
+        "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
+    });
+  }
+
+  renderIngredientes();
+  recalc();
+
+  var registrosCache = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_registros", []) : [];
+  var saveBtn = document.getElementById("saveBtn");
+  var saveStatus = document.getElementById("saveStatus");
+
+  function persistirRegistros() {
+    if (typeof salvarLocal === "function") salvarLocal("vp_cocho_registros", registrosCache);
+  }
+
+  saveBtn.addEventListener("click", function () {
+    var lote = (loteInput.value || "Sem nome").trim() || "Sem nome";
+    registrosCache.push({
+      id: (typeof uid === "function") ? uid() : String(Date.now()),
+      timestamp: Date.now(),
+      lote: lote,
+      custoPorKgSemFrete: lastCusto.semFrete,
+      custoPorKgComFrete: lastCusto.comFrete,
+      ingredientes: ingredientes.map(function (i) {
+        return {
+          nome: i.nome, pct: i.pct, precoSaco: i.precoSaco, pesoSaco: i.pesoSaco,
+          freteAtivo: i.freteAtivo, frete: i.frete
+        };
+      })
+    });
+    persistirRegistros();
+    renderLegendAndFilters();
+    saveStatus.textContent = "Registro salvo às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
+  });
+
+  function excluirRegistro(id) {
+    registrosCache = registrosCache.filter(function (r) { return r.id !== id; });
+    persistirRegistros();
+    renderLegendAndFilters();
+  }
+
+  var loteFilter = document.getElementById("loteFilter");
+  var legendWrap = document.getElementById("legendWrap");
+  var chartWrap = document.getElementById("chartWrap");
+  var emptyState = document.getElementById("emptyState");
+  var histTable = document.getElementById("histTable");
+  var histBody = document.getElementById("histBody");
+
+  var lastLoteOrder = [];
+
+  function loteNames() {
+    var seen = {}; var order = [];
+    registrosCache.forEach(function (r) {
+      if (!seen[r.lote]) { seen[r.lote] = true; order.push(r.lote); }
+    });
+    return order;
+  }
+
+  function renderLegendAndFilters() {
+    var names = loteNames();
+    var currentFilter = loteFilter.value;
+    loteFilter.innerHTML = "<option value=\"__all__\">Todos os lotes</option>";
+    names.forEach(function (n) {
+      var opt = document.createElement("option");
+      opt.value = n; opt.textContent = n;
+      loteFilter.appendChild(opt);
+    });
+    if (names.indexOf(currentFilter) !== -1 || currentFilter === "__all__") {
+      loteFilter.value = currentFilter;
+    }
+    lastLoteOrder = names;
+    renderLegend(names);
+    renderChart();
+    renderTable();
+  }
+
+  function colorFor(loteName) {
+    var colors = seriesColors();
+    var idx = lastLoteOrder.indexOf(loteName);
+    if (idx === -1) idx = 0;
+    return colors[idx % colors.length];
+  }
+
+  function renderLegend(names) {
+    legendWrap.innerHTML = "";
+    var filtering = loteFilter.value !== "__all__";
+    if (filtering) {
+      var color = colorFor(loteFilter.value);
+      var i1 = document.createElement("div"); i1.className = "legend-item";
+      var s1 = document.createElement("span"); s1.className = "swatch"; s1.style.background = color;
+      i1.appendChild(s1); var t1 = document.createElement("span"); t1.textContent = "Sem frete"; i1.appendChild(t1);
+      legendWrap.appendChild(i1);
+
+      var i2 = document.createElement("div"); i2.className = "legend-item";
+      var s2 = document.createElement("span"); s2.className = "swatch dashed"; s2.style.color = color;
+      i2.appendChild(s2); var t2 = document.createElement("span"); t2.textContent = "Com frete"; i2.appendChild(t2);
+      legendWrap.appendChild(i2);
+      return;
+    }
+    if (names.length <= 1) return;
+    names.forEach(function (n) {
+      var item = document.createElement("div");
+      item.className = "legend-item";
+      var sw = document.createElement("span");
+      sw.className = "swatch"; sw.style.background = colorFor(n);
+      item.appendChild(sw);
+      var label = document.createElement("span");
+      label.textContent = n + " (com frete)";
+      item.appendChild(label);
+      legendWrap.appendChild(item);
+    });
+  }
+
+  loteFilter.addEventListener("change", function () { renderLegend(loteNames()); renderChart(); renderTable(); });
+
+  function filteredRecords() {
+    var f = loteFilter.value;
+    var recs = f === "__all__" ? registrosCache : registrosCache.filter(function (r) { return r.lote === f; });
+    return recs.slice().sort(function (a, b) { return a.timestamp - b.timestamp; });
+  }
+
+  function drawLine(svg, pts, xFn, yFn, valKey, color, dashed) {
+    var svgNS = "http://www.w3.org/2000/svg";
+    if (pts.length > 1) {
+      var areaD = "M " + xFn(pts[0].timestamp) + " " + yFn(pts[0][valKey]);
+      pts.forEach(function (p) { areaD += " L " + xFn(p.timestamp) + " " + yFn(p[valKey]); });
+      var last = pts[pts.length - 1];
+      areaD += " L " + xFn(last.timestamp) + " " + yFn.floor + " L " + xFn(pts[0].timestamp) + " " + yFn.floor + " Z";
+      var area = document.createElementNS(svgNS, "path");
+      area.setAttribute("d", areaD); area.setAttribute("fill", color);
+      area.setAttribute("class", "series-area");
+      svg.appendChild(area);
+    }
+    var lineD = "";
+    pts.forEach(function (p, i) { lineD += (i === 0 ? "M " : " L ") + xFn(p.timestamp) + " " + yFn(p[valKey]); });
+    var path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", lineD);
+    path.setAttribute("class", "series-line" + (dashed ? " com-frete" : ""));
+    path.setAttribute("stroke", color);
+    svg.appendChild(path);
+    return path;
+  }
+
+  function renderChart() {
+    var recs = filteredRecords();
+    chartWrap.querySelectorAll("svg, .tooltip").forEach(function (el) { el.remove(); });
+
+    if (recs.length === 0) {
+      emptyState.style.display = "block";
+      return;
+    }
+    emptyState.style.display = "none";
+
+    var filtering = loteFilter.value !== "__all__";
+
+    var W = 800, H = 260, padL = 60, padR = 16, padT = 16, padB = 30;
+    var innerW = W - padL - padR, innerH = H - padT - padB;
+
+    var allVals = [];
+    recs.forEach(function (r) {
+      allVals.push(r.custoPorKgComFrete);
+      if (filtering) allVals.push(r.custoPorKgSemFrete);
+    });
+    var minV = Math.min.apply(null, allVals);
+    var maxV = Math.max.apply(null, allVals);
+    if (minV === maxV) { minV = minV * 0.9; maxV = maxV * 1.1 || 1; }
+    var pad = (maxV - minV) * 0.15;
+    minV = Math.max(0, minV - pad); maxV = maxV + pad;
+
+    var minT = Math.min.apply(null, recs.map(function (r) { return r.timestamp; }));
+    var maxT = Math.max.apply(null, recs.map(function (r) { return r.timestamp; }));
+    if (minT === maxT) { minT -= 1; maxT += 1; }
+
+    function x(t) { return padL + ((t - minT) / (maxT - minT)) * innerW; }
+    function y(v) { return padT + innerH - ((v - minV) / (maxV - minV)) * innerH; }
+    y.floor = padT + innerH;
+
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("class", "chart");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+    var gridSteps = 4;
+    for (var g = 0; g <= gridSteps; g++) {
+      var gv = minV + (maxV - minV) * (g / gridSteps);
+      var gy = y(gv);
+      var line = document.createElementNS(svgNS, "line");
+      line.setAttribute("x1", padL); line.setAttribute("x2", W - padR);
+      line.setAttribute("y1", gy); line.setAttribute("y2", gy);
+      line.setAttribute("class", "gridline");
+      svg.appendChild(line);
+
+      var label = document.createElementNS(svgNS, "text");
+      label.setAttribute("x", padL - 8); label.setAttribute("y", gy + 3);
+      label.setAttribute("text-anchor", "end"); label.setAttribute("class", "axis-label");
+      label.textContent = "R$ " + gv.toFixed(2).replace(".", ",");
+      svg.appendChild(label);
+    }
+
+    var xTicks = [minT, (minT + maxT) / 2, maxT];
+    xTicks.forEach(function (t) {
+      var label = document.createElementNS(svgNS, "text");
+      label.setAttribute("x", x(t)); label.setAttribute("y", H - 8);
+      label.setAttribute("text-anchor", "middle"); label.setAttribute("class", "axis-label");
+      var d = new Date(t);
+      label.textContent = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+      svg.appendChild(label);
+    });
+
+    var tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    chartWrap.appendChild(tooltip);
+
+    function addDots(pts, valKey, color, labelSuffix) {
+      pts.forEach(function (p) {
+        var dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("cx", x(p.timestamp)); dot.setAttribute("cy", y(p[valKey]));
+        dot.setAttribute("r", 4.5);
+        dot.setAttribute("fill", color);
+        dot.setAttribute("class", "series-dot");
+        dot.addEventListener("mouseenter", function () {
+          tooltip.innerHTML = "<strong>" + p.lote + labelSuffix + "</strong><br>" + fmtDate(p.timestamp) + "<br>" + fmtBRL(p[valKey]) + " / kg";
+          var rect = chartWrap.getBoundingClientRect();
+          var cx = (x(p.timestamp) / W) * rect.width;
+          var cy = (y(p[valKey]) / H) * (rect.height || (H * rect.width / W));
+          tooltip.style.left = cx + "px";
+          tooltip.style.top = cy + "px";
+          tooltip.classList.add("show");
+        });
+        dot.addEventListener("mouseleave", function () { tooltip.classList.remove("show"); });
+        svg.appendChild(dot);
+      });
+    }
+
+    if (filtering) {
+      var color = colorFor(loteFilter.value);
+      drawLine(svg, recs.slice(), x, y, "custoPorKgSemFrete", color, false);
+      drawLine(svg, recs.slice(), x, y, "custoPorKgComFrete", color, true);
+      addDots(recs.slice(), "custoPorKgSemFrete", color, " · sem frete");
+      addDots(recs.slice(), "custoPorKgComFrete", color, " · com frete");
+    } else {
+      var groups = {};
+      recs.forEach(function (r) {
+        if (!groups[r.lote]) groups[r.lote] = [];
+        groups[r.lote].push(r);
+      });
+      Object.keys(groups).forEach(function (loteName) {
+        var pts = groups[loteName].slice().sort(function (a, b) { return a.timestamp - b.timestamp; });
+        var c = colorFor(loteName);
+        drawLine(svg, pts, x, y, "custoPorKgComFrete", c, false);
+        addDots(pts, "custoPorKgComFrete", c, " · com frete");
+      });
+    }
+
+    chartWrap.appendChild(svg);
+  }
+
+  function renderTable() {
+    var recs = filteredRecords().slice().sort(function (a, b) { return b.timestamp - a.timestamp; });
+    if (recs.length === 0) { histTable.style.display = "none"; return; }
+    histTable.style.display = "table";
+    histBody.innerHTML = "";
+    recs.forEach(function (r) {
+      var tr = document.createElement("tr");
+
+      var tdData = document.createElement("td");
+      tdData.textContent = fmtDate(r.timestamp);
+      tr.appendChild(tdData);
+
+      var tdLote = document.createElement("td");
+      var tag = document.createElement("span");
+      tag.className = "lote-tag";
+      var dot = document.createElement("span");
+      dot.className = "lote-dot"; dot.style.background = colorFor(r.lote);
+      tag.appendChild(dot);
+      var txt = document.createElement("span"); txt.textContent = r.lote;
+      tag.appendChild(txt);
+      tdLote.appendChild(tag);
+      tr.appendChild(tdLote);
+
+      var tdSem = document.createElement("td");
+      tdSem.className = "num"; tdSem.textContent = fmtBRL(r.custoPorKgSemFrete);
+      tr.appendChild(tdSem);
+
+      var tdCom = document.createElement("td");
+      tdCom.className = "num"; tdCom.textContent = fmtBRL(r.custoPorKgComFrete);
+      tr.appendChild(tdCom);
+
+      var tdDel = document.createElement("td");
+      var delBtn = document.createElement("button");
+      delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
+      delBtn.title = "Excluir registro";
+      delBtn.addEventListener("click", function () { excluirRegistro(r.id); });
+      tdDel.appendChild(delBtn);
+      tr.appendChild(tdDel);
+
+      histBody.appendChild(tr);
+    });
+  }
+
+  var FORMULAS = {
+    recria:  { label: "Recria (0,3% PV)",  pct: { milho: 66.6, soja: 12.4, probeef: 12.0, sal: 4.0, ureia: 5.0 } },
+    engorda: { label: "Engorda (0,5% PV)", pct: { milho: 73.5, soja: 13.0, probeef: 8.0,  sal: 2.5, ureia: 3.0 } }
+  };
+  var PESO_SACO = { milho: 50, soja: 50, probeef: 25, sal: 25, ureia: 25 };
+  var NOMES = { milho: "Milho", soja: "Farelo de soja", probeef: "Núcleo (PROBEEF)", sal: "Sal", ureia: "Ureia" };
+  var ORDEM = ["milho", "soja", "probeef", "sal", "ureia"];
+
+  var formulaAtual = "recria";
+  var insumoBaseAtual = "milho";
+  var estoqueAtualPorInsumo = { milho: 0, soja: 0, probeef: 0, sal: 0, ureia: 0 };
+
+  var formulasBody = document.getElementById("formulasBody");
+  function renderFormulasTable() {
+    formulasBody.innerHTML = "";
+    ORDEM.forEach(function (k) {
+      var tr = document.createElement("tr");
+      var tdNome = document.createElement("td"); tdNome.textContent = NOMES[k]; tr.appendChild(tdNome);
+
+      var tdPeso = document.createElement("td");
+      var inpPeso = document.createElement("input");
+      inpPeso.type = "number"; inpPeso.min = "1"; inpPeso.step = "1"; inpPeso.value = PESO_SACO[k];
+      inpPeso.style.maxWidth = "70px";
+      inpPeso.addEventListener("input", function () { PESO_SACO[k] = parseFloat(inpPeso.value) || 1; renderEstoque(); });
+      tdPeso.appendChild(inpPeso);
+      tr.appendChild(tdPeso);
+
+      ["recria", "engorda"].forEach(function (fk) {
+        var td = document.createElement("td"); td.className = "num";
+        var inp = document.createElement("input");
+        inp.type = "number"; inp.min = "0"; inp.step = "0.1"; inp.value = FORMULAS[fk].pct[k];
+        inp.addEventListener("input", function () { FORMULAS[fk].pct[k] = parseFloat(inp.value) || 0; renderEstoque(); });
+        td.appendChild(inp);
+        tr.appendChild(td);
+      });
+
+      formulasBody.appendChild(tr);
+    });
+  }
+  renderFormulasTable();
+
+  document.querySelectorAll(".formula-pill").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".formula-pill").forEach(function (b) { b.classList.remove("on"); });
+      btn.classList.add("on");
+      formulaAtual = btn.getAttribute("data-formula");
+      renderEstoque();
+    });
+  });
+
+  var milhoQtdInput = document.getElementById("milhoQtdInput");
+  var milhoQtdLabel = document.getElementById("milhoQtdLabel");
+  var insumoBaseSelect = document.getElementById("insumoBaseSelect");
+  var estDataInput = document.getElementById("estDataInput");
+  (function initDate() {
+    var d = new Date();
+    estDataInput.value = d.toISOString().slice(0, 10);
+  })();
+  milhoQtdInput.addEventListener("input", renderEstoque);
+  insumoBaseSelect.addEventListener("change", function () {
+    insumoBaseAtual = insumoBaseSelect.value;
+    milhoQtdLabel.textContent = NOMES[insumoBaseAtual] + " planejado (kg)";
+    renderEstoque();
+  });
+
+  var estoqueBody = document.getElementById("estoqueBody");
+  var estoqueTotais = document.getElementById("estoqueTotais");
+
+  function calcularNecessidades() {
+    var f = FORMULAS[formulaAtual].pct;
+    var pctBase = f[insumoBaseAtual] || 0;
+    var qtdBase = parseFloat(milhoQtdInput.value) || 0;
+    var totalMix = pctBase > 0 ? (qtdBase / pctBase) * 100 : 0;
+    var need = {};
+    ORDEM.forEach(function (k) { need[k] = totalMix * (f[k] / 100); });
+    return { need: need, totalMix: totalMix };
+  }
+
+  var lastEstoqueSnapshot = null;
+
+  function renderEstoque() {
+    var calc = calcularNecessidades();
+    estoqueBody.innerHTML = "";
+    var totalNecessario = 0, totalFaltaSacos = 0, insumosFaltando = 0;
+    var itens = [];
+
+    ORDEM.forEach(function (k) {
+      var necessarioKg = calc.need[k];
+      var necessarioSacos = Math.ceil(necessarioKg / PESO_SACO[k]);
+      var estoqueKg = estoqueAtualPorInsumo[k] || 0;
+      var saldoKg = estoqueKg - necessarioKg;
+      var comprarSacos = saldoKg < 0 ? Math.ceil(Math.abs(saldoKg) / PESO_SACO[k]) : 0;
+      totalNecessario += necessarioKg;
+      totalFaltaSacos += comprarSacos;
+      if (saldoKg < -0.01) insumosFaltando++;
+
+      itens.push({ insumo: k, nome: NOMES[k], necessarioKg: necessarioKg, necessarioSacos: necessarioSacos, estoqueKg: estoqueKg, saldoKg: saldoKg, comprarSacos: comprarSacos });
+
+      var tr = document.createElement("tr");
+      tr.className = "estoque-row";
+
+      var tdNome = document.createElement("td"); tdNome.setAttribute("data-label", "Insumo"); tdNome.textContent = NOMES[k]; tr.appendChild(tdNome);
+
+      var tdNec = document.createElement("td"); tdNec.className = "num"; tdNec.setAttribute("data-label", "Necessário (kg)"); tdNec.textContent = fmtKg(necessarioKg); tr.appendChild(tdNec);
+
+      var tdNecSc = document.createElement("td"); tdNecSc.className = "num"; tdNecSc.setAttribute("data-label", "Necessário (sacos)"); tdNecSc.textContent = necessarioSacos; tr.appendChild(tdNecSc);
+
+      var tdEst = document.createElement("td"); tdEst.className = "num"; tdEst.setAttribute("data-label", "Estoque atual (kg)");
+      var inpEst = document.createElement("input");
+      inpEst.type = "number"; inpEst.min = "0"; inpEst.step = "1"; inpEst.value = estoqueKg;
+      inpEst.addEventListener("input", function () {
+        estoqueAtualPorInsumo[k] = parseFloat(inpEst.value) || 0;
+        renderEstoque();
+      });
+      tdEst.appendChild(inpEst); tr.appendChild(tdEst);
+
+      var tdSaldo = document.createElement("td"); tdSaldo.className = "num"; tdSaldo.setAttribute("data-label", "Saldo (kg)");
+      tdSaldo.textContent = fmtKg(saldoKg);
+      tdSaldo.style.color = saldoKg < -0.01 ? "var(--critical)" : "var(--good)";
+      tdSaldo.style.fontWeight = "700";
+      tr.appendChild(tdSaldo);
+
+      var tdComprar = document.createElement("td"); tdComprar.className = "num"; tdComprar.setAttribute("data-label", "Comprar (sacos)");
+      tdComprar.textContent = comprarSacos > 0 ? comprarSacos : "—";
+      tr.appendChild(tdComprar);
+
+      var tdBadge = document.createElement("td"); tdBadge.setAttribute("data-label", "Situação");
+      var badge = document.createElement("span");
+      badge.className = "badge " + (saldoKg < -0.01 ? "falta" : "ok");
+      badge.textContent = saldoKg < -0.01 ? "Comprar" : "OK";
+      tdBadge.appendChild(badge);
+      tr.appendChild(tdBadge);
+
+      estoqueBody.appendChild(tr);
+    });
+
+    var racaoPronta = calc.totalMix;
+    estoqueTotais.innerHTML =
+      "<span>Mistura total: <strong>" + fmtKg(racaoPronta) + " kg</strong> (" + fmtKg(racaoPronta / 30) + " sacos de 30 kg)</span>" +
+      "<span>Insumos faltando: <strong style=\"color:" + (insumosFaltando > 0 ? "var(--critical)" : "var(--good)") + "\">" + insumosFaltando + "</strong></span>" +
+      "<span>Sacos a comprar (total): <strong>" + totalFaltaSacos + "</strong></span>";
+
+    lastEstoqueSnapshot = { formula: formulaAtual, insumoBase: insumoBaseAtual, milhoQtd: parseFloat(milhoQtdInput.value) || 0, itens: itens, insumosFaltando: insumosFaltando, totalMix: racaoPronta };
+  }
+  renderEstoque();
+
+  var estRegistrosCache = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_estoque_registros", []) : [];
+  var saveEstBtn = document.getElementById("saveEstBtn");
+  var saveEstStatus = document.getElementById("saveEstStatus");
+  var estHistTable = document.getElementById("estHistTable");
+  var estHistBody = document.getElementById("estHistBody");
+  var estEmptyState = document.getElementById("estEmptyState");
+
+  function persistirEstoqueRegistros() {
+    if (typeof salvarLocal === "function") salvarLocal("vp_cocho_estoque_registros", estRegistrosCache);
+  }
+
+  saveEstBtn.addEventListener("click", function () {
+    if (!lastEstoqueSnapshot) return;
+    estRegistrosCache.unshift({
+      id: (typeof uid === "function") ? uid() : String(Date.now()),
+      timestamp: Date.now(),
+      data: estDataInput.value,
+      formula: lastEstoqueSnapshot.formula,
+      insumoBase: lastEstoqueSnapshot.insumoBase,
+      milhoQtd: lastEstoqueSnapshot.milhoQtd,
+      itens: lastEstoqueSnapshot.itens,
+      insumosFaltando: lastEstoqueSnapshot.insumosFaltando,
+      totalMix: lastEstoqueSnapshot.totalMix
+    });
+    persistirEstoqueRegistros();
+    renderEstHistorico();
+    saveEstStatus.textContent = "Registro salvo às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
+  });
+
+  function excluirRegistroEstoque(id) {
+    estRegistrosCache = estRegistrosCache.filter(function (r) { return r.id !== id; });
+    persistirEstoqueRegistros();
+    renderEstHistorico();
+  }
+
+  function renderEstHistorico() {
+    if (estRegistrosCache.length === 0) {
+      estHistTable.style.display = "none";
+      estEmptyState.style.display = "block";
+      return;
+    }
+    estEmptyState.style.display = "none";
+    estHistTable.style.display = "table";
+    estHistBody.innerHTML = "";
+
+    estRegistrosCache.forEach(function (r) {
+      var tr = document.createElement("tr");
+
+      var tdData = document.createElement("td");
+      tdData.textContent = r.data ? new Date(r.data + "T00:00:00").toLocaleDateString("pt-BR") : fmtDate(r.timestamp);
+      tr.appendChild(tdData);
+
+      var tdFormula = document.createElement("td");
+      tdFormula.textContent = FORMULAS[r.formula] ? FORMULAS[r.formula].label : r.formula;
+      tr.appendChild(tdFormula);
+
+      var tdMilho = document.createElement("td");
+      tdMilho.className = "num"; tdMilho.textContent = (NOMES[r.insumoBase] || "Milho") + ": " + fmtKg(r.milhoQtd) + " kg";
+      tr.appendChild(tdMilho);
+
+      var tdBadge = document.createElement("td");
+      var badge = document.createElement("span");
+      badge.className = "badge " + (r.insumosFaltando > 0 ? "falta" : "ok");
+      badge.textContent = r.insumosFaltando > 0 ? ("Faltam " + r.insumosFaltando) : "Estoque OK";
+      tdBadge.appendChild(badge);
+      tr.appendChild(tdBadge);
+
+      var tdAcoes = document.createElement("td");
+      var verBtn = document.createElement("button");
+      verBtn.className = "link-btn"; verBtn.type = "button"; verBtn.textContent = "ver detalhes";
+      var delBtn = document.createElement("button");
+      delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
+      delBtn.title = "Excluir registro"; delBtn.style.marginLeft = "8px";
+      delBtn.addEventListener("click", function () { excluirRegistroEstoque(r.id); });
+      tdAcoes.appendChild(verBtn); tdAcoes.appendChild(delBtn);
+      tr.appendChild(tdAcoes);
+
+      estHistBody.appendChild(tr);
+
+      var detailTr = document.createElement("tr");
+      detailTr.className = "detail-row hidden";
+      var detailTd = document.createElement("td");
+      detailTd.colSpan = 5;
+      var detailTableHtml = "<table style=\"width:100%;font-size:12.5px;border-collapse:collapse\">" +
+        "<tr style=\"color:var(--text-muted);text-align:left\"><th>Insumo</th><th style=\"text-align:right\">Necessário (kg)</th><th style=\"text-align:right\">Estoque (kg)</th><th style=\"text-align:right\">Saldo (kg)</th></tr>" +
+        r.itens.map(function (it) {
+          return "<tr><td>" + it.nome + "</td><td style=\"text-align:right\">" + fmtKg(it.necessarioKg) +
+            "</td><td style=\"text-align:right\">" + fmtKg(it.estoqueKg) +
+            "</td><td style=\"text-align:right;color:" + (it.saldoKg < -0.01 ? "var(--critical)" : "var(--good)") + "\">" + fmtKg(it.saldoKg) + "</td></tr>";
+        }).join("") + "</table>";
+      detailTd.innerHTML = detailTableHtml;
+      detailTr.appendChild(detailTd);
+      estHistBody.appendChild(detailTr);
+
+      verBtn.addEventListener("click", function () {
+        detailTr.classList.toggle("hidden");
+        verBtn.textContent = detailTr.classList.contains("hidden") ? "ver detalhes" : "ocultar";
+      });
+    });
+  }
+
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
+      renderLegendAndFilters();
+    });
+  }
+
+  renderLegendAndFilters();
+  renderEstHistorico();
+})();
 </script>
 </body>
 </html>
