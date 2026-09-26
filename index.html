@@ -683,7 +683,11 @@ footer.note {
         Sem endereço configurado, tudo continua salvo neste aparelho normalmente.
       </div>
       <input type="url" id="cfg-nuvem-url" placeholder="https://script.google.com/.../exec" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-d);background:var(--bg2);color:var(--txt);font:inherit;margin-bottom:10px">
-      <button class="btn btn-verde" onclick="salvarCfgNuvem()">Salvar endereço</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-verde" onclick="salvarCfgNuvem()">Salvar endereço</button>
+        <button class="btn btn-out" onclick="enviarNuvemManual()">↑ Enviar para nuvem agora</button>
+      </div>
+      <div id="cfg-nuvem-status" style="font-size:12px;color:var(--txt2);margin-top:8px"></div>
     </div>
 
     <div class="card">
@@ -1417,7 +1421,13 @@ async function tentarEnviarFila() {
   FILA_ENVIO = restantes;
   salvarLocal('vp_fila_envio', FILA_ENVIO);
   renderFilaEnvio();
-  if (restantes.length === 0) toastPainel('✓ Lançamentos enviados para a nuvem');
+  const status = $('cfg-nuvem-status');
+  if (restantes.length === 0) {
+    toastPainel('✓ Lançamentos enviados para a nuvem');
+    if (status) status.textContent = 'Tudo enviado ✓';
+  } else if (status) {
+    status.textContent = `${restantes.length} lançamento(s) ainda não confirmados — vai tentar de novo mais tarde.`;
+  }
 }
 
 function salvarCfgNuvem() {
@@ -1425,6 +1435,27 @@ function salvarCfgNuvem() {
   salvarLocal('vp_cfg_nuvem', CFG_NUVEM);
   toastPainel('✓ Endereço salvo');
   if (navigator.onLine) tentarEnviarFila();
+}
+
+function enviarNuvemManual() {
+  const status = $('cfg-nuvem-status');
+  if (!CFG_NUVEM.url) {
+    if (status) status.textContent = 'Cole e salve o endereço do Apps Script antes de enviar.';
+    toastPainel('Configure o endereço da nuvem primeiro');
+    return;
+  }
+  if (!FILA_ENVIO.length) {
+    if (status) status.textContent = 'Nada pendente — tudo já foi enviado.';
+    toastPainel('Nada pendente para enviar');
+    return;
+  }
+  if (!navigator.onLine) {
+    if (status) status.textContent = `Sem internet agora — ${FILA_ENVIO.length} lançamento(s) continuam salvos no aparelho.`;
+    toastPainel('Sem internet — vai enviar quando conectar');
+    return;
+  }
+  if (status) status.textContent = 'Enviando…';
+  tentarEnviarFila();
 }
 
 /* ══════════════════ SANIDADE ══════════════════ */
