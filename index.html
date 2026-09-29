@@ -176,20 +176,54 @@ main { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
 .mod-picker { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 
 .map-wrap {
-  position: relative; width: 100%; aspect-ratio: 4/5; max-height: 760px;
-  background: var(--bg3); border-radius: var(--r-sm); overflow: hidden;
+  position: relative; width: 100%; aspect-ratio: 1/1; max-height: 72vh;
+  background: #26352b; border-radius: var(--r-sm); overflow: hidden;
   border: 1px solid var(--border);
 }
 @media (min-width: 720px) {
   .map-wrap { aspect-ratio: 16/11; max-height: 820px; }
 }
-#map-svg { width: 100%; height: 100%; display: block; touch-action: pan-y pinch-zoom; }
-.piq-shape { stroke: rgba(0,0,0,.35); stroke-width: .8; cursor: pointer; transition: opacity .12s; fill-opacity: .55; }
+#map-svg { width: 100%; height: 100%; display: block; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.map-wrap.fs #map-svg { touch-action: none; }
+.map-wrap.fs {
+  position: fixed; inset: 0; z-index: 60; max-height: none; aspect-ratio: auto;
+  border-radius: 0; border: none; background: #1d2a22;
+}
+body.map-fs { overflow: hidden; }
+body.map-fs .painel-piquete {
+  position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 61; max-width: 420px; margin: 0 auto; box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+.map-ctrl { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 6px; z-index: 4; }
+.map-ctrl button {
+  width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border-d);
+  background: var(--bg2); color: var(--txt); font-size: 20px; font-weight: 800; cursor: pointer;
+  box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.map-ctrl button.sm { font-size: 15px; }
+.map-hint { position: absolute; left: 10px; top: 10px; z-index: 4; font-size: 11px; font-weight: 700;
+  background: rgba(255,255,255,.88); color: #1C2B1E; padding: 5px 9px; border-radius: 8px; pointer-events: none; }
+.map-wrap.fs .map-hint { background: rgba(0,0,0,.55); color: #fff; }
+.map-toggles { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--txt2); font-weight: 700; }
+.map-toggles label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.piq-num { font-weight: 900; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.6); }
+.piq-sub { font-weight: 700; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.55); opacity: .95; }
+.gado-pin { pointer-events: none; }
+.gado-pin .pulse { transform-box: fill-box; transform-origin: center; animation: pulso 1.8s ease-out infinite; }
+@keyframes pulso { 0% { opacity: .55; transform: scale(.85); } 100% { opacity: 0; transform: scale(1.7); } }
+.gado-ico { text-anchor: middle; pointer-events: none; }
+.lote-pill text { font-weight: 800; fill: #fff; pointer-events: none; }
+.lote-pill { pointer-events: none; }
+.sync-chip { font-size: 11.5px; font-weight: 700; color: var(--campo-d); background: var(--campo-cl);
+  border: 1.5px solid var(--campo); padding: 6px 12px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.sync-chip.erro { color: var(--vermelho); background: var(--verm-cl); border-color: var(--vermelho); }
+.sync-chip.antigo { color: #7a5c05; background: var(--ambar-cl); border-color: var(--ambar); }
+.piq-shape { stroke: rgba(255,255,255,.75); stroke-width: 1.2; cursor: pointer; transition: opacity .12s; fill-opacity: .42; vector-effect: non-scaling-stroke; }
 .piq-shape:hover { fill-opacity: .8; }
-.piq-shape.selecionado { stroke: var(--txt); stroke-width: 2.2; fill-opacity: .9; }
-.piq-shape.ocup { fill-opacity: .85; stroke: var(--campo-d); stroke-width: 1.4; }
-.piq-shape.venc { fill: var(--vermelho) !important; fill-opacity: .8; stroke: #7a1f1f; stroke-width: 1.4; }
-.piq-shape.hoje { fill: var(--ambar) !important; fill-opacity: .8; stroke: #7a5c05; stroke-width: 1.4; }
+.piq-shape.selecionado { stroke: #ffe14d; stroke-width: 3.5; fill-opacity: .9; }
+.piq-shape.ocup { fill-opacity: .9; stroke: #fff; stroke-width: 2.6; }
+.piq-shape.venc { fill-opacity: .9; stroke: #ff5c5c; stroke-width: 3; }
+.piq-shape.hoje { fill-opacity: .9; stroke: #ffc53d; stroke-width: 3; }
 .piq-shape.dim { fill-opacity: .18; }
 .piq-label { font-size: 3.4px; font-weight: 800; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.55); stroke-width: .6px; }
 .map-tip {
@@ -557,7 +591,16 @@ footer.note {
 .cocho-scope .formulas-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 4px; }
 .cocho-scope .formulas-table th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 0 6px 8px; border-bottom: 1px solid var(--border); }
 .cocho-scope .formulas-table td { padding: 6px; border-top: 1px solid var(--border); }
-.cocho-scope .formulas-table td.num input { text-align: right; max-width: 84px; }
+.cocho-scope .formulas-table td.num input { text-align: right; max-width: 72px; }
+.cocho-scope .formulas-table td.num { text-align: right; }
+.cocho-scope .pct-val { display: block; font-size: 17px; font-weight: 900; color: var(--campo-d); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.cocho-scope .pct-kg { display: block; font-size: 11px; color: var(--txt2); font-weight: 600; }
+.cocho-scope .pct-wrap { display: inline-flex; align-items: center; gap: 2px; }
+.cocho-scope .formulas-table th, .cocho-scope .formulas-table td { padding-left: 3px !important; padding-right: 3px !important; }
+.cocho-scope .pct-suf { font-weight: 800; color: var(--txt2); }
+.cocho-scope .formulas-table input[type=number] { width: 54px; min-width: 54px; max-width: 54px !important; padding: 7px 6px !important; text-align: right; font-weight: 700; -moz-appearance: textfield; }
+.cocho-scope .formulas-table input[type=number]::-webkit-inner-spin-button, .cocho-scope .formulas-table input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.cocho-scope .formulas-total td { font-weight: 900; border-top: 2px solid var(--border-d); padding-top: 9px; }
 .cocho-scope .milho-input-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin: 4px 0 18px; }
 .cocho-scope .milho-input-row > div { min-width: 160px; flex: 1; }
 .cocho-scope .milho-input-row .grow { flex: 2; min-width: 220px; }
@@ -571,6 +614,12 @@ footer.note {
 .cocho-scope .badge.falta { background: var(--critical-bg); color: var(--critical); }
 .cocho-scope .estoque-totais { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 13px; }
 .cocho-scope .estoque-totais strong { font-variant-numeric: tabular-nums; }
+.cocho-scope .est-sacos { width: 92px; text-align: right; font-size: 16px !important; font-weight: 800; }
+.cocho-scope .rende-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
+.cocho-scope .rende-tile { border: 1.5px solid var(--border-d); border-radius: 12px; padding: 12px 14px; background: var(--surface-alt); }
+.cocho-scope .rende-tile .rt-lbl { font-size: 11.5px; font-weight: 800; color: var(--txt2); text-transform: uppercase; letter-spacing: .3px; }
+.cocho-scope .rende-tile .rt-val { font-size: 26px; font-weight: 900; color: var(--campo-d); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.cocho-scope .rende-tile .rt-sub { font-size: 12px; color: var(--txt2); }
 .cocho-scope .detail-row td { border-top: none; padding: 0 6px 14px; background: var(--surface-alt); }
 .cocho-scope .detail-row.hidden { display: none; }
 .cocho-scope .link-btn { font: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
@@ -584,6 +633,16 @@ footer.note {
   .cocho-scope .col-del::before, .cocho-scope .col-frete-btn::before { content: none !important; }
   .cocho-scope .frete-row td { padding: 0 6px 10px; }
   .cocho-scope .result-panel .val-kg { font-size: 25px; }
+  /* lançamento de estoque e planejamento: tabela compacta no celular (uma linha por insumo) */
+  .cocho-scope #estoqueTable thead, .cocho-scope #planoTable thead { display: table-header-group; }
+  .cocho-scope #estoqueTable .estoque-row, .cocho-scope #planoTable .estoque-row { display: table-row; padding: 0; }
+  .cocho-scope #estoqueTable .estoque-row td, .cocho-scope #planoTable .estoque-row td { display: table-cell; padding: 9px 4px; }
+  .cocho-scope #estoqueTable .estoque-row td::before, .cocho-scope #planoTable .estoque-row td::before { content: none; }
+  .cocho-scope #estoqueTable th:nth-child(3), .cocho-scope #estoqueTable td:nth-child(3) { display: none; }
+  .cocho-scope #planoTable th:nth-child(2), .cocho-scope #planoTable td:nth-child(2),
+  .cocho-scope #planoTable th:nth-child(4), .cocho-scope #planoTable td:nth-child(4),
+  .cocho-scope #planoTable th:nth-child(6), .cocho-scope #planoTable td:nth-child(6) { display: none; }
+  .cocho-scope #estoqueTable th, .cocho-scope #planoTable th { font-size: 10px; padding: 0 4px 6px; }
   .cocho-scope .result-pair { grid-template-columns: 1fr; }
 }
 
@@ -645,20 +704,32 @@ footer.note {
       <button class="btn btn-verde" onclick="abrirModalMovimento()">🔄 Registrar mudança de piquete</button>
       <button class="btn btn-out" onclick="abrirModalOcorrencia()">⚠ Registrar ocorrência</button>
       <span id="fila-badge" class="fila-badge" style="display:none"></span>
+      <span id="sync-chip" class="sync-chip" onclick="sincronizarAgora()" title="Toque para sincronizar agora">↻ Sincronizando…</span>
     </div>
 
     <div class="card">
       <div class="card-title">MAPA DA FAZENDA — TOQUE NUM PIQUETE PARA VER DETALHES</div>
       <div class="mod-picker" id="mod-picker-map"></div>
-      <div class="map-wrap">
+      <div class="map-wrap" id="map-wrap">
         <svg id="map-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="map-hint" id="map-hint">Pinça ou + / − para zoom</div>
+        <div class="map-ctrl">
+          <button type="button" onclick="zoomMapa(1.4)" title="Aproximar">+</button>
+          <button type="button" onclick="zoomMapa(1/1.4)" title="Afastar">−</button>
+          <button type="button" class="sm" onclick="resetMapa()" title="Ver tudo">↺</button>
+          <button type="button" class="sm" id="btn-fs" onclick="telaCheiaMapa()" title="Tela cheia">⛶</button>
+        </div>
         <div id="map-tooltip" class="map-tip"></div>
       </div>
       <div class="legenda">
-        <span><i style="background:var(--campo-cl);border-color:var(--campo)"></i>Ocupado</span>
-        <span><i style="background:var(--ambar-cl);border-color:var(--ambar)"></i>Último dia (limite)</span>
-        <span><i style="background:var(--verm-cl);border-color:var(--vermelho)"></i>Passou do prazo</span>
-        <span><i style="background:var(--bg2);border-color:var(--border)"></i>Em descanso</span>
+        <span><i style="background:#2f9e44;border-color:#fff"></i>🐄 Lote no piquete (dentro do prazo)</span>
+        <span><i style="background:#f0a020;border-color:#ffc53d"></i>🐄 Último dia (limite)</span>
+        <span><i style="background:#d9363e;border-color:#ff5c5c"></i>🐄 Passou do prazo</span>
+        <span><i style="background:var(--bg3);border-color:var(--border-d)"></i>Em descanso (nº = dias sem gado)</span>
+      </div>
+      <div class="map-toggles">
+        <label><input type="checkbox" id="tgl-descanso" checked onchange="renderMapaSVG()"> dias de descanso</label>
+        <label><input type="checkbox" id="tgl-ha" onchange="renderMapaSVG()"> área (ha)</label>
       </div>
       <div id="painel-piquete" class="painel-piquete" style="display:none"></div>
     </div>
@@ -676,16 +747,17 @@ footer.note {
     </div>
 
     <div class="card">
-      <div class="card-title">ENVIO PARA A NUVEM (opcional)</div>
+      <div class="card-title">SINCRONIZAÇÃO COM A PLANILHA (Google Sheets)</div>
       <div style="font-size:12px;color:var(--txt2);margin-bottom:10px;line-height:1.6">
-        Cole aqui o endereço do Google Apps Script para os lançamentos serem enviados
-        automaticamente para uma planilha na nuvem assim que houver internet.
-        Sem endereço configurado, tudo continua salvo neste aparelho normalmente.
+        Todo lançamento fica salvo primeiro neste aparelho (funciona sem internet) e é enviado
+        para a planilha <b>Painel Fazenda Conquista — Dados</b> assim que houver sinal.
+        Quando conecta, o app também <b>busca</b> o que os outros celulares lançaram.
+        O endereço abaixo já vem preenchido — só mude se trocar o script.
       </div>
       <input type="url" id="cfg-nuvem-url" placeholder="https://script.google.com/.../exec" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-d);background:var(--bg2);color:var(--txt);font:inherit;margin-bottom:10px">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button class="btn btn-verde" onclick="salvarCfgNuvem()">Salvar endereço</button>
-        <button class="btn btn-out" onclick="enviarNuvemManual()">↑ Enviar para nuvem agora</button>
+        <button class="btn btn-out" onclick="sincronizarAgora()">↻ Sincronizar agora</button>
       </div>
       <div id="cfg-nuvem-status" style="font-size:12px;color:var(--txt2);margin-top:8px"></div>
     </div>
@@ -868,12 +940,15 @@ footer.note {
   <div class="cocho-scope">
 
   <div class="card">
-    <h2>Formulações do Proteico Energético</h2>
-    <div class="sub">Percentuais fixos da fábrica (PROBEEF NC Topmost+). Ajuste aqui apenas se a receita mudar — servem de base para o cálculo de estoque abaixo.</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+      <h2 style="margin:0">Formulações do Proteico Energético</h2>
+      <button class="link-btn" id="btnEditarFormulas" type="button">✎ Editar fórmulas</button>
+    </div>
+    <div class="sub">Percentual de cada insumo na mistura (PROBEEF NC Topmost+) e quanto vai em cada saco de 30 kg de ração. Toque em "Editar fórmulas" só se a receita mudar.</div>
     <div class="table-wrap">
       <table class="formulas-table" id="formulasTable">
         <thead>
-          <tr><th>Insumo</th><th>Peso saco (kg)</th><th style="text-align:right">Recria (0,3% PV)</th><th style="text-align:right">Engorda (0,5% PV)</th></tr>
+          <tr><th>Insumo</th><th>Saco</th><th style="text-align:right">Recria (0,3% PV)</th><th style="text-align:right">Engorda (0,5% PV)</th></tr>
         </thead>
         <tbody id="formulasBody"></tbody>
       </table>
@@ -881,8 +956,41 @@ footer.note {
   </div>
 
   <div class="card">
-    <h2>Lançar produção / estoque do dia</h2>
-    <div class="sub">Informe a quantidade planejada de um insumo e o estoque atual de cada um — o app calcula o necessário e o que falta ou sobra.</div>
+    <h2>Lançar estoque do dia</h2>
+    <div class="sub">Conte os sacos de cada insumo no depósito e lance aqui. Não precisa escolher recria ou engorda — o app só mostra quanto de ração esse estoque rende.</div>
+
+    <div class="milho-input-row">
+      <div>
+        <label for="estDataInput">Data da contagem</label>
+        <input type="date" id="estDataInput">
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="estoque-table" id="estoqueTable">
+        <thead>
+          <tr>
+            <th style="width:auto">Insumo</th>
+            <th class="num">Sacos em estoque</th>
+            <th class="num">Peso do saco</th>
+            <th class="num">Total (kg)</th>
+          </tr>
+        </thead>
+        <tbody id="estoqueBody"></tbody>
+      </table>
+    </div>
+
+    <div class="rende-box" id="rendeBox"></div>
+
+    <div class="save-row">
+      <button class="save-btn" id="saveEstBtn" type="button">Salvar estoque do dia</button>
+      <span class="save-status" id="saveEstStatus"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Planejar uma produção (opcional)</h2>
+    <div class="sub">Só na hora de fabricar: escolha a fórmula e a quantidade de um insumo — o app calcula o resto e compara com o estoque lançado acima.</div>
 
     <div class="formula-pick" id="formulaPick">
       <button class="formula-pill on" data-formula="recria" type="button">Recria (0,3% PV)</button>
@@ -891,11 +999,7 @@ footer.note {
 
     <div class="milho-input-row">
       <div>
-        <label for="estDataInput">Data</label>
-        <input type="date" id="estDataInput">
-      </div>
-      <div>
-        <label for="insumoBaseSelect">Lançar quantidade de</label>
+        <label for="insumoBaseSelect">Partir da quantidade de</label>
         <select id="insumoBaseSelect">
           <option value="milho">Milho</option>
           <option value="soja">Farelo de soja</option>
@@ -905,47 +1009,41 @@ footer.note {
         </select>
       </div>
       <div class="grow">
-        <label for="milhoQtdInput" id="milhoQtdLabel">Milho planejado (kg)</label>
-        <input type="number" id="milhoQtdInput" min="0" step="1" value="1000">
+        <label for="milhoQtdInput" id="milhoQtdLabel">Milho a usar (sacos)</label>
+        <input type="number" id="milhoQtdInput" min="0" step="1" value="20" inputmode="decimal">
       </div>
     </div>
 
     <div class="table-wrap">
-      <table class="estoque-table" id="estoqueTable">
+      <table class="estoque-table" id="planoTable">
         <thead>
           <tr>
             <th style="width:auto">Insumo</th>
             <th class="num">Necessário (kg)</th>
             <th class="num">Necessário (sacos)</th>
-            <th class="num">Estoque atual (kg)</th>
+            <th class="num">Em estoque (kg)</th>
             <th class="num">Saldo (kg)</th>
             <th class="num">Comprar (sacos)</th>
             <th></th>
           </tr>
         </thead>
-        <tbody id="estoqueBody"></tbody>
+        <tbody id="planoBody"></tbody>
       </table>
     </div>
-
     <div class="estoque-totais" id="estoqueTotais"></div>
-
-    <div class="save-row">
-      <button class="save-btn" id="saveEstBtn" type="button">Salvar registro de estoque</button>
-      <span class="save-status" id="saveEstStatus"></span>
-    </div>
   </div>
 
   <div class="card">
     <h2>Histórico de estoque</h2>
-    <div class="sub">Cada linha é uma data lançada. Clique em "ver detalhes" para revisar insumo a insumo.</div>
+    <div class="sub">Cada linha é uma contagem lançada (deste e dos outros aparelhos). "Rende" = sacos de ração de 30 kg que dá para fabricar com aquele estoque.</div>
     <div class="table-wrap">
       <table class="hist-table" id="estHistTable" style="display:none">
         <thead>
           <tr>
             <th>Data</th>
-            <th>Fórmula</th>
-            <th style="text-align:right">Insumo lançado</th>
-            <th>Situação</th>
+            <th>Estoque (sacos)</th>
+            <th style="text-align:right">Rende recria</th>
+            <th style="text-align:right">Rende engorda</th>
             <th></th>
           </tr>
         </thead>
@@ -963,7 +1061,7 @@ footer.note {
 
 </main>
 
-<footer class="note">Painel local — os dados ficam só neste navegador. Nada é enviado para nenhum servidor.</footer>
+<footer class="note">Vaqueiro Prateado — funciona sem internet; os lançamentos vão para a planilha da fazenda quando houver sinal.</footer>
 <script>
 /* ═══════════════════════════════════════════════════════
    PAINEL FAZENDA CONQUISTA
@@ -974,6 +1072,11 @@ footer.note {
    ═══════════════════════════════════════════════════════ */
 
 const PIQ_POR_MOD = { A: 18, B: 14, C: 17, D: 20 };
+// lista real de piquetes de cada módulo (o Módulo D vai do 00 ao 19)
+function numsDoModulo(mod) {
+  return Object.keys((typeof PIQUETES_GEO !== 'undefined' && PIQUETES_GEO[mod]) || {})
+    .map(n => parseInt(n, 10)).sort((a, b) => a - b);
+}
 const MOD_NOME = { A: 'Módulo A', B: 'Módulo B', C: 'Módulo C', D: 'Módulo D' };
 const MOD_FAIXA = {
   A: 'até 260 kg · Recria',
@@ -999,7 +1102,10 @@ let LOTES = [];      // {id, nome, modulo, piquete, entrada, cabecas} — deriva
 let MOVIMENTACOES = carregarLocal('vp_movimentacoes', []);   // histórico completo de entradas/saídas
 let OCORRENCIAS = carregarLocal('vp_ocorrencias', []);        // eventos por piquete
 let FILA_ENVIO = carregarLocal('vp_fila_envio', []);          // pendentes de sincronizar com a nuvem
+const URL_NUVEM_PADRAO = 'https://script.google.com/macros/s/AKfycbwoLLGwuJJooROwe4KdXaZoCi_O5ZLa3y-UFYamJaK3n00DCjG03Z_SDnev5o6eh18/exec';
 let CFG_NUVEM = carregarLocal('vp_cfg_nuvem', { url: '' });
+if (!CFG_NUVEM.url) CFG_NUVEM.url = URL_NUVEM_PADRAO;   // todos os aparelhos já saem configurados
+let PIQ_DESCANSO = {};   // 'D-10' -> data (yyyy-mm-dd) em que o último lote saiu
 let SANIDADE = { produtos: [], aplicacoes: [] };
 let PESO = { animais: [], sessaoInfo: {} };
 let modAtual = 'A';
@@ -1014,14 +1120,30 @@ function salvarLocal(chave, valor) {
 
 // Recalcula LOTES (ocupação atual) a partir de MOVIMENTACOES: para cada lote,
 // pega o lançamento de entrada mais recente que ainda não tem saída registrada.
+function ordemMov(a, b) {
+  return String(a.entrada).localeCompare(String(b.entrada)) || ((a.ts || 0) - (b.ts || 0));
+}
 function recalcularLotes() {
   const porLote = {};
-  MOVIMENTACOES.slice().sort((a,b) => a.entrada.localeCompare(b.entrada)).forEach(m => {
-    porLote[m.lote] = m;   // o mais recente por ordem de entrada vence
+  const ordenadas = MOVIMENTACOES.slice().sort(ordemMov);
+  ordenadas.forEach(m => { (porLote[m.lote] = porLote[m.lote] || []).push(m); });
+  LOTES = [];
+  PIQ_DESCANSO = {};
+  Object.values(porLote).forEach(lista => {
+    lista.forEach((m, i) => {
+      const prox = lista[i + 1];
+      // saída = a registrada, ou a entrada do lançamento seguinte do mesmo lote
+      const saida = m.saida || (prox ? prox.entrada : null);
+      if (saida) {
+        const k = m.modulo + '-' + parseInt(m.piquete, 10);
+        if (!PIQ_DESCANSO[k] || PIQ_DESCANSO[k] < saida) PIQ_DESCANSO[k] = saida;
+      } else if (i === lista.length - 1) {
+        LOTES.push({ id: m.id, nome: m.lote, modulo: m.modulo, piquete: m.piquete, entrada: m.entrada, cabecas: m.cabecas });
+      }
+    });
   });
-  LOTES = Object.values(porLote)
-    .filter(m => !m.saida)   // só lotes ainda sem saída registrada estão "no piquete"
-    .map(m => ({ id: m.id, nome: m.lote, modulo: m.modulo, piquete: m.piquete, entrada: m.entrada, cabecas: m.cabecas }));
+  // piquete ocupado agora não está em descanso
+  LOTES.forEach(l => { delete PIQ_DESCANSO[l.modulo + '-' + parseInt(l.piquete, 10)]; });
 }
 
 window.addEventListener('load', () => {
@@ -1034,9 +1156,13 @@ window.addEventListener('load', () => {
   configurarDropzones();
   configurarLancamentos();
   renderFilaEnvio();
-  window.addEventListener('online', tentarEnviarFila);
-  // tenta enviar ao abrir, caso já esteja online e haja pendências de sessão anterior
-  if (navigator.onLine) tentarEnviarFila();
+  configurarZoomMapa();
+  window.addEventListener('online', sincronizarAgora);
+  window.addEventListener('offline', () => { renderFilaEnvio(); renderSyncChip(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) sincronizarAgora(); });
+  setInterval(() => { if (!document.hidden) sincronizarAgora(true); }, 90000);
+  renderSyncChip();
+  sincronizarAgora();   // envia pendências e busca o que os outros aparelhos lançaram
 });
 
 /* ══ NAVEGAÇÃO ══ */
@@ -1086,7 +1212,7 @@ function montarModPickerMapa() {
   const opcoes = ['TODOS', ...Object.keys(PIQ_POR_MOD)];
   el.innerHTML = opcoes.map(m => {
     const label = m==='TODOS' ? 'Fazenda toda' : MOD_NOME[m];
-    const n = m==='TODOS' ? Object.values(PIQ_POR_MOD).reduce((a,b)=>a+b,0) : PIQ_POR_MOD[m];
+    const n = m==='TODOS' ? Object.values(PIQUETES_GEO).reduce((a,x)=>a+Object.keys(x).length,0) : numsDoModulo(m).length;
     const cls = m===modMapa ? (m==='TODOS' ? 'on' : 'on-'+m) : '';
     return `<button class="mod-btn ${cls}" onclick="selecionarModuloMapa('${m}')">${label}<span class="n">· ${n}</span></button>`;
   }).join('');
@@ -1102,52 +1228,162 @@ function ocupacaoAtual(modulo, piquete) {
   return LOTES.find(l => l.modulo === modulo && parseInt(l.piquete, 10) === alvo);
 }
 
+const COR_STATUS = { ocup: '#2f9e44', hoje: '#f0a020', venc: '#d9363e' };
+let mapVB = null, mapVB0 = null, _vbModo = null, mapArrastou = false;
+
+function aplicarVB() {
+  if (!mapVB) return;
+  $('map-svg').setAttribute('viewBox', `${mapVB.x.toFixed(1)} ${mapVB.y.toFixed(1)} ${mapVB.w.toFixed(1)} ${mapVB.h.toFixed(1)}`);
+}
+function zoomMapa(f, cx, cy) {
+  if (!mapVB) return;
+  const novoW = Math.min(mapVB0.w * 1.6, Math.max(mapVB0.w / 14, mapVB.w / f));
+  f = mapVB.w / novoW;
+  if (cx === undefined) { cx = mapVB.x + mapVB.w / 2; cy = mapVB.y + mapVB.h / 2; }
+  mapVB.x = cx - (cx - mapVB.x) / f; mapVB.y = cy - (cy - mapVB.y) / f;
+  mapVB.w /= f; mapVB.h /= f;
+  aplicarVB();
+  const h = $('map-hint'); if (h) h.style.display = 'none';
+}
+function resetMapa() { if (mapVB0) { mapVB = { ...mapVB0 }; aplicarVB(); } }
+function telaCheiaMapa() {
+  const w = $('map-wrap');
+  const on = !w.classList.contains('fs');
+  w.classList.toggle('fs', on);
+  document.body.classList.toggle('map-fs', on);
+  $('btn-fs').textContent = on ? '✕' : '⛶';
+  $('btn-fs').title = on ? 'Sair da tela cheia' : 'Tela cheia';
+}
+// arrastar com 1 dedo / mouse, pinça com 2 dedos, roda do mouse
+function configurarZoomMapa() {
+  const svg = $('map-svg');
+  const pts = new Map();
+  let ini = null, pinchD = null;
+  const paraSvg = (cx, cy) => {
+    const m = svg.getScreenCTM(); if (!m) return [0, 0];
+    const p = svg.createSVGPoint(); p.x = cx; p.y = cy;
+    const q = p.matrixTransform(m.inverse()); return [q.x, q.y];
+  };
+  svg.addEventListener('wheel', e => {
+    e.preventDefault();
+    const [x, y] = paraSvg(e.clientX, e.clientY);
+    zoomMapa(e.deltaY < 0 ? 1.18 : 1 / 1.18, x, y);
+  }, { passive: false });
+  svg.addEventListener('pointerdown', e => {
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 1) { ini = { x: e.clientX, y: e.clientY }; mapArrastou = false; }
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; pinchD = Math.hypot(a.x - b.x, a.y - b.y); }
+  });
+  svg.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId)) return;
+    const ant = pts.get(e.pointerId);
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinchD) { const [x, y] = paraSvg((a.x + b.x) / 2, (a.y + b.y) / 2); zoomMapa(d / pinchD, x, y); }
+      pinchD = d; mapArrastou = true; esconderTip();
+      return;
+    }
+    if (pts.size === 1 && ini) {
+      if (!mapArrastou && Math.hypot(e.clientX - ini.x, e.clientY - ini.y) < 7) return;
+      if (!mapArrastou) { mapArrastou = true; try { svg.setPointerCapture(e.pointerId); } catch (_) {} }
+      const m = svg.getScreenCTM(); if (!m) return;
+      mapVB.x -= (e.clientX - ant.x) / m.a; mapVB.y -= (e.clientY - ant.y) / m.d;
+      aplicarVB(); esconderTip();
+    }
+  });
+  const fim = e => { pts.delete(e.pointerId); if (pts.size < 2) pinchD = null; if (!pts.size) ini = null; };
+  svg.addEventListener('pointerup', fim);
+  svg.addEventListener('pointercancel', fim);
+}
+
+function abreviarLote(nome) {
+  const n = String(nome || '').trim();
+  const m = n.match(/^lote\s*(.+)$/i);
+  if (m) return 'Lote ' + m[1];
+  return n.length > 16 ? n.slice(0, 15) + '…' : n;
+}
+
 function renderMapaSVG() {
   const svg = $('map-svg');
   const mods = modMapa==='TODOS' ? ['A','B','C','D'] : [modMapa];
 
-  // calcula bounding box só dos módulos visíveis
+  // bounding box só dos módulos visíveis
   let minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
   mods.forEach(mod => {
-    const porMod = PIQUETES_GEO[mod] || {};
-    Object.values(porMod).forEach(([,,coords]) => coords.forEach(p => {
+    Object.values(PIQUETES_GEO[mod] || {}).forEach(([,,coords]) => coords.forEach(p => {
       const q = proj(p);
       minx=Math.min(minx,q[0]); maxx=Math.max(maxx,q[0]);
       miny=Math.min(miny,q[1]); maxy=Math.max(maxy,q[1]);
     }));
   });
   if (minx > maxx) { svg.innerHTML=''; return; }
-  const pad = (maxx-minx)*0.06 + 5;
-  const vbx = minx-pad, vby = miny-pad, vbw = (maxx-minx)+2*pad, vbh = (maxy-miny)+2*pad;
-  svg.setAttribute('viewBox', `${vbx.toFixed(1)} ${vby.toFixed(1)} ${vbw.toFixed(1)} ${vbh.toFixed(1)}`);
+  const pad = (maxx-minx)*0.05 + 10;
+  const vb0 = { x: minx-pad, y: miny-pad, w: (maxx-minx)+2*pad, h: (maxy-miny)+2*pad };
+  if (_vbModo !== modMapa || !mapVB) { mapVB0 = vb0; mapVB = { ...vb0 }; _vbModo = modMapa; }
+  aplicarVB();
 
-  let html = '';
+  const mostraDesc = !$('tgl-descanso') || $('tgl-descanso').checked;
+  const mostraHa = $('tgl-ha') && $('tgl-ha').checked;
+  const escala = Math.max(vb0.w, vb0.h);          // metros visíveis na visão inteira
+  const fsMin = escala / 75, fsMax = escala / 28;  // limites de fonte do nº do piquete
+
+  let camadaPiq = '', camadaTxt = '', camadaPin = '', camadaPill = '';
   mods.forEach(mod => {
     const porMod = PIQUETES_GEO[mod] || {};
     const cor = COR_MOD[mod];
     Object.entries(porMod).forEach(([num, [ha, perim, coords]]) => {
       const oc = ocupacaoAtual(mod, num);
-      let cls = '', fill = cor;
-      if (oc) {
-        const d = dias(oc.entrada);
-        cls = d > MAX_DIAS ? 'venc' : d === MAX_DIAS ? 'hoje' : 'ocup';
-      }
+      let st = '';
+      let d = 0;
+      if (oc) { d = dias(oc.entrada); st = d > MAX_DIAS ? 'venc' : d === MAX_DIAS ? 'hoje' : 'ocup'; }
+      let cls = st ? (st === 'ocup' ? 'ocup' : 'ocup ' + st) : '';
       if (piqueteSelecionado && piqueteSelecionado.mod===mod && String(piqueteSelecionado.num)===String(num)) cls += ' selecionado';
-      const d3 = pathFromCoords(coords);
       const [cx, cy] = centroidFromCoords(coords);
+      const lado = Math.sqrt((ha || 3) * 10000);
+      const fs = Math.max(fsMin, Math.min(fsMax, lado * 0.26));
       const haTxt = ha ? ha.toFixed(1)+' ha' : '';
-      const tip = oc ? `${oc.nome} · ${dias(oc.entrada)}d${haTxt?' · '+haTxt:''}` : haTxt;
-      html += `<path class="piq-shape ${cls}" d="${d3}" fill="${fill}"
+      const kDesc = mod + '-' + parseInt(num, 10);
+      const desc = !oc && PIQ_DESCANSO[kDesc] ? dias(PIQ_DESCANSO[kDesc]) : null;
+      const tip = oc ? `${oc.nome} · ${oc.cabecas||'—'} cab. · ${d} dia(s)` : (desc !== null ? `descanso há ${desc} dia(s)` : 'sem registro');
+      camadaPiq += `<path class="piq-shape ${cls}" d="${pathFromCoords(coords)}" fill="${cor}"
         data-mod="${mod}" data-num="${num}" data-ha="${ha||''}"
-        data-tip="${mod}-${String(num).padStart(2,'0')}${tip?' · '+tip:''}"
+        data-tip="Piquete ${mod}-${String(num).padStart(2,'0')}${haTxt?' · '+haTxt:''} — ${tip}"
         onmouseenter="mostrarTip(event)" onmouseleave="esconderTip()" onclick="selecionarPiquete(event)"></path>`;
-      html += `<text class="piq-label" x="${cx.toFixed(1)}" y="${cy.toFixed(1)}">${mod}${num}</text>`;
+
+      if (oc) {
+        const r = fs * 0.95;
+        const corSt = COR_STATUS[st];
+        camadaPin += `<g class="gado-pin">
+          <circle class="pulse" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${(r*1.15).toFixed(1)}" fill="${corSt}"></circle>
+          <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${corSt}" stroke="#fff" stroke-width="${(r*0.16).toFixed(1)}"></circle>
+          <text class="gado-ico" x="${cx.toFixed(1)}" y="${(cy + r*0.38).toFixed(1)}" font-size="${(r*1.1).toFixed(1)}">🐄</text>
+        </g>`;
+        // nº do piquete logo abaixo do ícone
+        camadaTxt += `<text class="piq-num" x="${cx.toFixed(1)}" y="${(cy + r + fs*0.95).toFixed(1)}" font-size="${(fs*0.85).toFixed(1)}" stroke-width="${(fs*0.14).toFixed(1)}">${num}</text>`;
+        // etiqueta do lote acima do ícone (camada de cima, não é coberta por outros piquetes)
+        const txt = `${abreviarLote(oc.nome)} · ${oc.cabecas || '—'} cab · ${d}d`;
+        const pf = Math.max(fs * 0.72, escala / 60);
+        const pw = txt.length * pf * 0.58 + pf * 1.2, ph = pf * 1.6;
+        const px = cx - pw / 2, py = cy - r * 1.3 - ph;
+        camadaPill += `<g class="lote-pill">
+          <rect x="${px.toFixed(1)}" y="${py.toFixed(1)}" width="${pw.toFixed(1)}" height="${ph.toFixed(1)}" rx="${(ph/2).toFixed(1)}" fill="#14201A" fill-opacity=".9" stroke="${corSt}" stroke-width="${(pf*0.14).toFixed(1)}"></rect>
+          <text x="${cx.toFixed(1)}" y="${(py + ph*0.7).toFixed(1)}" font-size="${pf.toFixed(1)}" text-anchor="middle">${txt}</text>
+        </g>`;
+      } else {
+        camadaTxt += `<text class="piq-num" x="${cx.toFixed(1)}" y="${(cy + fs*0.35).toFixed(1)}" font-size="${fs.toFixed(1)}" stroke-width="${(fs*0.14).toFixed(1)}">${num}</text>`;
+        const subs = [];
+        if (mostraDesc && desc !== null) subs.push(`${desc}d desc.`);
+        if (mostraHa && ha) subs.push(haTxt);
+        if (subs.length) camadaTxt += `<text class="piq-sub" x="${cx.toFixed(1)}" y="${(cy + fs*1.2).toFixed(1)}" font-size="${(fs*0.5).toFixed(1)}" stroke-width="${(fs*0.09).toFixed(1)}">${subs.join(' · ')}</text>`;
+      }
     });
   });
-  svg.innerHTML = html;
+  svg.innerHTML = camadaPiq + camadaTxt + camadaPin + camadaPill;
 
   // stats gerais do topo (todos os módulos, sempre)
-  const totalPiq = Object.values(PIQ_POR_MOD).reduce((a,b)=>a+b,0);
+  const totalPiq = Object.values(PIQUETES_GEO).reduce((a,m)=>a+Object.keys(m).length,0);
   const ocupados = LOTES.length;
   const vencidos = LOTES.filter(l => dias(l.entrada) > MAX_DIAS).length;
   const totalCab = LOTES.reduce((a,l)=>a+(l.cabecas||0),0);
@@ -1174,6 +1410,7 @@ function esconderTip() { $('map-tooltip').style.display = 'none'; }
 /* Toca num piquete do mapa: mostra o painel de detalhe (área, ocupação atual)
    com um botão de ação já pré-preenchido para aquele piquete específico. */
 function selecionarPiquete(ev) {
+  if (mapArrastou) { mapArrastou = false; return; }   // foi arrasto/zoom, não toque
   const el = ev.currentTarget;
   const mod = el.dataset.mod, num = el.dataset.num;
   esconderTip();
@@ -1296,9 +1533,11 @@ function fecharModalMovimento() { $('modal-movimento').classList.remove('open');
 
 function popularPiquetesDestino() {
   const mod = $('mv-modulo-destino').value;
-  const n = PIQ_POR_MOD[mod] || 0;
   const sel = $('mv-piquete-destino');
-  sel.innerHTML = Array.from({length:n}, (_,i) => i+1).map(i => `<option value="${i}">${mod}-${String(i).padStart(2,'0')}</option>`).join('');
+  sel.innerHTML = numsDoModulo(mod).map(i => {
+    const oc = ocupacaoAtual(mod, i);
+    return `<option value="${i}">${mod}-${String(i).padStart(2,'0')}${oc ? ' (' + oc.nome + ')' : ''}</option>`;
+  }).join('');
 }
 
 function salvarMovimento() {
@@ -1312,14 +1551,18 @@ function salvarMovimento() {
   if (!lote) { alert('Informe o nome ou número do lote.'); return; }
   if (!data) { alert('Informe a data.'); return; }
 
-  // fecha o registro anterior desse lote, se houver um em aberto
-  const anterior = MOVIMENTACOES.filter(m => m.lote === lote && !m.saida)
-    .sort((a,b) => b.entrada.localeCompare(a.entrada))[0];
-  if (anterior) anterior.saida = data;
+  // fecha os períodos em aberto desse lote (o mais recente sai hoje; algum antigo
+  // que ficou aberto sai na data em que o lote entrou no piquete seguinte)
+  const doLote = MOVIMENTACOES.filter(m => m.lote === lote).sort(ordemMov);
+  const fechados = [];
+  doLote.forEach((m, i) => {
+    if (!m.saida) { m.saida = doLote[i + 1] ? doLote[i + 1].entrada : data; fechados.push(m); }
+  });
 
   const novo = { id: uid(), lote, modulo, piquete, entrada: data, saida: null, cabecas, obs, ts: Date.now() };
   MOVIMENTACOES.push(novo);
   salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+  fechados.forEach(m => enfileirarEnvio('movimento', { ...m }));   // fecha o período anterior na planilha
   enfileirarEnvio('movimento', novo);
 
   recalcularLotes();
@@ -1342,8 +1585,7 @@ function abrirModalOcorrencia(modPreset, numPreset) {
 function fecharModalOcorrencia() { $('modal-ocorrencia').classList.remove('open'); }
 function popularPiquetesOcorrencia() {
   const mod = $('oc-modulo').value;
-  const n = PIQ_POR_MOD[mod] || 0;
-  $('oc-piquete').innerHTML = Array.from({length:n}, (_,i) => i+1).map(i => `<option value="${i}">${mod}-${String(i).padStart(2,'0')}</option>`).join('');
+  $('oc-piquete').innerHTML = numsDoModulo(mod).map(i => `<option value="${i}">${mod}-${String(i).padStart(2,'0')}</option>`).join('');
 }
 
 function salvarOcorrencia() {
@@ -1382,7 +1624,7 @@ function toastPainel(msg) {
 
 /* ══ FILA DE ENVIO — offline-first: guarda local, tenta mandar quando online ══ */
 function enfileirarEnvio(tipo, registro) {
-  FILA_ENVIO.push({ id: uid(), tipo, registro, criado: Date.now() });
+  FILA_ENVIO.push({ id: uid(), tipo, registro: { ...registro }, criado: Date.now() });
   salvarLocal('vp_fila_envio', FILA_ENVIO);
   renderFilaEnvio();
   if (navigator.onLine && CFG_NUVEM.url) tentarEnviarFila();
@@ -1402,61 +1644,147 @@ function renderFilaEnvio() {
   }
 }
 
-async function tentarEnviarFila() {
-  if (!CFG_NUVEM.url || !FILA_ENVIO.length) { renderFilaEnvio(); return; }
-  const restantes = [];
-  for (const item of FILA_ENVIO) {
-    try {
-      await fetch(CFG_NUVEM.url, {
-        method: 'POST',
-        mode: 'no-cors',   // Apps Script Web Apps geralmente exigem isso; sem leitura de resposta
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ origem: 'painel-fazenda-conquista', ...item })
-      });
-      // com no-cors não dá para checar status; assume sucesso se não lançou exceção de rede
-    } catch (e) {
-      restantes.push(item);
+let SYNC = carregarLocal('vp_sync_info', { ultimaBusca: null, ultimoEnvio: null, estado: 'ok', msg: '' });
+function setSync(p) { Object.assign(SYNC, p); salvarLocal('vp_sync_info', SYNC); renderSyncChip(); }
+function horaCurta(ts) { return ts ? new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''; }
+function renderSyncChip() {
+  const c = $('sync-chip'); const st = $('cfg-nuvem-status');
+  if (!c) return;
+  c.className = 'sync-chip';
+  if (!navigator.onLine) { c.textContent = '⌁ Sem internet — salvando no aparelho'; c.classList.add('antigo'); }
+  else if (SYNC.estado === 'enviando') c.textContent = '↻ Sincronizando…';
+  else if (SYNC.estado === 'erro') { c.textContent = '⚠ Falha ao sincronizar — toque p/ tentar'; c.classList.add('erro'); }
+  else if (SYNC.estado === 'antigo') { c.textContent = '⚠ Planilha recebe, mas não compartilha (script antigo)'; c.classList.add('antigo'); }
+  else c.textContent = SYNC.ultimaBusca ? `✓ Sincronizado ${horaCurta(SYNC.ultimaBusca)}` : '↻ Sincronizar';
+  if (st) st.textContent = [
+    SYNC.ultimoEnvio ? `Último envio: ${new Date(SYNC.ultimoEnvio).toLocaleString('pt-BR')}` : '',
+    SYNC.ultimaBusca ? `Última busca na planilha: ${new Date(SYNC.ultimaBusca).toLocaleString('pt-BR')}` : '',
+    SYNC.msg || ''
+  ].filter(Boolean).join(' · ');
+}
+
+// Envia UM item. Tenta com resposta (confirma gravação); se o navegador bloquear a
+// leitura da resposta (CORS), manda "às cegas" como antes.
+async function postNuvem(item) {
+  const body = JSON.stringify({ origem: 'painel-fazenda-conquista', ...item });
+  try {
+    const r = await fetch(CFG_NUVEM.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body, redirect: 'follow' });
+    const txt = await r.text();
+    let j = null; try { j = JSON.parse(txt); } catch (_) {}
+    if (j && j.ok === false) throw new Error(j.erro || 'planilha recusou');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return true;
+  } catch (e) {
+    if (e instanceof TypeError && navigator.onLine) {
+      await fetch(CFG_NUVEM.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body });
+      return true;
     }
+    throw e;
   }
-  FILA_ENVIO = restantes;
+}
+
+let _enviando = false;
+async function tentarEnviarFila() {
+  if (_enviando) return;                       // evita envio duplicado (era o que repetia linhas na planilha)
+  if (!CFG_NUVEM.url || !FILA_ENVIO.length || !navigator.onLine) { renderFilaEnvio(); return; }
+  _enviando = true;
+  setSync({ estado: 'enviando' });
+  const enviados = new Set();
+  let erro = null;
+  try {
+    // repete enquanto chegarem lançamentos novos durante o envio
+    for (let volta = 0; volta < 5 && !erro; volta++) {
+      // script antigo só entende mudança de piquete; ocorrência/estoque esperam a v2 (ficam guardados)
+      const pend = FILA_ENVIO.filter(i => !enviados.has(i.id) && (SYNC.v2 || i.tipo === 'movimento'));
+      if (!pend.length) break;
+      for (const item of pend) {
+        try { await postNuvem(item); enviados.add(item.id); }
+        catch (e) { erro = e; break; }
+      }
+    }
+  } finally {
+    _enviando = false;
+  }
+  FILA_ENVIO = FILA_ENVIO.filter(i => !enviados.has(i.id));   // mantém o que chegou durante o envio
   salvarLocal('vp_fila_envio', FILA_ENVIO);
   renderFilaEnvio();
-  const status = $('cfg-nuvem-status');
-  if (restantes.length === 0) {
-    toastPainel('✓ Lançamentos enviados para a nuvem');
-    if (status) status.textContent = 'Tudo enviado ✓';
-  } else if (status) {
-    status.textContent = `${restantes.length} lançamento(s) ainda não confirmados — vai tentar de novo mais tarde.`;
+  if (enviados.size) { setSync({ ultimoEnvio: Date.now() }); toastPainel(`✓ ${enviados.size} lançamento(s) enviados para a planilha`); }
+  setSync({ estado: erro ? 'erro' : (SYNC.v2 === false ? 'antigo' : 'ok'), msg: erro ? `${FILA_ENVIO.length} ainda não enviados (${erro.message || erro}) — tenta de novo sozinho.` : SYNC.msg });
+}
+
+/* ── BUSCAR da planilha o que os outros aparelhos lançaram ── */
+function normData(v) {
+  v = String(v || '').trim();
+  if (!v) return '';
+  let m = v.match(/^(\d{4})-(\d{2})-(\d{2})/); if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+  m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/); if (m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+  return v;
+}
+function mesclarDaNuvem(j) {
+  let mudou = false;
+  const porId = new Map(MOVIMENTACOES.map(m => [m.id, m]));
+  (j.movimentos || []).forEach(r => {
+    if (!r.id || !r.modulo) return;
+    const rec = {
+      id: String(r.id), lote: String(r.lote || '').trim(), modulo: String(r.modulo).trim().toUpperCase(),
+      piquete: String(parseInt(r.piquete, 10)), entrada: normData(r.entrada), saida: normData(r.saida) || null,
+      cabecas: parseInt(r.cabecas, 10) || null, obs: r.obs || '', ts: Number(r.ts) || 0
+    };
+    if (!rec.lote || !rec.entrada || isNaN(parseInt(rec.piquete, 10))) return;
+    const loc = porId.get(rec.id);
+    if (!loc) { MOVIMENTACOES.push(rec); porId.set(rec.id, rec); mudou = true; }
+    else if (rec.saida && !loc.saida) { loc.saida = rec.saida; mudou = true; }
+  });
+  const ocIds = new Set(OCORRENCIAS.map(o => o.id));
+  (j.ocorrencias || []).forEach(r => {
+    if (!r.id || ocIds.has(String(r.id))) return;
+    OCORRENCIAS.push({ id: String(r.id), modulo: String(r.modulo || '').toUpperCase(), piquete: String(parseInt(r.piquete, 10)),
+      data: normData(r.data), tipo: r.tipo || 'outro', obs: r.obs || '', lote: r.lote || '', ts: Number(r.ts) || 0 });
+    ocIds.add(String(r.id)); mudou = true;
+  });
+  if (typeof window.mesclarEstoqueNuvem === 'function' && Array.isArray(j.estoque)) window.mesclarEstoqueNuvem(j.estoque);
+  if (mudou) {
+    salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+    salvarLocal('vp_ocorrencias', OCORRENCIAS);
+    recalcularLotes(); renderLotes(); renderMapaSVG(); renderPainelPiquete();
+    if (!$('modal-movimento').classList.contains('open')) popularPiquetesDestino();
   }
+  return mudou;
+}
+async function buscarDaNuvem() {
+  if (!CFG_NUVEM.url || !navigator.onLine) return;
+  const sep = CFG_NUVEM.url.includes('?') ? '&' : '?';
+  const r = await fetch(CFG_NUVEM.url + sep + 'acao=dados&t=' + Date.now(), { cache: 'no-store', redirect: 'follow' });
+  const txt = await r.text();
+  let j = null; try { j = JSON.parse(txt); } catch (_) {}
+  if (!j || !Array.isArray(j.movimentos)) { setSync({ v2: false, estado: 'antigo', msg: 'Atualize o Apps Script para a v2 para os aparelhos compartilharem os lançamentos.' }); return; }
+  const eraV2 = SYNC.v2;
+  setSync({ v2: true });
+  mesclarDaNuvem(j);
+  if (!eraV2 && FILA_ENVIO.length) await tentarEnviarFila();   // libera ocorrências/estoque que estavam esperando
+  setSync({ ultimaBusca: Date.now(), estado: FILA_ENVIO.length ? 'erro' : 'ok', msg: FILA_ENVIO.length ? SYNC.msg : '' });
+}
+let _sincronizando = false;
+async function sincronizarAgora(silencioso) {
+  if (_sincronizando) return;
+  if (!navigator.onLine) { renderFilaEnvio(); renderSyncChip(); if (silencioso !== true) toastPainel('Sem internet — lançamentos seguem salvos no aparelho'); return; }
+  _sincronizando = true;
+  try {
+    await tentarEnviarFila();
+    try { await buscarDaNuvem(); }
+    catch (e) { setSync({ estado: 'erro', msg: 'Não consegui buscar da planilha (' + (e.message || e) + ').' }); }
+  } finally { _sincronizando = false; }
 }
 
 function salvarCfgNuvem() {
-  CFG_NUVEM.url = $('cfg-nuvem-url').value.trim();
+  CFG_NUVEM.url = $('cfg-nuvem-url').value.trim() || URL_NUVEM_PADRAO;
+  $('cfg-nuvem-url').value = CFG_NUVEM.url;
   salvarLocal('vp_cfg_nuvem', CFG_NUVEM);
   toastPainel('✓ Endereço salvo');
-  if (navigator.onLine) tentarEnviarFila();
+  sincronizarAgora();
 }
 
-function enviarNuvemManual() {
-  const status = $('cfg-nuvem-status');
-  if (!CFG_NUVEM.url) {
-    if (status) status.textContent = 'Cole e salve o endereço do Apps Script antes de enviar.';
-    toastPainel('Configure o endereço da nuvem primeiro');
-    return;
-  }
-  if (!FILA_ENVIO.length) {
-    if (status) status.textContent = 'Nada pendente — tudo já foi enviado.';
-    toastPainel('Nada pendente para enviar');
-    return;
-  }
-  if (!navigator.onLine) {
-    if (status) status.textContent = `Sem internet agora — ${FILA_ENVIO.length} lançamento(s) continuam salvos no aparelho.`;
-    toastPainel('Sem internet — vai enviar quando conectar');
-    return;
-  }
-  if (status) status.textContent = 'Enviando…';
-  tentarEnviarFila();
-}
+function enviarNuvemManual() { sincronizarAgora(); }
 
 /* ══════════════════ SANIDADE ══════════════════ */
 function renderSanidade() {
@@ -1713,7 +2041,7 @@ function processarPlanilhaRotacao(file) {
     </div>
     <div id="mv-atual" class="mv-atual" style="display:none"></div>
     <label class="fld-label">Lote</label>
-    <input type="text" id="mv-lote" placeholder="Nome ou número do lote" list="lista-lotes">
+    <input type="text" id="mv-lote" placeholder="Ex.: Lote 1 (o nome aparece no mapa)" list="lista-lotes">
     <datalist id="lista-lotes"></datalist>
 
     <label class="fld-label">Data</label>
@@ -2381,46 +2709,129 @@ if ('serviceWorker' in navigator) {
   var PESO_SACO = { milho: 50, soja: 50, probeef: 25, sal: 25, ureia: 25 };
   var NOMES = { milho: "Milho", soja: "Farelo de soja", probeef: "Núcleo (PROBEEF)", sal: "Sal", ureia: "Ureia" };
   var ORDEM = ["milho", "soja", "probeef", "sal", "ureia"];
+  (function () {
+    var salvo = (typeof carregarLocal === "function") ? carregarLocal("vp_formulas", null) : null;
+    if (salvo && salvo.pct) {
+      ["recria", "engorda"].forEach(function (fk) { if (salvo.pct[fk]) Object.assign(FORMULAS[fk].pct, salvo.pct[fk]); });
+      if (salvo.peso) Object.assign(PESO_SACO, salvo.peso);
+    }
+  })();
 
   var formulaAtual = "recria";
   var insumoBaseAtual = "milho";
-  var estoqueAtualPorInsumo = { milho: 0, soja: 0, probeef: 0, sal: 0, ureia: 0 };
+  var estRegistrosCache = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_estoque_registros", []) : [];
+
+  // estoque atual em SACOS por insumo — começa pelo último registro salvo
+  var estoqueSacos = { milho: 0, soja: 0, probeef: 0, sal: 0, ureia: 0 };
+  function ordenarEstoque() {
+    estRegistrosCache.sort(function (a, b) { return String(b.data).localeCompare(String(a.data)) || (b.timestamp - a.timestamp); });
+  }
+  function sacosDoItem(it) {
+    if (it.sacos !== undefined && it.sacos !== null) return +it.sacos;
+    if (it.estoqueKg !== undefined) return +((it.estoqueKg || 0) / (PESO_SACO[it.insumo] || 1)).toFixed(1);
+    return 0;
+  }
+  function preencherDoUltimo() {
+    ordenarEstoque();
+    var ult = estRegistrosCache[0];
+    if (ult && ult.itens) ult.itens.forEach(function (it) { if (it.insumo in estoqueSacos) estoqueSacos[it.insumo] = sacosDoItem(it); });
+  }
+  preencherDoUltimo();
+  function estoqueKg(k) { return (estoqueSacos[k] || 0) * PESO_SACO[k]; }
+
+  // quantos sacos de ração (30 kg) o estoque atual rende numa fórmula — o insumo que acaba primeiro limita
+  function rendimento(fk) {
+    var f = FORMULAS[fk].pct, best = Infinity, lim = null;
+    ORDEM.forEach(function (k) {
+      var p = f[k] || 0; if (p <= 0) return;
+      var mix = estoqueKg(k) / (p / 100);
+      if (mix < best) { best = mix; lim = k; }
+    });
+    if (!isFinite(best)) best = 0;
+    return { kg: best, sacos: Math.floor(best / 30), limitante: lim };
+  }
 
   var formulasBody = document.getElementById("formulasBody");
+  // Formulações: mostra o % de cada insumo em texto (fácil de ler no celular).
+  // "Editar fórmulas" troca por campos para ajustar quando a receita mudar.
+  var editandoFormulas = false;
+  function fmtPct(v) { return (Math.round((+v || 0) * 10) / 10).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " %"; }
+  function totaisFormulas() {
+    var t = {};
+    ["recria", "engorda"].forEach(function (fk) { t[fk] = ORDEM.reduce(function (a, k) { return a + (+FORMULAS[fk].pct[k] || 0); }, 0); });
+    return t;
+  }
+  function renderTotaisFormulas() {
+    var t = totaisFormulas();
+    ["recria", "engorda"].forEach(function (fk) {
+      var el = document.getElementById("fTot-" + fk); if (!el) return;
+      var ok = Math.abs(t[fk] - 100) < 0.05;
+      el.textContent = fmtPct(t[fk]) + (ok ? " ✓" : " ⚠");
+      el.style.color = ok ? "var(--good)" : "var(--critical)";
+      el.title = ok ? "Soma 100%" : "A soma precisa dar 100%";
+    });
+  }
   function renderFormulasTable() {
     formulasBody.innerHTML = "";
     ORDEM.forEach(function (k) {
       var tr = document.createElement("tr");
-      var tdNome = document.createElement("td"); tdNome.textContent = NOMES[k]; tr.appendChild(tdNome);
-
+      var tdNome = document.createElement("td"); tdNome.textContent = NOMES[k]; tdNome.style.fontWeight = "700"; tr.appendChild(tdNome);
       var tdPeso = document.createElement("td");
-      var inpPeso = document.createElement("input");
-      inpPeso.type = "number"; inpPeso.min = "1"; inpPeso.step = "1"; inpPeso.value = PESO_SACO[k];
-      inpPeso.style.maxWidth = "70px";
-      inpPeso.addEventListener("input", function () { PESO_SACO[k] = parseFloat(inpPeso.value) || 1; renderEstoque(); });
-      tdPeso.appendChild(inpPeso);
+      if (editandoFormulas) {
+        var inpPeso = document.createElement("input");
+        inpPeso.type = "number"; inpPeso.min = "1"; inpPeso.step = "1"; inpPeso.value = PESO_SACO[k]; inpPeso.inputMode = "decimal";
+        inpPeso.style.maxWidth = "70px";
+        inpPeso.addEventListener("input", function () { PESO_SACO[k] = parseFloat(inpPeso.value) || 1; atualizarEstoqueCalculos(); });
+        tdPeso.appendChild(inpPeso);
+      } else tdPeso.textContent = PESO_SACO[k] + " kg";
       tr.appendChild(tdPeso);
-
       ["recria", "engorda"].forEach(function (fk) {
         var td = document.createElement("td"); td.className = "num";
-        var inp = document.createElement("input");
-        inp.type = "number"; inp.min = "0"; inp.step = "0.1"; inp.value = FORMULAS[fk].pct[k];
-        inp.addEventListener("input", function () { FORMULAS[fk].pct[k] = parseFloat(inp.value) || 0; renderEstoque(); });
-        td.appendChild(inp);
+        if (editandoFormulas) {
+          var wrap = document.createElement("span"); wrap.className = "pct-wrap";
+          var inp = document.createElement("input");
+          inp.type = "number"; inp.min = "0"; inp.max = "100"; inp.step = "0.1"; inp.value = FORMULAS[fk].pct[k]; inp.inputMode = "decimal";
+          inp.addEventListener("input", function () {
+            FORMULAS[fk].pct[k] = parseFloat(String(inp.value).replace(",", ".")) || 0;
+            renderTotaisFormulas(); atualizarEstoqueCalculos();
+          });
+          var suf = document.createElement("span"); suf.className = "pct-suf"; suf.textContent = "%";
+          wrap.appendChild(inp); wrap.appendChild(suf); td.appendChild(wrap);
+        } else {
+          td.innerHTML = '<span class="pct-val">' + fmtPct(FORMULAS[fk].pct[k]) + '</span>' +
+            '<span class="pct-kg">' + fmtKg(30 * (FORMULAS[fk].pct[k] || 0) / 100) + ' kg/saco</span>';
+        }
         tr.appendChild(td);
       });
-
       formulasBody.appendChild(tr);
     });
+    var trT = document.createElement("tr"); trT.className = "formulas-total";
+    trT.innerHTML = '<td>Total</td><td></td><td class="num" id="fTot-recria"></td><td class="num" id="fTot-engorda"></td>';
+    formulasBody.appendChild(trT);
+    renderTotaisFormulas();
+    var btn = document.getElementById("btnEditarFormulas");
+    if (btn) btn.textContent = editandoFormulas ? "✓ Concluir" : "✎ Editar fórmulas";
   }
-  renderFormulasTable();
+  (function () {
+    var btn = document.getElementById("btnEditarFormulas");
+    if (btn) btn.addEventListener("click", function () {
+      if (editandoFormulas) {
+        var t = totaisFormulas();
+        if ((Math.abs(t.recria - 100) >= 0.05 || Math.abs(t.engorda - 100) >= 0.05) &&
+            !confirm("A soma de uma das fórmulas não dá 100%. Concluir mesmo assim?")) return;
+        if (typeof salvarLocal === "function") salvarLocal("vp_formulas", { pct: { recria: FORMULAS.recria.pct, engorda: FORMULAS.engorda.pct }, peso: PESO_SACO });
+      }
+      editandoFormulas = !editandoFormulas;
+      renderFormulasTable();
+    });
+  })();
 
   document.querySelectorAll(".formula-pill").forEach(function (btn) {
     btn.addEventListener("click", function () {
       document.querySelectorAll(".formula-pill").forEach(function (b) { b.classList.remove("on"); });
       btn.classList.add("on");
       formulaAtual = btn.getAttribute("data-formula");
-      renderEstoque();
+      renderPlano();
     });
   });
 
@@ -2428,99 +2839,91 @@ if ('serviceWorker' in navigator) {
   var milhoQtdLabel = document.getElementById("milhoQtdLabel");
   var insumoBaseSelect = document.getElementById("insumoBaseSelect");
   var estDataInput = document.getElementById("estDataInput");
-  (function initDate() {
-    var d = new Date();
-    estDataInput.value = d.toISOString().slice(0, 10);
-  })();
-  milhoQtdInput.addEventListener("input", renderEstoque);
+  estDataInput.value = (typeof hoje === "function") ? hoje() : new Date().toISOString().slice(0, 10);
+  milhoQtdInput.addEventListener("input", renderPlano);
   insumoBaseSelect.addEventListener("change", function () {
     insumoBaseAtual = insumoBaseSelect.value;
-    milhoQtdLabel.textContent = NOMES[insumoBaseAtual] + " planejado (kg)";
-    renderEstoque();
+    milhoQtdLabel.textContent = NOMES[insumoBaseAtual] + " a usar (sacos)";
+    renderPlano();
   });
 
   var estoqueBody = document.getElementById("estoqueBody");
   var estoqueTotais = document.getElementById("estoqueTotais");
+  var rendeBox = document.getElementById("rendeBox");
+  var planoBody = document.getElementById("planoBody");
+  var celTotalKg = {}, inpSacos = {}, celPeso = {};
 
-  function calcularNecessidades() {
-    var f = FORMULAS[formulaAtual].pct;
-    var pctBase = f[insumoBaseAtual] || 0;
-    var qtdBase = parseFloat(milhoQtdInput.value) || 0;
-    var totalMix = pctBase > 0 ? (qtdBase / pctBase) * 100 : 0;
-    var need = {};
-    ORDEM.forEach(function (k) { need[k] = totalMix * (f[k] / 100); });
-    return { need: need, totalMix: totalMix };
-  }
-
-  var lastEstoqueSnapshot = null;
-
-  function renderEstoque() {
-    var calc = calcularNecessidades();
+  // A tabela de lançamento é montada UMA vez; digitar só atualiza os números ao lado.
+  // (antes ela era redesenhada a cada tecla e o teclado do celular fechava)
+  function montarTabelaEstoque() {
     estoqueBody.innerHTML = "";
-    var totalNecessario = 0, totalFaltaSacos = 0, insumosFaltando = 0;
-    var itens = [];
-
     ORDEM.forEach(function (k) {
-      var necessarioKg = calc.need[k];
-      var necessarioSacos = Math.ceil(necessarioKg / PESO_SACO[k]);
-      var estoqueKg = estoqueAtualPorInsumo[k] || 0;
-      var saldoKg = estoqueKg - necessarioKg;
-      var comprarSacos = saldoKg < 0 ? Math.ceil(Math.abs(saldoKg) / PESO_SACO[k]) : 0;
-      totalNecessario += necessarioKg;
-      totalFaltaSacos += comprarSacos;
-      if (saldoKg < -0.01) insumosFaltando++;
-
-      itens.push({ insumo: k, nome: NOMES[k], necessarioKg: necessarioKg, necessarioSacos: necessarioSacos, estoqueKg: estoqueKg, saldoKg: saldoKg, comprarSacos: comprarSacos });
-
-      var tr = document.createElement("tr");
-      tr.className = "estoque-row";
-
+      var tr = document.createElement("tr"); tr.className = "estoque-row";
       var tdNome = document.createElement("td"); tdNome.setAttribute("data-label", "Insumo"); tdNome.textContent = NOMES[k]; tr.appendChild(tdNome);
-
-      var tdNec = document.createElement("td"); tdNec.className = "num"; tdNec.setAttribute("data-label", "Necessário (kg)"); tdNec.textContent = fmtKg(necessarioKg); tr.appendChild(tdNec);
-
-      var tdNecSc = document.createElement("td"); tdNecSc.className = "num"; tdNecSc.setAttribute("data-label", "Necessário (sacos)"); tdNecSc.textContent = necessarioSacos; tr.appendChild(tdNecSc);
-
-      var tdEst = document.createElement("td"); tdEst.className = "num"; tdEst.setAttribute("data-label", "Estoque atual (kg)");
-      var inpEst = document.createElement("input");
-      inpEst.type = "number"; inpEst.min = "0"; inpEst.step = "1"; inpEst.value = estoqueKg;
-      inpEst.addEventListener("input", function () {
-        estoqueAtualPorInsumo[k] = parseFloat(inpEst.value) || 0;
-        renderEstoque();
+      var tdSc = document.createElement("td"); tdSc.className = "num"; tdSc.setAttribute("data-label", "Sacos em estoque");
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.min = "0"; inp.step = "0.5"; inp.inputMode = "decimal"; inp.className = "est-sacos";
+      inp.value = estoqueSacos[k] || ""; inp.placeholder = "0";
+      inp.addEventListener("input", function () {
+        estoqueSacos[k] = parseFloat(String(inp.value).replace(",", ".")) || 0;
+        atualizarEstoqueCalculos();
       });
-      tdEst.appendChild(inpEst); tr.appendChild(tdEst);
-
-      var tdSaldo = document.createElement("td"); tdSaldo.className = "num"; tdSaldo.setAttribute("data-label", "Saldo (kg)");
-      tdSaldo.textContent = fmtKg(saldoKg);
-      tdSaldo.style.color = saldoKg < -0.01 ? "var(--critical)" : "var(--good)";
-      tdSaldo.style.fontWeight = "700";
-      tr.appendChild(tdSaldo);
-
-      var tdComprar = document.createElement("td"); tdComprar.className = "num"; tdComprar.setAttribute("data-label", "Comprar (sacos)");
-      tdComprar.textContent = comprarSacos > 0 ? comprarSacos : "—";
-      tr.appendChild(tdComprar);
-
-      var tdBadge = document.createElement("td"); tdBadge.setAttribute("data-label", "Situação");
-      var badge = document.createElement("span");
-      badge.className = "badge " + (saldoKg < -0.01 ? "falta" : "ok");
-      badge.textContent = saldoKg < -0.01 ? "Comprar" : "OK";
-      tdBadge.appendChild(badge);
-      tr.appendChild(tdBadge);
-
+      inpSacos[k] = inp;
+      tdSc.appendChild(inp); tr.appendChild(tdSc);
+      var tdPeso = document.createElement("td"); tdPeso.className = "num"; tdPeso.setAttribute("data-label", "Peso do saco"); tr.appendChild(tdPeso); celPeso[k] = tdPeso;
+      var tdKg = document.createElement("td"); tdKg.className = "num"; tdKg.setAttribute("data-label", "Total (kg)"); tdKg.style.fontWeight = "700"; tr.appendChild(tdKg); celTotalKg[k] = tdKg;
       estoqueBody.appendChild(tr);
     });
-
-    var racaoPronta = calc.totalMix;
-    estoqueTotais.innerHTML =
-      "<span>Mistura total: <strong>" + fmtKg(racaoPronta) + " kg</strong> (" + fmtKg(racaoPronta / 30) + " sacos de 30 kg)</span>" +
-      "<span>Insumos faltando: <strong style=\"color:" + (insumosFaltando > 0 ? "var(--critical)" : "var(--good)") + "\">" + insumosFaltando + "</strong></span>" +
-      "<span>Sacos a comprar (total): <strong>" + totalFaltaSacos + "</strong></span>";
-
-    lastEstoqueSnapshot = { formula: formulaAtual, insumoBase: insumoBaseAtual, milhoQtd: parseFloat(milhoQtdInput.value) || 0, itens: itens, insumosFaltando: insumosFaltando, totalMix: racaoPronta };
   }
-  renderEstoque();
 
-  var estRegistrosCache = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_estoque_registros", []) : [];
+  function atualizarEstoqueCalculos() {
+    ORDEM.forEach(function (k) {
+      if (celPeso[k]) celPeso[k].textContent = PESO_SACO[k] + " kg";
+      if (celTotalKg[k]) celTotalKg[k].textContent = fmtKg(estoqueKg(k)) + " kg";
+    });
+    var html = "";
+    ["recria", "engorda"].forEach(function (fk) {
+      var r = rendimento(fk);
+      html += '<div class="rende-tile"><div class="rt-lbl">Dá para fazer · ' + FORMULAS[fk].label + '</div>' +
+        '<div class="rt-val">' + r.sacos + ' sacos</div>' +
+        '<div class="rt-sub">de 30 kg (' + fmtKg(r.kg) + ' kg de ração)' + (r.limitante && r.sacos >= 0 ? ' · acaba primeiro: <b>' + NOMES[r.limitante] + '</b>' : '') + '</div></div>';
+    });
+    rendeBox.innerHTML = html;
+    renderPlano();
+  }
+  // compatibilidade com chamadas antigas
+  function renderEstoque() { atualizarEstoqueCalculos(); }
+
+  function renderPlano() {
+    var f = FORMULAS[formulaAtual].pct;
+    var pctBase = f[insumoBaseAtual] || 0;
+    var qtdBaseKg = (parseFloat(milhoQtdInput.value) || 0) * PESO_SACO[insumoBaseAtual];
+    var totalMix = pctBase > 0 ? (qtdBaseKg / pctBase) * 100 : 0;
+    planoBody.innerHTML = "";
+    var faltando = 0, totalComprar = 0;
+    ORDEM.forEach(function (k) {
+      var nec = totalMix * (f[k] / 100);
+      var est = estoqueKg(k);
+      var saldo = est - nec;
+      var comprar = saldo < -0.5 ? Math.ceil(-saldo / PESO_SACO[k]) : 0;
+      if (comprar) { faltando++; totalComprar += comprar; }
+      var tr = document.createElement("tr"); tr.className = "estoque-row";
+      tr.innerHTML =
+        '<td data-label="Insumo">' + NOMES[k] + '</td>' +
+        '<td class="num" data-label="Necessário (kg)">' + fmtKg(nec) + '</td>' +
+        '<td class="num" data-label="Necessário (sacos)">' + Math.ceil(nec / PESO_SACO[k]) + '</td>' +
+        '<td class="num" data-label="Em estoque (kg)">' + fmtKg(est) + '</td>' +
+        '<td class="num" data-label="Saldo (kg)" style="font-weight:700;color:' + (saldo < -0.5 ? 'var(--critical)' : 'var(--good)') + '">' + fmtKg(saldo) + '</td>' +
+        '<td class="num" data-label="Comprar (sacos)">' + (comprar || '—') + '</td>' +
+        '<td data-label="Situação"><span class="badge ' + (comprar ? 'falta' : 'ok') + '">' + (comprar ? 'Comprar' : 'OK') + '</span></td>';
+      planoBody.appendChild(tr);
+    });
+    estoqueTotais.innerHTML =
+      "<span>Ração produzida: <strong>" + fmtKg(totalMix) + " kg</strong> (" + Math.floor(totalMix / 30) + " sacos de 30 kg)</span>" +
+      "<span>Insumos faltando: <strong style=\"color:" + (faltando ? "var(--critical)" : "var(--good)") + "\">" + faltando + "</strong></span>" +
+      "<span>Sacos a comprar: <strong>" + totalComprar + "</strong></span>";
+  }
+
   var saveEstBtn = document.getElementById("saveEstBtn");
   var saveEstStatus = document.getElementById("saveEstStatus");
   var estHistTable = document.getElementById("estHistTable");
@@ -2530,24 +2933,56 @@ if ('serviceWorker' in navigator) {
   function persistirEstoqueRegistros() {
     if (typeof salvarLocal === "function") salvarLocal("vp_cocho_estoque_registros", estRegistrosCache);
   }
+  function achatarEstoque(r) {
+    var o = { id: r.id, data: r.data, obs: r.obs || "", ts: r.timestamp };
+    r.itens.forEach(function (it) { o[it.insumo + "_sacos"] = it.sacos; o[it.insumo + "_kg"] = it.kg; });
+    o.rende_recria_sacos = r.rende.recria.sacos; o.limitante_recria = NOMES[r.rende.recria.limitante] || "";
+    o.rende_engorda_sacos = r.rende.engorda.sacos; o.limitante_engorda = NOMES[r.rende.engorda.limitante] || "";
+    return o;
+  }
 
   saveEstBtn.addEventListener("click", function () {
-    if (!lastEstoqueSnapshot) return;
-    estRegistrosCache.unshift({
+    var rec = {
       id: (typeof uid === "function") ? uid() : String(Date.now()),
       timestamp: Date.now(),
       data: estDataInput.value,
-      formula: lastEstoqueSnapshot.formula,
-      insumoBase: lastEstoqueSnapshot.insumoBase,
-      milhoQtd: lastEstoqueSnapshot.milhoQtd,
-      itens: lastEstoqueSnapshot.itens,
-      insumosFaltando: lastEstoqueSnapshot.insumosFaltando,
-      totalMix: lastEstoqueSnapshot.totalMix
-    });
+      itens: ORDEM.map(function (k) { return { insumo: k, nome: NOMES[k], sacos: estoqueSacos[k] || 0, kg: estoqueKg(k) }; }),
+      rende: { recria: rendimento("recria"), engorda: rendimento("engorda") }
+    };
+    estRegistrosCache.unshift(rec);
     persistirEstoqueRegistros();
     renderEstHistorico();
-    saveEstStatus.textContent = "Registro salvo às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
+    if (typeof enfileirarEnvio === "function") enfileirarEnvio("estoque", achatarEstoque(rec));
+    saveEstStatus.textContent = "Estoque salvo às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + " — vai para a planilha quando houver internet.";
   });
+
+  // chamado pela sincronização: traz as contagens lançadas em outros aparelhos
+  window.mesclarEstoqueNuvem = function (linhas) {
+    var ids = {}; estRegistrosCache.forEach(function (r) { ids[r.id] = true; });
+    var novos = 0;
+    linhas.forEach(function (l) {
+      if (!l.id || ids[l.id]) return;
+      var itens = ORDEM.map(function (k) {
+        var sc = parseFloat(String(l[k + "_sacos"] || "0").replace(",", ".")) || 0;
+        return { insumo: k, nome: NOMES[k], sacos: sc, kg: sc * PESO_SACO[k] };
+      });
+      estRegistrosCache.push({
+        id: String(l.id), timestamp: Number(l.ts) || 0, data: (typeof normData === "function") ? normData(l.data) : l.data, itens: itens,
+        rende: { recria: { sacos: parseInt(l.rende_recria_sacos, 10) || 0 }, engorda: { sacos: parseInt(l.rende_engorda_sacos, 10) || 0 } }
+      });
+      ids[l.id] = true; novos++;
+    });
+    if (novos) {
+      persistirEstoqueRegistros();
+      var ativo = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("est-sacos");
+      if (!ativo) {   // não mexe nos campos enquanto alguém está digitando
+        preencherDoUltimo();
+        ORDEM.forEach(function (k) { if (inpSacos[k]) inpSacos[k].value = estoqueSacos[k] || ""; });
+        atualizarEstoqueCalculos();
+      }
+      renderEstHistorico();
+    }
+  };
 
   function excluirRegistroEstoque(id) {
     estRegistrosCache = estRegistrosCache.filter(function (r) { return r.id !== id; });
@@ -2561,65 +2996,62 @@ if ('serviceWorker' in navigator) {
       estEmptyState.style.display = "block";
       return;
     }
+    ordenarEstoque();
     estEmptyState.style.display = "none";
     estHistTable.style.display = "table";
     estHistBody.innerHTML = "";
 
     estRegistrosCache.forEach(function (r) {
       var tr = document.createElement("tr");
-
       var tdData = document.createElement("td");
       tdData.textContent = r.data ? new Date(r.data + "T00:00:00").toLocaleDateString("pt-BR") : fmtDate(r.timestamp);
       tr.appendChild(tdData);
 
-      var tdFormula = document.createElement("td");
-      tdFormula.textContent = FORMULAS[r.formula] ? FORMULAS[r.formula].label : r.formula;
-      tr.appendChild(tdFormula);
+      var tdRes = document.createElement("td");
+      tdRes.style.fontSize = "12px";
+      tdRes.textContent = (r.itens || []).map(function (it) { return (NOMES[it.insumo] || it.nome || it.insumo).split(" ")[0] + " " + sacosDoItem(it); }).join(" · ");
+      tr.appendChild(tdRes);
 
-      var tdMilho = document.createElement("td");
-      tdMilho.className = "num"; tdMilho.textContent = (NOMES[r.insumoBase] || "Milho") + ": " + fmtKg(r.milhoQtd) + " kg";
-      tr.appendChild(tdMilho);
-
-      var tdBadge = document.createElement("td");
-      var badge = document.createElement("span");
-      badge.className = "badge " + (r.insumosFaltando > 0 ? "falta" : "ok");
-      badge.textContent = r.insumosFaltando > 0 ? ("Faltam " + r.insumosFaltando) : "Estoque OK";
-      tdBadge.appendChild(badge);
-      tr.appendChild(tdBadge);
+      ["recria", "engorda"].forEach(function (fk) {
+        var td = document.createElement("td"); td.className = "num";
+        td.textContent = (r.rende && r.rende[fk]) ? r.rende[fk].sacos + " sc" : "—";
+        tr.appendChild(td);
+      });
 
       var tdAcoes = document.createElement("td");
       var verBtn = document.createElement("button");
       verBtn.className = "link-btn"; verBtn.type = "button"; verBtn.textContent = "ver detalhes";
       var delBtn = document.createElement("button");
       delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
-      delBtn.title = "Excluir registro"; delBtn.style.marginLeft = "8px";
+      delBtn.title = "Excluir deste aparelho"; delBtn.style.marginLeft = "8px";
       delBtn.addEventListener("click", function () { excluirRegistroEstoque(r.id); });
       tdAcoes.appendChild(verBtn); tdAcoes.appendChild(delBtn);
       tr.appendChild(tdAcoes);
-
       estHistBody.appendChild(tr);
 
       var detailTr = document.createElement("tr");
       detailTr.className = "detail-row hidden";
       var detailTd = document.createElement("td");
       detailTd.colSpan = 5;
-      var detailTableHtml = "<table style=\"width:100%;font-size:12.5px;border-collapse:collapse\">" +
-        "<tr style=\"color:var(--text-muted);text-align:left\"><th>Insumo</th><th style=\"text-align:right\">Necessário (kg)</th><th style=\"text-align:right\">Estoque (kg)</th><th style=\"text-align:right\">Saldo (kg)</th></tr>" +
-        r.itens.map(function (it) {
-          return "<tr><td>" + it.nome + "</td><td style=\"text-align:right\">" + fmtKg(it.necessarioKg) +
-            "</td><td style=\"text-align:right\">" + fmtKg(it.estoqueKg) +
-            "</td><td style=\"text-align:right;color:" + (it.saldoKg < -0.01 ? "var(--critical)" : "var(--good)") + "\">" + fmtKg(it.saldoKg) + "</td></tr>";
+      detailTd.innerHTML = "<table style=\"width:100%;font-size:12.5px;border-collapse:collapse\">" +
+        "<tr style=\"color:var(--text-muted);text-align:left\"><th>Insumo</th><th style=\"text-align:right\">Sacos</th><th style=\"text-align:right\">Kg</th></tr>" +
+        (r.itens || []).map(function (it) {
+          var sc = sacosDoItem(it);
+          var kg = (it.kg !== undefined) ? it.kg : (it.estoqueKg !== undefined ? it.estoqueKg : sc * (PESO_SACO[it.insumo] || 0));
+          return "<tr><td>" + (NOMES[it.insumo] || it.nome) + "</td><td style=\"text-align:right\">" + sc + "</td><td style=\"text-align:right\">" + fmtKg(kg) + "</td></tr>";
         }).join("") + "</table>";
-      detailTd.innerHTML = detailTableHtml;
       detailTr.appendChild(detailTd);
       estHistBody.appendChild(detailTr);
-
       verBtn.addEventListener("click", function () {
         detailTr.classList.toggle("hidden");
         verBtn.textContent = detailTr.classList.contains("hidden") ? "ver detalhes" : "ocultar";
       });
     });
   }
+
+  renderFormulasTable();
+  montarTabelaEstoque();
+  atualizarEstoqueCalculos();
 
   if (window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {

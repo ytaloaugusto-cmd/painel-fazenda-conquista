@@ -1,6 +1,9 @@
-// Vaqueiro Prateado — Service Worker
-// Cache-first para o "app shell": funciona sem internet depois da primeira visita.
-const CACHE = 'vaqueiro-prateado-v1';
+// Vaqueiro Prateado — Service Worker v2
+// - Página (index.html): REDE PRIMEIRO → toda atualização publicada aparece na hora;
+//   sem internet, abre a cópia guardada.
+// - Ícones/manifest/bibliotecas: cache primeiro (rápido e offline).
+// - Planilha (script.google.com): NUNCA passa pelo cache — sempre dado fresco.
+const CACHE = 'vaqueiro-prateado-v2';
 
 const APP_SHELL = [
   './',
@@ -28,25 +31,35 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+function guardar(req, res) {
+  if (res && res.status === 200 && !res.redirected && (res.type === 'basic' || res.type === 'cors')) {
+    const copy = res.clone();
+    caches.open(CACHE).then((cache) => cache.put(req, copy));
+  }
+  return res;
+}
+
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+
+  // dados da planilha: direto na rede, sem cache
+  if (/(^|\.)script\.google(usercontent)?\.com$/.test(url.hostname)) return;
+
+  const ehPagina = req.mode === 'navigate' || (url.origin === self.location.origin && /\/(index\.html)?$/.test(url.pathname));
+  if (ehPagina) {
+    event.respondWith(
+      fetch(req).then((res) => guardar(req, res))
+        .catch(() => caches.match(req).then((c) => c || caches.match('./index.html')))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(req).then((cached) => {
-      const network = fetch(req)
-        .then((res) => {
-          // guarda uma cópia de qualquer coisa que carregar com sucesso
-          // (inclui o script do xlsx.js vindo do cdnjs, pra funcionar offline depois)
-          if (res && res.status === 200) {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
-          }
-          return res;
-        })
-        .catch(() => cached || caches.match('./index.html'));
-      // mostra o cache na hora (se existir) e atualiza em segundo plano
-      return cached || network;
+      const rede = fetch(req).then((res) => guardar(req, res)).catch(() => cached);
+      return cached || rede;
     })
   );
 });
