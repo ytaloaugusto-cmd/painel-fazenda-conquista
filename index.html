@@ -535,6 +535,17 @@ footer.note {
   display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px;
 }
 .cocho-scope .frete-result strong { font-variant-numeric: tabular-nums; }
+.cocho-scope .frete-result { display: block !important; }
+.cocho-scope .fr-linha { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; font-size: 13.5px; }
+.cocho-scope .fr-linha strong { font-variant-numeric: tabular-nums; }
+.cocho-scope .fr-tot { border-top: 1px dashed var(--border); margin-top: 3px; padding-top: 6px; font-weight: 800; }
+.cocho-scope .fr-veredito { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.35; }
+.cocho-scope .fr-veredito.bom { background: #2f9e44; color: #fff; }
+.cocho-scope .fr-veredito.ruim { background: #d9363e; color: #fff; }
+.cocho-scope .fr-veredito.neutro { background: rgba(127,127,127,.15); }
+.cocho-scope .fr-origem { grid-column: 1 / -1; }
+.cocho-scope .fr-origem label { color: var(--accent-2, #d4a429) !important; font-weight: 800; }
+.cocho-scope .diff-banner.bom { border-color: #2f9e44; }
 .cocho-scope .frete-note { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 
 .cocho-scope .result-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -884,7 +895,7 @@ footer.note {
 
   <div class="card">
     <h2>Composição da mistura</h2>
-    <div class="sub">Ajuste ingredientes, % de inclusão e preço do saco. Clique em 🚚 para calcular o frete de um ingrediente buscado na origem.</div>
+    <div class="sub">Ajuste ingredientes, % de inclusão e o <b>preço do saco comprado com entrega na fazenda</b>. Se der para buscar mais barato em outro lugar, toque em 🚚 e informe o <b>preço na origem</b> e os dados da viagem — o app mostra se compensa buscar.</div>
 
     <div class="lote-name">
       <label for="loteInput">Nome do lote</label>
@@ -897,7 +908,7 @@ footer.note {
           <tr>
             <th style="width:auto">Ingrediente</th>
             <th class="col-pct">% inclusão</th>
-            <th class="col-preco">Preço saco origem (R$)</th>
+            <th class="col-preco">Preço saco na fazenda (R$)</th>
             <th class="col-peso">Peso saco (kg)</th>
             <th class="col-kg">R$ / kg</th>
             <th class="col-frete-btn"></th>
@@ -916,17 +927,17 @@ footer.note {
 
   <div class="card">
     <h2>Custo do lote agora</h2>
-    <div class="sub">Comparação direta: composição sem considerar frete x composição com o frete calculado nos ingredientes marcados com 🚚.</div>
+    <div class="sub">Comparação: tudo comprado com entrega na fazenda x buscando na origem os ingredientes marcados com 🚚 (preço na origem + frete).</div>
 
     <div class="result-pair">
       <div class="result-panel sem">
-        <div class="tag">Sem frete</div>
+        <div class="tag">Comprando na fazenda</div>
         <div class="val-kg mono" id="resKgSem">—</div>
         <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoSem">—</span></div>
         <div class="mini-row"><span>Tonelada</span><span id="resTonSem">—</span></div>
       </div>
       <div class="result-panel com">
-        <div class="tag">Com frete</div>
+        <div class="tag">🚚 Buscando na origem</div>
         <div class="val-kg mono" id="resKgCom">—</div>
         <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoCom">—</span></div>
         <div class="mini-row"><span>Tonelada</span><span id="resTonCom">—</span></div>
@@ -970,8 +981,8 @@ footer.note {
           <tr>
             <th>Data</th>
             <th>Lote</th>
-            <th style="text-align:right">Sem frete (R$/kg)</th>
-            <th style="text-align:right">Com frete (R$/kg)</th>
+            <th style="text-align:right">Na fazenda (R$/kg)</th>
+            <th style="text-align:right">Buscando (R$/kg)</th>
             <th></th>
           </tr>
         </thead>
@@ -2303,6 +2314,13 @@ if ('serviceWorker' in navigator) {
     }
   ];
 
+  (function () {
+    var salvo = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_ingredientes", null) : null;
+    if (Array.isArray(salvo) && salvo.length) ingredientes = salvo;
+    ingredientes.forEach(function (i) { if (i.precoOrigem === undefined) i.precoOrigem = i.precoSaco; });
+  })();
+  function salvarIngredientes() { if (typeof salvarLocal === "function") salvarLocal("vp_cocho_ingredientes", ingredientes); }
+
   var ingBody = document.getElementById("ingBody");
   var pctTotalEl = document.getElementById("pctTotal");
   var loteInput = document.getElementById("loteInput");
@@ -2316,9 +2334,24 @@ if ('serviceWorker' in navigator) {
     return f.numSacas > 0 ? custoTotal / f.numSacas : 0;
   }
 
-  function precoKgIngrediente(ing, comFrete) {
-    var preco = ing.precoSaco + (comFrete ? freteCustoPorSaca(ing) : 0);
+  // preço por saco: na fazenda (entregue) ou buscando (preço na origem + frete)
+  function precoSacoBuscando(ing) { return (+ing.precoOrigem || 0) + freteCustoPorSaca(ing); }
+  function precoKgIngrediente(ing, buscando) {
+    var preco = (buscando && ing.freteAtivo) ? precoSacoBuscando(ing) : ing.precoSaco;
     return ing.pesoSaco ? preco / ing.pesoSaco : 0;
+  }
+  function htmlResultadoFrete(ing) {
+    var frete = freteCustoPorSaca(ing), busc = precoSacoBuscando(ing), local = +ing.precoSaco || 0;
+    var dif = local - busc, n = +ing.frete.numSacas || 0;
+    var h = '<div class="fr-linha"><span>Preço na origem</span><strong>' + fmtBRL(+ing.precoOrigem || 0) + '</strong></div>' +
+      '<div class="fr-linha"><span>+ Frete por saca</span><strong>' + fmtBRL(frete) + '</strong></div>' +
+      '<div class="fr-linha fr-tot"><span>= Buscando na origem</span><strong>' + fmtBRL(busc) + ' / saca</strong></div>' +
+      '<div class="fr-linha"><span>Comprando na fazenda</span><strong>' + fmtBRL(local) + ' / saca</strong></div>';
+    if (!local) h += '<div class="fr-veredito neutro">Informe o preço na fazenda (campo da tabela) para comparar.</div>';
+    else if (Math.abs(dif) < 0.005) h += '<div class="fr-veredito neutro">Empate — tanto faz buscar ou comprar entregue.</div>';
+    else if (dif > 0) h += '<div class="fr-veredito bom">✅ Buscar compensa: economia de <b>' + fmtBRL(dif) + '</b> por saca' + (n > 1 ? ' · <b>' + fmtBRL(dif * n) + '</b> na carga de ' + n + ' sacas' : '') + '.</div>';
+    else h += '<div class="fr-veredito ruim">❌ Não compensa buscar: sai <b>' + fmtBRL(-dif) + '</b> mais caro por saca' + (n > 1 ? ' · ' + fmtBRL(-dif * n) + ' na carga' : '') + '.</div>';
+    return h;
   }
 
   function renderFretePanel(ing, idx) {
@@ -2348,6 +2381,14 @@ if ('serviceWorker' in navigator) {
       box.appendChild(inp);
       grid.appendChild(box);
     }
+    (function () {
+      var box = document.createElement("div"); box.className = "fr-origem";
+      var lbl = document.createElement("label"); lbl.textContent = "Preço do saco na origem (R$)"; box.appendChild(lbl);
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.step = "0.01"; inp.min = "0"; inp.inputMode = "decimal"; inp.value = ing.precoOrigem;
+      inp.addEventListener("input", function () { ing.precoOrigem = parseFloat(inp.value) || 0; recalc(); });
+      box.appendChild(inp); grid.appendChild(box);
+    })();
     field("Distância (km)", "distancia", "1");
     field("Consumo (km/l)", "consumo", "0.1");
     field("Diesel (R$/l)", "diesel", "0.01");
@@ -2358,11 +2399,7 @@ if ('serviceWorker' in navigator) {
 
     var result = document.createElement("div");
     result.className = "frete-result";
-    var custoFrete = freteCustoPorSaca(ing);
-    var origemMaisFrete = ing.precoSaco + custoFrete;
-    result.innerHTML =
-      "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
-      "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
+    result.innerHTML = htmlResultadoFrete(ing);
     wrap.appendChild(result);
 
     var note = document.createElement("div");
@@ -2394,7 +2431,7 @@ if ('serviceWorker' in navigator) {
       tdPct.appendChild(inpPct);
 
       var tdPreco = document.createElement("td");
-      tdPreco.className = "col-preco"; tdPreco.setAttribute("data-label", "Preço saco origem (R$)");
+      tdPreco.className = "col-preco"; tdPreco.setAttribute("data-label", "Preço saco na fazenda (R$)");
       var inpPreco = document.createElement("input");
       inpPreco.type = "number"; inpPreco.step = "0.01"; inpPreco.min = "0"; inpPreco.value = ing.precoSaco;
       inpPreco.addEventListener("input", function () { ing.precoSaco = parseFloat(inpPreco.value) || 0; recalc(); });
@@ -2457,7 +2494,7 @@ if ('serviceWorker' in navigator) {
 
   document.getElementById("addIngBtn").addEventListener("click", function () {
     ingredientes.push({
-      nome: "Novo ingrediente", pct: 0, precoSaco: 0, pesoSaco: 25,
+      nome: "Novo ingrediente", pct: 0, precoSaco: 0, precoOrigem: 0, pesoSaco: 25,
       freteAtivo: false, freteAberto: false,
       frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
     });
@@ -2495,13 +2532,17 @@ if ('serviceWorker' in navigator) {
     var diffKg = kgCom - kgSem;
     if (Math.abs(diffKg) < 0.001) {
       diffBanner.className = "diff-banner zero";
-      diffBanner.innerHTML = "Nenhum ingrediente com frete ativo no momento — os dois valores coincidem.";
+      diffBanner.innerHTML = ingredientes.some(function (i) { return i.freteAtivo; })
+        ? "Buscar ou comprar entregue dá o mesmo custo."
+        : "Nenhum ingrediente marcado com 🚚 — os dois valores coincidem.";
     } else {
-      var pct = kgSem > 0 ? (diffKg / kgSem) * 100 : 0;
-      diffBanner.className = "diff-banner";
-      diffBanner.innerHTML = "O frete adiciona <strong>" + fmtBRL(diffKg) + " / kg</strong> (" +
-        pct.toFixed(1).replace(".", ",") + "%) — " + fmtBRL(diffKg * 30) + " a mais por saco de 30 kg.";
+      var pct = kgSem > 0 ? Math.abs(diffKg / kgSem) * 100 : 0;
+      diffBanner.className = "diff-banner" + (diffKg < 0 ? " bom" : "");
+      diffBanner.innerHTML = (diffKg < 0 ? "✅ Buscar na origem <strong>economiza " : "❌ Buscar na origem sai <strong>mais caro: ") +
+        fmtBRL(Math.abs(diffKg)) + " / kg</strong> (" + pct.toFixed(1).replace(".", ",") + "%) — " +
+        fmtBRL(Math.abs(diffKg) * 30) + (diffKg < 0 ? " a menos" : " a mais") + " por saco de 30 kg de ração.";
     }
+    salvarIngredientes();
 
     pctTotalEl.textContent = "Total: " + pctSum.toFixed(1).replace(".", ",") + "%";
     pctTotalEl.className = "pct-total " + (Math.abs(pctSum - 100) < 0.05 ? "ok" : "warn");
@@ -2532,11 +2573,7 @@ if ('serviceWorker' in navigator) {
       if (!ing) return;
       var result = row.querySelector(".frete-result");
       if (!result) return;
-      var custoFrete = freteCustoPorSaca(ing);
-      var origemMaisFrete = ing.precoSaco + custoFrete;
-      result.innerHTML =
-        "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
-        "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
+      result.innerHTML = htmlResultadoFrete(ing);
     });
   }
 
@@ -2561,7 +2598,7 @@ if ('serviceWorker' in navigator) {
       custoPorKgComFrete: lastCusto.comFrete,
       ingredientes: ingredientes.map(function (i) {
         return {
-          nome: i.nome, pct: i.pct, precoSaco: i.precoSaco, pesoSaco: i.pesoSaco,
+          nome: i.nome, pct: i.pct, precoSaco: i.precoSaco, precoOrigem: i.precoOrigem, pesoSaco: i.pesoSaco,
           freteAtivo: i.freteAtivo, frete: i.frete
         };
       })
@@ -2633,12 +2670,12 @@ if ('serviceWorker' in navigator) {
       var color = colorFor(loteFilter.value);
       var i1 = document.createElement("div"); i1.className = "legend-item";
       var s1 = document.createElement("span"); s1.className = "swatch"; s1.style.background = color;
-      i1.appendChild(s1); var t1 = document.createElement("span"); t1.textContent = "Sem frete"; i1.appendChild(t1);
+      i1.appendChild(s1); var t1 = document.createElement("span"); t1.textContent = "Na fazenda"; i1.appendChild(t1);
       legendWrap.appendChild(i1);
 
       var i2 = document.createElement("div"); i2.className = "legend-item";
       var s2 = document.createElement("span"); s2.className = "swatch dashed"; s2.style.color = color;
-      i2.appendChild(s2); var t2 = document.createElement("span"); t2.textContent = "Com frete"; i2.appendChild(t2);
+      i2.appendChild(s2); var t2 = document.createElement("span"); t2.textContent = "Buscando na origem"; i2.appendChild(t2);
       legendWrap.appendChild(i2);
       return;
     }
