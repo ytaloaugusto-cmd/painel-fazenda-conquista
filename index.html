@@ -407,6 +407,26 @@ table.dt tr:hover td { background: var(--campo-cl); }
   opacity: 0; pointer-events: none; transition: all .25s; z-index: 200;
 }
 .painel-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* barra de desfazer (apagar com segurança) */
+.undo-bar {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(30px);
+  width: min(460px, calc(100vw - 32px)); display: flex; align-items: center; gap: 12px;
+  background: #1d2a22; color: #fff; border-radius: 14px; padding: 12px 12px 12px 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: all .25s; z-index: 260;
+  overflow: hidden;
+}
+.undo-bar.show { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.undo-bar .ub-txt { flex: 1; font-size: 13.5px; font-weight: 700; line-height: 1.3; }
+.undo-bar .ub-txt small { display: block; font-weight: 500; opacity: .75; font-size: 11.5px; }
+.undo-bar button { background: #f0a020; color: #1d2a22; border: none; border-radius: 10px; font: inherit; font-weight: 900; font-size: 14px; padding: 10px 14px; cursor: pointer; letter-spacing: .03em; }
+.undo-bar .ub-prog { position: absolute; left: 0; bottom: 0; height: 3px; background: #f0a020; width: 100%; }
+.undo-bar.show .ub-prog { animation: ubprog var(--ub-dur, 8s) linear forwards; }
+@keyframes ubprog { from { width: 100%; } to { width: 0; } }
+/* botões de apagar só aparecem no modo Editar */
+.edit-lock .del-btn { display: none !important; }
+.edit-toggle { font: inherit; font-size: 12.5px; font-weight: 800; border: 1.5px solid var(--border, #ccd); background: transparent; color: var(--txt2, #555); border-radius: 999px; padding: 6px 12px; cursor: pointer; white-space: nowrap; }
+.edit-toggle.on { background: #d9363e; border-color: #d9363e; color: #fff; }
+.hist-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
 
 .oc-item {
   display: flex; align-items: center; gap: 12px; padding: 11px 0;
@@ -617,6 +637,33 @@ footer.note {
 .cocho-scope .est-sacos { width: 92px; text-align: right; font-size: 16px !important; font-weight: 800; }
 .cocho-scope .rende-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
 .cocho-scope .rende-tile { border: 1.5px solid var(--border-d); border-radius: 12px; padding: 12px 14px; background: var(--surface-alt); }
+.cocho-scope .gg-card { border: 1.5px solid var(--border-d); border-radius: 14px; padding: 14px; background: var(--surface-alt); }
+.cocho-scope .gg-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.cocho-scope .gg-f { font-size: 12px; font-weight: 900; letter-spacing: .4px; text-transform: uppercase; color: var(--txt2); }
+.cocho-scope .gg-bat { font-size: 12px; font-weight: 700; color: var(--txt2); }
+.cocho-scope .gg-val { font-size: 34px; font-weight: 900; color: var(--campo-d); line-height: 1.05; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.cocho-scope .gg-val small { font-size: 14px; font-weight: 700; color: var(--txt2); }
+.cocho-scope .gg-alert { display: flex; gap: 10px; align-items: center; margin: 10px 0 12px; padding: 10px 12px; border-radius: 10px; background: #d9363e; color: #fff; }
+.cocho-scope .gg-alert .gg-ic { font-size: 22px; line-height: 1; }
+.cocho-scope .gg-alert b { display: block; font-size: 16px; font-weight: 900; letter-spacing: .2px; }
+.cocho-scope .gg-alert span { font-size: 12px; opacity: .92; }
+.cocho-scope .gg-alert.ok { background: var(--campo-d); }
+.cocho-scope .gg-bars { display: grid; gap: 7px; }
+.cocho-scope .gg-row { display: grid; grid-template-columns: 78px 1fr 58px; gap: 8px; align-items: center; font-size: 12.5px; }
+.cocho-scope .gg-row .gg-n { font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cocho-scope .gg-track { height: 14px; border-radius: 7px; background: rgba(127,127,127,.18); overflow: hidden; }
+.cocho-scope .gg-fill { height: 100%; border-radius: 7px; background: #5c9e6e; }
+.cocho-scope .gg-row.lim .gg-fill { background: #d9363e; }
+.cocho-scope .gg-row.lim .gg-n, .cocho-scope .gg-row.lim .gg-s { color: #d9363e; }
+.cocho-scope .gg-s { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+.cocho-scope .gg-cap { font-size: 11px; color: var(--txt2); margin: 0 0 6px; }
+.cocho-scope .gg-buy { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border-d); font-size: 12.5px; }
+.cocho-scope .gg-buy b { font-weight: 900; }
+.cocho-scope .gg-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.cocho-scope .gg-chip { background: #fff4e0; color: #8a4b00; border: 1px solid #f0a020; border-radius: 999px; padding: 4px 10px; font-weight: 800; font-size: 12.5px; }
+.cocho-scope .gg-dias { margin-top: 10px; font-size: 13px; font-weight: 700; }
+.cocho-scope .gg-cons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; font-size: 12.5px; color: var(--txt2); }
+.cocho-scope .gg-cons input { width: 74px; text-align: right; font-weight: 800; }
 .cocho-scope .rende-tile .rt-lbl { font-size: 11.5px; font-weight: 800; color: var(--txt2); text-transform: uppercase; letter-spacing: .3px; }
 .cocho-scope .rende-tile .rt-val { font-size: 26px; font-weight: 900; color: var(--campo-d); line-height: 1.15; font-variant-numeric: tabular-nums; }
 .cocho-scope .rende-tile .rt-sub { font-size: 12px; color: var(--txt2); }
@@ -916,7 +963,8 @@ footer.note {
       </div>
     </div>
 
-    <div class="table-wrap">
+    <div style="display:flex;justify-content:flex-end;margin-top:10px"><button type="button" class="edit-toggle" onclick="alternarEdicao(this,'histBox')">✎ Editar</button></div>
+    <div class="table-wrap edit-lock" id="histBox">
       <table class="hist-table" id="histTable" style="display:none">
         <thead>
           <tr>
@@ -1034,9 +1082,12 @@ footer.note {
   </div>
 
   <div class="card">
-    <h2>Histórico de estoque</h2>
-    <div class="sub">Cada linha é uma contagem lançada (deste e dos outros aparelhos). "Rende" = sacos de ração de 30 kg que dá para fabricar com aquele estoque.</div>
-    <div class="table-wrap">
+    <div class="hist-top">
+      <h2 style="margin:0">Histórico de estoque</h2>
+      <button type="button" class="edit-toggle" onclick="alternarEdicao(this,'estHistBox')">✎ Editar</button>
+    </div>
+    <div class="sub">Cada linha é uma contagem lançada (deste e dos outros aparelhos). "Rende" = sacos de ração de 30 kg que dá para fabricar com aquele estoque. Para apagar, toque em "Editar".</div>
+    <div class="table-wrap edit-lock" id="estHistBox">
       <table class="hist-table" id="estHistTable" style="display:none">
         <thead>
           <tr>
@@ -1622,6 +1673,67 @@ function toastPainel(msg) {
   t._timer = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+/* ══ APAGAR COM SEGURANÇA — some da tela, 8 s para DESFAZER, depois vale ══ */
+const EXC_EM_ESPERA = new Set();            // ids apagados que ainda estão na janela de desfazer
+let _undoAtual = null;
+function nomeAparelho() {
+  let a = carregarLocal('vp_aparelho', null);
+  if (!a) {
+    const ua = navigator.userAgent;
+    const tipo = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iPhone' : /Windows/i.test(ua) ? 'Windows' : /Mac/i.test(ua) ? 'Mac' : 'Aparelho';
+    a = tipo + ' ' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    salvarLocal('vp_aparelho', a);
+  }
+  return a;
+}
+function apagarComDesfazer(o) {
+  // o = { texto, detalhe, id, remover(), restaurar(), confirmar() }
+  if (_undoAtual) _undoAtual.efetivar();   // um de cada vez: o anterior passa a valer
+  if (o.id) EXC_EM_ESPERA.add(o.id);
+  o.remover();
+  let bar = $('undo-bar');
+  if (!bar) {
+    bar = document.createElement('div'); bar.id = 'undo-bar'; bar.className = 'undo-bar';
+    bar.innerHTML = '<div class="ub-txt"></div><button type="button">DESFAZER</button><div class="ub-prog"></div>';
+    document.body.appendChild(bar);
+  }
+  bar.querySelector('.ub-txt').innerHTML = o.texto + (o.detalhe ? '<small>' + o.detalhe + '</small>' : '');
+  const prog = bar.querySelector('.ub-prog'); prog.style.animation = 'none'; void prog.offsetWidth; prog.style.animation = '';
+  bar.classList.add('show');
+  let feito = false;
+  const fim = () => { bar.classList.remove('show'); if (o.id) EXC_EM_ESPERA.delete(o.id); _undoAtual = null; };
+  const ctl = {
+    efetivar() { if (feito) return; feito = true; clearTimeout(t); fim(); o.confirmar && o.confirmar(); },
+    desfazer() { if (feito) return; feito = true; clearTimeout(t); fim(); o.restaurar(); toastPainel('↩ Restaurado'); }
+  };
+  const t = setTimeout(() => ctl.efetivar(), 8000);
+  bar.querySelector('button').onclick = () => ctl.desfazer();
+  _undoAtual = ctl;
+}
+// se fechar o app no meio dos 8 s, o que foi apagado passa a valer
+window.addEventListener('pagehide', () => { if (_undoAtual) _undoAtual.efetivar(); });
+// avisa a planilha: a linha vai para a aba Lixeira (30 dias) e some dos outros celulares
+function enfileirarExclusao(alvo, id, resumo) {
+  enfileirarEnvio('exclusao', { alvo, id, resumo: resumo || '', aparelho: nomeAparelho(), ts: Date.now() });
+}
+// ids que NÃO podem voltar pela sincronização (apagados aqui e ainda não confirmados)
+function idsBloqueados() {
+  const s = new Set(EXC_EM_ESPERA);
+  FILA_ENVIO.forEach(i => { if (i.tipo === 'exclusao' && i.registro && i.registro.id) s.add(String(i.registro.id)); });
+  return s;
+}
+window.idsBloqueados = idsBloqueados;
+window.apagarComDesfazer = apagarComDesfazer;
+window.enfileirarExclusao = enfileirarExclusao;
+// botão "Editar" de uma lista: mostra/esconde os × (container com .edit-lock)
+function alternarEdicao(btn, alvoId) {
+  const box = document.getElementById(alvoId); if (!box) return;
+  const on = box.classList.toggle('edit-lock') === false;
+  btn.classList.toggle('on', on);
+  btn.textContent = on ? '✓ Concluir' : '✎ Editar';
+}
+window.alternarEdicao = alternarEdicao;
+
 /* ══ FILA DE ENVIO — offline-first: guarda local, tenta mandar quando online ══ */
 function enfileirarEnvio(tipo, registro) {
   FILA_ENVIO.push({ id: uid(), tipo, registro: { ...registro }, criado: Date.now() });
@@ -1683,6 +1795,11 @@ async function postNuvem(item) {
   }
 }
 
+// script antigo só entende mudança de piquete; v2 entende ocorrência/estoque; exclusão precisa da v3
+function podeEnviar(i) {
+  if (i.tipo === 'exclusao') return !!SYNC.v3;
+  return SYNC.v2 || i.tipo === 'movimento';
+}
 let _enviando = false;
 async function tentarEnviarFila() {
   if (_enviando) return;                       // evita envio duplicado (era o que repetia linhas na planilha)
@@ -1695,7 +1812,7 @@ async function tentarEnviarFila() {
     // repete enquanto chegarem lançamentos novos durante o envio
     for (let volta = 0; volta < 5 && !erro; volta++) {
       // script antigo só entende mudança de piquete; ocorrência/estoque esperam a v2 (ficam guardados)
-      const pend = FILA_ENVIO.filter(i => !enviados.has(i.id) && (SYNC.v2 || i.tipo === 'movimento'));
+      const pend = FILA_ENVIO.filter(i => !enviados.has(i.id) && podeEnviar(i));
       if (!pend.length) break;
       for (const item of pend) {
         try { await postNuvem(item); enviados.add(item.id); }
@@ -1709,7 +1826,7 @@ async function tentarEnviarFila() {
   salvarLocal('vp_fila_envio', FILA_ENVIO);
   renderFilaEnvio();
   if (enviados.size) { setSync({ ultimoEnvio: Date.now() }); toastPainel(`✓ ${enviados.size} lançamento(s) enviados para a planilha`); }
-  setSync({ estado: erro ? 'erro' : (SYNC.v2 === false ? 'antigo' : 'ok'), msg: erro ? `${FILA_ENVIO.length} ainda não enviados (${erro.message || erro}) — tenta de novo sozinho.` : SYNC.msg });
+  setSync({ estado: erro ? 'erro' : (SYNC.v2 === false ? 'antigo' : 'ok'), msg: erro ? `${FILA_ENVIO.length} ainda não enviados (${erro.message || erro}) — tenta de novo sozinho.` : msgEspera() });
 }
 
 /* ── BUSCAR da planilha o que os outros aparelhos lançaram ── */
@@ -1722,9 +1839,18 @@ function normData(v) {
 }
 function mesclarDaNuvem(j) {
   let mudou = false;
+  const bloq = idsBloqueados();
+  // o que está na Lixeira da planilha some deste aparelho também
+  const lix = new Set((j.excluidos || []).map(x => String(x.id)));
+  if (lix.size) {
+    const n0 = MOVIMENTACOES.length, o0 = OCORRENCIAS.length;
+    MOVIMENTACOES = MOVIMENTACOES.filter(m => !lix.has(String(m.id)));
+    OCORRENCIAS = OCORRENCIAS.filter(o => !lix.has(String(o.id)));
+    if (MOVIMENTACOES.length !== n0 || OCORRENCIAS.length !== o0) mudou = true;
+  }
   const porId = new Map(MOVIMENTACOES.map(m => [m.id, m]));
   (j.movimentos || []).forEach(r => {
-    if (!r.id || !r.modulo) return;
+    if (!r.id || !r.modulo || bloq.has(String(r.id))) return;
     const rec = {
       id: String(r.id), lote: String(r.lote || '').trim(), modulo: String(r.modulo).trim().toUpperCase(),
       piquete: String(parseInt(r.piquete, 10)), entrada: normData(r.entrada), saida: normData(r.saida) || null,
@@ -1737,12 +1863,12 @@ function mesclarDaNuvem(j) {
   });
   const ocIds = new Set(OCORRENCIAS.map(o => o.id));
   (j.ocorrencias || []).forEach(r => {
-    if (!r.id || ocIds.has(String(r.id))) return;
+    if (!r.id || ocIds.has(String(r.id)) || bloq.has(String(r.id))) return;
     OCORRENCIAS.push({ id: String(r.id), modulo: String(r.modulo || '').toUpperCase(), piquete: String(parseInt(r.piquete, 10)),
       data: normData(r.data), tipo: r.tipo || 'outro', obs: r.obs || '', lote: r.lote || '', ts: Number(r.ts) || 0 });
     ocIds.add(String(r.id)); mudou = true;
   });
-  if (typeof window.mesclarEstoqueNuvem === 'function' && Array.isArray(j.estoque)) window.mesclarEstoqueNuvem(j.estoque);
+  if (typeof window.mesclarEstoqueNuvem === 'function' && Array.isArray(j.estoque)) window.mesclarEstoqueNuvem(j.estoque, lix);
   if (mudou) {
     salvarLocal('vp_movimentacoes', MOVIMENTACOES);
     salvarLocal('vp_ocorrencias', OCORRENCIAS);
@@ -1758,11 +1884,16 @@ async function buscarDaNuvem() {
   const txt = await r.text();
   let j = null; try { j = JSON.parse(txt); } catch (_) {}
   if (!j || !Array.isArray(j.movimentos)) { setSync({ v2: false, estado: 'antigo', msg: 'Atualize o Apps Script para a v2 para os aparelhos compartilharem os lançamentos.' }); return; }
-  const eraV2 = SYNC.v2;
-  setSync({ v2: true });
+  const eraV2 = SYNC.v2, eraV3 = SYNC.v3;
+  setSync({ v2: true, v3: (+j.versao || 0) >= 3 });
   mesclarDaNuvem(j);
-  if (!eraV2 && FILA_ENVIO.length) await tentarEnviarFila();   // libera ocorrências/estoque que estavam esperando
-  setSync({ ultimaBusca: Date.now(), estado: FILA_ENVIO.length ? 'erro' : 'ok', msg: FILA_ENVIO.length ? SYNC.msg : '' });
+  if (((!eraV2) || (!eraV3 && SYNC.v3)) && FILA_ENVIO.length) await tentarEnviarFila();   // libera o que estava esperando versão nova
+  const travados = FILA_ENVIO.filter(podeEnviar).length;
+  setSync({ ultimaBusca: Date.now(), estado: travados ? 'erro' : 'ok', msg: travados ? SYNC.msg : msgEspera() });
+}
+function msgEspera() {
+  const n = FILA_ENVIO.filter(i => !podeEnviar(i)).length;
+  return n ? `${n} exclusão(ões) esperando o Apps Script v3 na planilha — ficam guardadas aqui.` : '';
 }
 let _sincronizando = false;
 async function sincronizarAgora(silencioso) {
@@ -2299,8 +2430,12 @@ if ('serviceWorker' in navigator) {
       delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
       delBtn.title = "Remover ingrediente";
       delBtn.addEventListener("click", function () {
-        ingredientes.splice(idx, 1);
-        renderIngredientes(); recalc();
+        var removido = ingredientes[idx], pos = idx;
+        window.apagarComDesfazer({
+          texto: "Ingrediente \u201c" + removido.nome + "\u201d removido do cálculo",
+          remover: function () { ingredientes.splice(pos, 1); renderIngredientes(); recalc(); },
+          restaurar: function () { ingredientes.splice(pos, 0, removido); renderIngredientes(); recalc(); }
+        });
       });
       tdDel.appendChild(delBtn);
 
@@ -2437,9 +2572,16 @@ if ('serviceWorker' in navigator) {
   });
 
   function excluirRegistro(id) {
-    registrosCache = registrosCache.filter(function (r) { return r.id !== id; });
-    persistirRegistros();
-    renderLegendAndFilters();
+    var idx = -1, rec = null;
+    registrosCache.forEach(function (r, i) { if (r.id === id) { idx = i; rec = r; } });
+    if (!rec) return;
+    window.apagarComDesfazer({
+      texto: "Registro de custo apagado",
+      detalhe: rec.lote + " · " + fmtDate(rec.timestamp),
+      remover: function () { registrosCache = registrosCache.filter(function (r) { return r.id !== id; }); renderLegendAndFilters(); },
+      restaurar: function () { registrosCache.splice(Math.min(idx, registrosCache.length), 0, rec); renderLegendAndFilters(); },
+      confirmar: function () { persistirRegistros(); }
+    });
   }
 
   var loteFilter = document.getElementById("loteFilter");
@@ -2882,14 +3024,71 @@ if ('serviceWorker' in navigator) {
       if (celTotalKg[k]) celTotalKg[k].textContent = fmtKg(estoqueKg(k)) + " kg";
     });
     var html = "";
-    ["recria", "engorda"].forEach(function (fk) {
-      var r = rendimento(fk);
-      html += '<div class="rende-tile"><div class="rt-lbl">Dá para fazer · ' + FORMULAS[fk].label + '</div>' +
-        '<div class="rt-val">' + r.sacos + ' sacos</div>' +
-        '<div class="rt-sub">de 30 kg (' + fmtKg(r.kg) + ' kg de ração)' + (r.limitante && r.sacos >= 0 ? ' · acaba primeiro: <b>' + NOMES[r.limitante] + '</b>' : '') + '</div></div>';
-    });
+    ["recria", "engorda"].forEach(function (fk) { html += cartaoGargalo(fk); });
     rendeBox.innerHTML = html;
+    rendeBox.querySelectorAll(".gg-cons input").forEach(function (inp) {
+      inp.addEventListener("change", function () {
+        CONSUMO_PE[inp.getAttribute("data-f")] = parseFloat(String(inp.value).replace(",", ".")) || 0;
+        if (typeof salvarLocal === "function") salvarLocal("vp_consumo_pe", CONSUMO_PE);
+        atualizarEstoqueCalculos();
+      });
+    });
     renderPlano();
+  }
+
+  // consumo diário de PE (sacos de 30 kg/dia) por fórmula — opcional, para "dias de cobertura"
+  var CONSUMO_PE = (typeof carregarLocal === "function") ? carregarLocal("vp_consumo_pe", { recria: 0, engorda: 0 }) : { recria: 0, engorda: 0 };
+  var NOME_CURTO = { milho: "Milho", soja: "Farelo", probeef: "Núcleo", sal: "Sal", ureia: "Ureia" };
+
+  // Cartão do gargalo: quanto cada insumo sozinho renderia, qual acaba primeiro,
+  // e o que comprar para usar todo o milho.
+  function cartaoGargalo(fk) {
+    var f = FORMULAS[fk].pct, r = rendimento(fk);
+    var pot = {}, max = 0;
+    ORDEM.forEach(function (k) {
+      if (!(f[k] > 0)) return;
+      pot[k] = Math.floor(estoqueKg(k) / (f[k] / 100) / 30);
+      if (pot[k] > max) max = pot[k];
+    });
+    var temEstoque = ORDEM.some(function (k) { return estoqueKg(k) > 0; });
+    var batidas = f.milho > 0 ? (r.kg * f.milho / 100) / 200 : 0;   // batida = 4 sacos (200 kg) de milho
+    var h = '<div class="gg-card"><div class="gg-head"><span class="gg-f">Dá para fazer · ' + FORMULAS[fk].label + '</span>' +
+      (batidas ? '<span class="gg-bat">≈ ' + Math.round(batidas) + ' batidas</span>' : '') + '</div>' +
+      '<div class="gg-val">' + r.sacos + ' <small>sacos de 30 kg</small></div>';
+    if (!temEstoque) return h + '<div class="rt-sub" style="margin-top:8px">Lance o estoque acima para ver o cálculo.</div></div>';
+    var lim = r.limitante;
+    if (lim && lim !== "milho") {
+      h += '<div class="gg-alert"><span class="gg-ic">⚠</span><div><b>' + NOMES[lim].toUpperCase() + ' ACABA PRIMEIRO</b>' +
+        '<span>É esse insumo que limita a produção em ' + r.sacos + ' sacos.</span></div></div>';
+    } else {
+      h += '<div class="gg-alert ok"><span class="gg-ic">✓</span><div><b>O MILHO É O LIMITE</b>' +
+        '<span>Os outros insumos dão para usar todo o milho.</span></div></div>';
+    }
+    h += '<p class="gg-cap">Quantos sacos de ração cada insumo daria sozinho:</p><div class="gg-bars">';
+    ORDEM.forEach(function (k) {
+      if (pot[k] === undefined) return;
+      var w = max ? Math.max(2, Math.round(pot[k] / max * 100)) : 0;
+      h += '<div class="gg-row' + (k === lim ? ' lim' : '') + '"><span class="gg-n">' + NOME_CURTO[k] + '</span>' +
+        '<div class="gg-track"><div class="gg-fill" style="width:' + w + '%"></div></div><span class="gg-s">' + pot[k] + ' sc</span></div>';
+    });
+    h += '</div>';
+    // compra para usar todo o milho
+    if (f.milho > 0 && estoqueKg("milho") > 0 && lim !== "milho") {
+      var racaoAlvo = estoqueKg("milho") / (f.milho / 100);
+      var chips = [];
+      ORDEM.forEach(function (k) {
+        if (k === "milho" || !(f[k] > 0)) return;
+        var falta = racaoAlvo * f[k] / 100 - estoqueKg(k);
+        if (falta > 0.5) chips.push({ k: k, sc: Math.ceil(falta / PESO_SACO[k]) });
+      });
+      chips.sort(function (a, b) { return (a.k === lim ? -1 : 0) - (b.k === lim ? -1 : 0); });
+      if (chips.length) h += '<div class="gg-buy">Para usar <b>todo o milho</b> (' + Math.floor(racaoAlvo / 30) + ' sacos de ração), comprar:' +
+        '<div class="gg-chips">' + chips.map(function (c) { return '<span class="gg-chip">+' + c.sc + ' sc ' + NOME_CURTO[c.k] + ' (' + PESO_SACO[c.k] + ' kg)</span>'; }).join("") + '</div></div>';
+    }
+    var cons = +CONSUMO_PE[fk] || 0;
+    if (cons > 0) h += '<div class="gg-dias">📅 Com ' + String(cons).replace(".", ",") + ' sacos/dia, o estoque dura <b>' + Math.floor(r.sacos / cons) + ' dias</b>.</div>';
+    h += '<label class="gg-cons">Consumo do rebanho: <input type="number" inputmode="decimal" min="0" step="0.5" data-f="' + fk + '" value="' + (cons || "") + '" placeholder="0"> sacos de 30 kg por dia</label>';
+    return h + '</div>';
   }
   // compatibilidade com chamadas antigas
   function renderEstoque() { atualizarEstoqueCalculos(); }
@@ -2957,11 +3156,17 @@ if ('serviceWorker' in navigator) {
   });
 
   // chamado pela sincronização: traz as contagens lançadas em outros aparelhos
-  window.mesclarEstoqueNuvem = function (linhas) {
-    var ids = {}; estRegistrosCache.forEach(function (r) { ids[r.id] = true; });
+  window.mesclarEstoqueNuvem = function (linhas, lixeira) {
+    var bloq = window.idsBloqueados ? window.idsBloqueados() : new Set();
     var novos = 0;
+    if (lixeira && lixeira.size) {
+      var n0 = estRegistrosCache.length;
+      estRegistrosCache = estRegistrosCache.filter(function (r) { return !lixeira.has(String(r.id)); });
+      novos += n0 - estRegistrosCache.length;
+    }
+    var ids = {}; estRegistrosCache.forEach(function (r) { ids[r.id] = true; });
     linhas.forEach(function (l) {
-      if (!l.id || ids[l.id]) return;
+      if (!l.id || ids[l.id] || bloq.has(String(l.id))) return;
       var itens = ORDEM.map(function (k) {
         var sc = parseFloat(String(l[k + "_sacos"] || "0").replace(",", ".")) || 0;
         return { insumo: k, nome: NOMES[k], sacos: sc, kg: sc * PESO_SACO[k] };
@@ -2985,9 +3190,22 @@ if ('serviceWorker' in navigator) {
   };
 
   function excluirRegistroEstoque(id) {
-    estRegistrosCache = estRegistrosCache.filter(function (r) { return r.id !== id; });
-    persistirEstoqueRegistros();
-    renderEstHistorico();
+    var idx = -1, rec = null;
+    estRegistrosCache.forEach(function (r, i) { if (r.id === id) { idx = i; rec = r; } });
+    if (!rec) return;
+    var dataTxt = rec.data ? new Date(rec.data + "T00:00:00").toLocaleDateString("pt-BR") : fmtDate(rec.timestamp);
+    var resumo = (rec.itens || []).map(function (it) { return (NOMES[it.insumo] || it.nome || it.insumo).split(" ")[0] + " " + sacosDoItem(it); }).join(" · ");
+    window.apagarComDesfazer({
+      id: id,
+      texto: "Contagem de estoque de " + dataTxt + " apagada",
+      detalhe: "Vai para a Lixeira da planilha (30 dias).",
+      remover: function () { estRegistrosCache = estRegistrosCache.filter(function (r) { return r.id !== id; }); renderEstHistorico(); },
+      restaurar: function () { estRegistrosCache.splice(Math.min(idx, estRegistrosCache.length), 0, rec); renderEstHistorico(); },
+      confirmar: function () {
+        persistirEstoqueRegistros();
+        if (window.enfileirarExclusao) window.enfileirarExclusao("estoque", id, "Estoque " + dataTxt + " — " + resumo);
+      }
+    });
   }
 
   function renderEstHistorico() {
@@ -3023,7 +3241,7 @@ if ('serviceWorker' in navigator) {
       verBtn.className = "link-btn"; verBtn.type = "button"; verBtn.textContent = "ver detalhes";
       var delBtn = document.createElement("button");
       delBtn.className = "del-btn"; delBtn.type = "button"; delBtn.textContent = "×";
-      delBtn.title = "Excluir deste aparelho"; delBtn.style.marginLeft = "8px";
+      delBtn.title = "Apagar (vai para a Lixeira da planilha)"; delBtn.style.marginLeft = "8px";
       delBtn.addEventListener("click", function () { excluirRegistroEstoque(r.id); });
       tdAcoes.appendChild(verBtn); tdAcoes.appendChild(delBtn);
       tr.appendChild(tdAcoes);
