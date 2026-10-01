@@ -1,9 +1,9 @@
-// Vaqueiro Prateado — Service Worker v2
+// Vaqueiro Prateado — Service Worker v3 (01/10/2026)
 // - Página (index.html): REDE PRIMEIRO → toda atualização publicada aparece na hora;
 //   sem internet, abre a cópia guardada.
 // - Ícones/manifest/bibliotecas: cache primeiro (rápido e offline).
 // - Planilha (script.google.com): NUNCA passa pelo cache — sempre dado fresco.
-const CACHE = 'vaqueiro-prateado-v2';
+const CACHE = 'vaqueiro-prateado-v3';
 
 const APP_SHELL = [
   './',

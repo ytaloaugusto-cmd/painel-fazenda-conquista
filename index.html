@@ -535,17 +535,6 @@ footer.note {
   display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px;
 }
 .cocho-scope .frete-result strong { font-variant-numeric: tabular-nums; }
-.cocho-scope .frete-result { display: block !important; }
-.cocho-scope .fr-linha { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; font-size: 13.5px; }
-.cocho-scope .fr-linha strong { font-variant-numeric: tabular-nums; }
-.cocho-scope .fr-tot { border-top: 1px dashed var(--border); margin-top: 3px; padding-top: 6px; font-weight: 800; }
-.cocho-scope .fr-veredito { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.35; }
-.cocho-scope .fr-veredito.bom { background: #2f9e44; color: #fff; }
-.cocho-scope .fr-veredito.ruim { background: #d9363e; color: #fff; }
-.cocho-scope .fr-veredito.neutro { background: rgba(127,127,127,.15); }
-.cocho-scope .fr-origem { grid-column: 1 / -1; }
-.cocho-scope .fr-origem label { color: var(--accent-2, #d4a429) !important; font-weight: 800; }
-.cocho-scope .diff-banner.bom { border-color: #2f9e44; }
 .cocho-scope .frete-note { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 
 .cocho-scope .result-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -712,6 +701,194 @@ footer.note {
   .cocho-scope .frete-grid { grid-template-columns: 1fr 1fr; }
 }
 
+/* ══ ATUALIZAÇÃO 01/10/2026 — LANÇAR · HISTÓRICO · CORREÇÕES ══ */
+.corr-btn { font: inherit; font-size: 11.5px; font-weight: 800; color: #fff; background: rgba(255,255,255,.12);
+  border: 1.5px solid rgba(255,255,255,.35); border-radius: 16px; padding: 5px 11px; cursor: pointer; white-space: nowrap; }
+.corr-btn:hover { background: rgba(255,255,255,.22); }
+.top-dir { display: flex; align-items: center; gap: 10px; }
+
+#v-lancar { max-width: 620px; margin: 0 auto; }
+.ln-status { font-size: 12.5px; font-weight: 800; padding: 9px 14px; border-radius: 12px; margin-bottom: 14px; border: 1.5px solid; text-align: center; }
+.ln-status.ok { color: var(--campo-d); background: var(--campo-cl); border-color: var(--campo); }
+.ln-status.pend { color: var(--couro-d); background: var(--couro-cl); border-color: var(--couro); }
+.ln-status.off { color: #7a5c05; background: var(--ambar-cl); border-color: var(--ambar); }
+.ln-topo { display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
+.ln-voltar { font: inherit; font-size: 16px; font-weight: 800; color: var(--txt2); background: var(--bg2); border: 1.5px solid var(--border-d);
+  border-radius: 12px; padding: 10px 16px; min-height: 48px; cursor: pointer; }
+.ln-passo { font-size: 12px; font-weight: 800; color: var(--txt3); margin-left: auto; }
+.ln-q { font-size: 26px; font-weight: 900; margin: 8px 0 4px; color: var(--txt); line-height: 1.15; }
+.ln-qsub { font-size: 15px; color: var(--txt2); margin-bottom: 16px; line-height: 1.45; }
+.ln-sep { font-size: 12px; font-weight: 800; color: var(--txt2); letter-spacing: .3px; text-transform: uppercase; margin: 22px 0 10px; }
+.ln-vazio { background: var(--bg2); border: 1.5px dashed var(--border-d); border-radius: 14px; padding: 22px; text-align: center; font-size: 15px; line-height: 1.6; color: var(--txt2); }
+
+.ln-lotes { display: flex; flex-direction: column; gap: 10px; }
+.ln-lote { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 76px; text-align: left; cursor: pointer;
+  font: inherit; color: var(--txt); background: var(--bg2); border: 2px solid var(--border-d); border-left-width: 10px;
+  border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); }
+.ln-lote:active { transform: scale(.985); }
+.ln-lote.mod-A { border-left-color: var(--mod-a); } .ln-lote.mod-B { border-left-color: var(--mod-b); }
+.ln-lote.mod-C { border-left-color: var(--mod-c); } .ln-lote.mod-D { border-left-color: var(--mod-d); }
+.ln-lote.espera { border-style: dashed; border-left-style: solid; border-left-color: var(--txt3); }
+.ln-lote-mod { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 20px; font-weight: 900; color: #fff; background: var(--txt3); }
+.ln-lote.mod-A .ln-lote-mod { background: var(--mod-a); } .ln-lote.mod-B .ln-lote-mod { background: var(--mod-b); }
+.ln-lote.mod-C .ln-lote-mod { background: var(--mod-c); } .ln-lote.mod-D .ln-lote-mod { background: var(--mod-d); }
+.ln-lote-info { flex: 1; min-width: 0; }
+.ln-lote-info b { display: block; font-size: 19px; font-weight: 900; }
+.ln-lote-info small { display: block; font-size: 14px; color: var(--txt2); margin-top: 2px; }
+.ln-lote-dias { text-align: center; flex-shrink: 0; color: var(--campo-d); }
+.ln-lote-dias b { display: block; font-size: 26px; font-weight: 900; line-height: 1; }
+.ln-lote-dias small { font-size: 11px; font-weight: 700; color: var(--txt2); }
+.ln-lote-dias.hoje { color: var(--ambar); } .ln-lote-dias.venc { color: var(--vermelho); }
+
+.ln-acoes, .ln-tipos { display: flex; flex-direction: column; gap: 12px; }
+.ln-acao, .ln-tipo { display: grid; grid-template-columns: 56px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 12px;
+  width: 100%; min-height: 84px; text-align: left; cursor: pointer; font: inherit; color: var(--txt);
+  background: var(--bg2); border: 2px solid var(--border-d); border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); }
+.ln-acao span, .ln-tipo span { grid-row: 1 / 3; font-size: 34px; text-align: center; }
+.ln-acao b, .ln-tipo b { font-size: 20px; font-weight: 900; }
+.ln-acao small { font-size: 14px; color: var(--txt2); }
+.ln-tipo { min-height: 66px; grid-template-rows: auto; }
+.ln-tipo span { grid-row: 1; font-size: 28px; }
+.ln-acao.mover { border-color: var(--campo); background: var(--campo-cl); }
+.ln-tipo.on { border-color: var(--campo); background: var(--campo-cl); box-shadow: 0 0 0 3px var(--campo) inset; }
+
+.ln-mods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.ln-mod { white-space: nowrap; font: inherit; font-size: 15px; font-weight: 900; min-height: 52px; border-radius: 12px; cursor: pointer;
+  border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt2); }
+.ln-mod.on-A { background: var(--mod-a); border-color: var(--mod-a); color: #fff; }
+.ln-mod.on-B { background: var(--mod-b); border-color: var(--mod-b); color: #fff; }
+.ln-mod.on-C { background: var(--mod-c); border-color: var(--mod-c); color: #fff; }
+.ln-mod.on-D { background: var(--mod-d); border-color: var(--mod-d); color: #fff; }
+.ln-sug-btn { width: 100%; min-height: 60px; font: inherit; font-size: 18px; color: #fff; background: var(--campo); border: none;
+  border-radius: 14px; cursor: pointer; margin-bottom: 12px; box-shadow: var(--shadow-md); }
+.ln-sug-btn b { font-size: 22px; }
+
+.ln-map { background: #26352b; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+.ln-svg { display: block; width: 100%; height: auto; max-height: 64vh; touch-action: manipulation; }
+.ln-piq { stroke: rgba(255,255,255,.85); stroke-width: 1.5; fill-opacity: .4; vector-effect: non-scaling-stroke; cursor: pointer; }
+.ln-piq:active { fill-opacity: .85; }
+.ln-piq.ocup { fill-opacity: .15; fill: #9aa59e; stroke-dasharray: 4 3; }
+.ln-piq.aqui, .ln-piq.ocup.aqui { fill: #2A4F2E; fill-opacity: .95; stroke: #fff; stroke-width: 3; stroke-dasharray: none; }
+.ln-piq.sug { fill-opacity: .95; stroke: #ffe14d; stroke-width: 4; animation: lnPisca 1.1s ease-in-out infinite; }
+@keyframes lnPisca { 50% { fill-opacity: .45; } }
+.ln-piq-num { font-weight: 900; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.65); }
+.ln-piq-lote { font-weight: 800; fill: #fff; text-anchor: middle; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,.65); }
+
+.ln-nums { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+.ln-num { font: inherit; min-height: 64px; border-radius: 12px; cursor: pointer; border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 4px; }
+.ln-num b { font-size: 22px; font-weight: 900; line-height: 1; }
+.ln-num small { font-size: 10.5px; font-weight: 700; color: var(--txt2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.ln-num.ocup { background: var(--bg3); border-style: dashed; opacity: .75; }
+.ln-num.aqui { background: var(--campo-d); color: #fff; border-color: var(--campo-d); cursor: default; }
+.ln-num.aqui small { color: #fff; }
+.ln-num.sug { border-color: var(--campo); background: var(--campo-cl); box-shadow: 0 0 0 3px var(--campo) inset; animation: lnPiscaBtn 1.1s ease-in-out infinite; }
+@keyframes lnPiscaBtn { 50% { box-shadow: 0 0 0 1px var(--campo) inset; } }
+
+.ln-campo { margin-top: 18px; }
+.ln-campo > label { display: block; font-size: 15px; font-weight: 800; color: var(--txt2); margin-bottom: 8px; }
+.ln-campo > label small { font-weight: 600; color: var(--txt3); }
+.ln-campo input[type=text], .ln-campo input[type=date] { width: 100%; min-height: 54px; font: inherit; font-size: 17px; padding: 10px 14px;
+  border-radius: 12px; border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt); margin-top: 8px; }
+.ln-stepper { display: grid; grid-template-columns: 72px 1fr 72px; gap: 10px; }
+.ln-stepper button { font: inherit; font-size: 34px; font-weight: 900; min-height: 68px; border-radius: 14px; cursor: pointer;
+  border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt); }
+.ln-stepper input { font: inherit; font-size: 34px; font-weight: 900; text-align: center; min-height: 68px; border-radius: 14px; width: 100%;
+  border: 2px solid var(--campo); background: var(--bg2); color: var(--txt); }
+.ln-rapidos { display: flex; flex-wrap: wrap; gap: 8px; }
+.ln-rapidos button { font: inherit; font-size: 14px; font-weight: 700; min-height: 44px; padding: 8px 14px; border-radius: 22px; cursor: pointer;
+  border: 1.5px solid var(--border-d); background: var(--bg2); color: var(--txt2); }
+.ln-datas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ln-datas button { font: inherit; font-size: 16px; font-weight: 800; min-height: 54px; border-radius: 12px; cursor: pointer;
+  border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt2); }
+.ln-datas button.on { background: var(--campo); border-color: var(--campo); color: #fff; }
+
+.ln-resumo { background: var(--bg2); border: 2px solid var(--campo); border-radius: 16px; padding: 18px; font-size: 20px; text-align: center; box-shadow: var(--shadow); }
+.ln-resumo > b { font-size: 24px; }
+.ln-seta { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; font-size: 30px; font-weight: 900; }
+.ln-seta span { color: var(--txt2); }
+.ln-seta span.dest { color: var(--campo-d); }
+.ln-seta i { font-style: normal; color: var(--txt3); }
+.ln-grande { font-size: 24px; font-weight: 900; margin-top: 8px; }
+.ln-obs-res { font-size: 15px; color: var(--txt2); margin-top: 6px; }
+.ln-aviso { display: block; font-size: 15px; line-height: 1.45; padding: 12px 14px; border-radius: 12px; margin-top: 10px;
+  background: var(--ambar-cl); color: #6b5004; border: 1.5px solid var(--ambar); }
+.ln-aviso.erro { background: var(--verm-cl); color: var(--vermelho); border-color: var(--vermelho); font-weight: 700; }
+.ln-aviso.alerta { cursor: pointer; }
+.ln-aviso.alerta input { width: 22px; height: 22px; vertical-align: -5px; margin-right: 6px; }
+.ln-confirmar, .ln-continuar { display: block; width: 100%; min-height: 68px; margin-top: 20px; font: inherit; font-size: 22px; font-weight: 900; letter-spacing: .5px;
+  color: #fff; background: var(--campo); border: none; border-radius: 16px; cursor: pointer; box-shadow: var(--shadow-md); }
+.ln-confirmar:disabled { background: var(--txt3); box-shadow: none; cursor: not-allowed; }
+.ln-continuar { font-size: 19px; min-height: 60px; }
+.ln-link { display: block; width: 100%; margin-top: 10px; font: inherit; font-size: 15px; font-weight: 800; color: var(--campo-d); background: none; border: none; min-height: 48px; cursor: pointer; }
+.ln-ok { text-align: center; padding: 30px 10px; }
+.ln-edit-hoje { display: block; width: 100%; margin-top: 16px; min-height: 52px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer;
+  color: var(--txt2); background: var(--bg2); border: 1.5px dashed var(--border-d); border-radius: 12px; }
+.ln-ok-ico { width: 96px; height: 96px; margin: 0 auto 10px; border-radius: 50%; background: var(--campo); color: #fff; font-size: 56px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center; }
+.ln-ok h2 { font-size: 30px; margin: 6px 0; }
+.ln-ok p { font-size: 18px; margin: 6px 0; }
+.ln-ok-sub { color: var(--txt2); font-size: 15px !important; }
+
+/* Histórico */
+.hs-busca input { width: 100%; min-height: 50px; font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 12px;
+  border: 2px solid var(--border-d); background: var(--bg2); color: var(--txt); margin-bottom: 12px; }
+.hs-tipos { margin-bottom: 10px; }
+.hs-linha { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.hs-linha select, .hs-linha input[type=date] { font: inherit; font-size: 13.5px; padding: 8px 10px; border-radius: 9px; border: 1.5px solid var(--border-d); background: var(--bg2); color: var(--txt); }
+.hs-linha label { font-size: 12.5px; font-weight: 700; color: var(--txt2); display: inline-flex; align-items: center; gap: 6px; }
+.hs-tog { gap: 14px; }
+.hs-mais-filtros { margin-bottom: 10px; }
+.hs-mais-filtros summary { cursor: pointer; font-size: 13px; font-weight: 800; color: var(--campo-d); padding: 6px 0 10px; }
+.hs-conta { font-size: 12px; font-weight: 800; color: var(--txt2); margin: 4px 0 6px; }
+.hs-dia { font-size: 12px; font-weight: 900; color: var(--campo-d); background: var(--bg); text-transform: capitalize;
+  padding: 10px 2px 6px; border-bottom: 1.5px solid var(--border); }
+.hs-item { display: block; width: 100%; text-align: left; font: inherit; color: var(--txt); background: var(--bg2); cursor: pointer;
+  border: 1px solid var(--border); border-left: 5px solid var(--border-d); border-radius: 10px; padding: 10px 12px; margin-top: 8px; }
+.hs-item:hover { background: var(--bg3); }
+.hs-item.k-mov { border-left-color: var(--campo); } .hs-item.k-oc { border-left-color: var(--vermelho); }
+.hs-item.k-cont { border-left-color: var(--mod-d); } .hs-item.k-corr { border-left-color: var(--ambar); }
+.hs-item.k-est, .hs-item.k-cocho { border-left-color: var(--couro); } .hs-item.k-san { border-left-color: var(--mod-c); }
+.hs-item.anul { opacity: .6; } .hs-item.anul .hs-t { text-decoration: line-through; }
+.hs-t { display: block; font-size: 14px; font-weight: 800; }
+.hs-s { display: block; font-size: 12.5px; color: var(--txt2); margin-top: 3px; }
+.hs-tag { font-style: normal; font-size: 10.5px; font-weight: 800; padding: 1px 7px; border-radius: 8px; background: var(--ambar-cl); color: #7a5c05; text-decoration: none; display: inline-block; }
+.hs-tag.verm { background: var(--verm-cl); color: var(--vermelho); }
+.hs-mais { width: 100%; justify-content: center; margin-top: 14px; padding: 12px; }
+.ficha-tab { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.ficha-tab th { text-align: left; color: var(--txt2); font-size: 12px; padding: 7px 10px 7px 0; vertical-align: top; white-space: nowrap; }
+.ficha-tab td { padding: 7px 0; border-bottom: 1px solid var(--border); word-break: break-word; }
+.ficha-aud { font-size: 12.5px; background: var(--ambar-cl); border-radius: 9px; padding: 8px 10px; margin-top: 6px; line-height: 1.45; word-break: break-word; }
+
+/* Correções */
+#v-correcoes { max-width: 760px; margin: 0 auto; }
+.cr-aviso { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; font-weight: 700;
+  background: var(--ambar-cl); color: #6b5004; border: 1.5px solid var(--ambar); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; }
+.cr-sub { font-size: 12.5px; color: var(--txt2); margin-bottom: 10px; line-height: 1.5; }
+.cr-in, .cr-grid input, .cr-grid select { width: 100%; font: inherit; font-size: 14px; padding: 10px 12px; border-radius: 9px; border: 1.5px solid var(--border-d);
+  background: var(--bg); color: var(--txt); margin-bottom: 10px; }
+.cr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cr-grid label { font-size: 11px; font-weight: 800; color: var(--txt2); display: block; }
+.cr-grid label input, .cr-grid label select { margin-top: 5px; }
+.cr-item, .cr-lote { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.cr-item span, .cr-lote span { min-width: 0; }
+.cr-item b, .cr-lote b { display: block; font-size: 13.5px; }
+.cr-item small, .cr-lote small { display: block; font-size: 12px; color: var(--txt2); margin-top: 2px; }
+.cr-item .btn, .cr-lote .btn { flex-shrink: 0; }
+.cr-novo { margin-top: 14px; padding-top: 6px; border-top: 1.5px dashed var(--border); }
+.cr-arq { margin-top: 10px; font-size: 13px; }
+.cr-arq summary { cursor: pointer; font-weight: 800; color: var(--txt2); }
+.cr-anular { width: 100%; justify-content: center; margin-top: 12px; padding: 11px; background: var(--verm-cl); color: var(--vermelho); border: 1.5px solid var(--vermelho); }
+.pin-txt { font-size: 13px; color: var(--txt2); margin-bottom: 12px; line-height: 1.5; }
+.modal-card input.pin-in { font-size: 30px; letter-spacing: 12px; text-align: center; margin-bottom: 10px; }
+.pin-erro { color: var(--vermelho); font-size: 13px; font-weight: 700; min-height: 18px; }
+@media (max-width: 640px) {
+  .ln-q { font-size: 24px; }
+  .cr-grid { grid-template-columns: 1fr; gap: 0; }
+  .corr-btn { padding: 5px 9px; }
+}
+
 </style>
 </head>
 <body>
@@ -726,12 +903,23 @@ footer.note {
         <span>Painel — Fazenda Conquista · Joaquim Gomes, AL</span>
       </div>
     </div>
-    <div class="top-meta" id="top-data"></div>
+    <div class="top-dir">
+      <div class="top-meta" id="top-data"></div>
+      <button class="corr-btn" onclick="abrirCorrecoes()" title="Corrigir lançamentos">✎ Correções</button>
+    </div>
   </div>
   <nav class="tabs">
-    <button class="on" data-view="mapa" onclick="irPara('mapa')">
+    <button class="on" data-view="lancar" onclick="irPara('lancar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="10"/></svg>
+      <span class="lbl">Lançar</span>
+    </button>
+    <button data-view="mapa" onclick="irPara('mapa')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5-2V6l5 2 6-2 5 2v14l-5-2-6 2z"/><path d="M9 4v16M15 6v16"/></svg>
       <span class="lbl">Mapa &amp; Rotação</span>
+    </button>
+    <button data-view="historico" onclick="irPara('historico')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <span class="lbl">Histórico</span>
     </button>
     <button data-view="sanidade" onclick="irPara('sanidade')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4M17 7 7 17M14 4l6 6M9 15l-5 5 4 1 1 3 5-5"/></svg>
@@ -754,8 +942,28 @@ footer.note {
 
 <main>
 
+  <!-- ══════════════ LANÇAR (vaqueiro) ══════════════ -->
+  <section id="v-lancar" class="view on">
+    <div id="ln-status" class="ln-status ok">✓ Tudo enviado para a planilha</div>
+    <div id="lancar-corpo"></div>
+  </section>
+
+  <!-- ══════════════ HISTÓRICO ══════════════ -->
+  <section id="v-historico" class="view">
+    <div class="card">
+      <div class="card-title">HISTÓRICO COMPLETO — TUDO O QUE FOI LANÇADO</div>
+      <div id="hs-filtros"></div>
+      <div id="hs-lista"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CORREÇÕES (PIN) ══════════════ -->
+  <section id="v-correcoes" class="view">
+    <div id="cr-corpo"></div>
+  </section>
+
   <!-- ══════════════ MAPA & ROTAÇÃO ══════════════ -->
-  <section id="v-mapa" class="view on">
+  <section id="v-mapa" class="view">
     <div class="stats" id="mapa-stats"></div>
 
     <div class="acoes-lancamento">
@@ -800,6 +1008,7 @@ footer.note {
     <div class="card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
         <span>OCORRÊNCIAS RECENTES</span>
+        <button class="btn btn-out" onclick="historicoFiltrado('');HS.tipo='oc';renderHistorico()">Ver todas →</button>
       </div>
       <div id="ocorrencia-list"></div>
     </div>
@@ -895,7 +1104,7 @@ footer.note {
 
   <div class="card">
     <h2>Composição da mistura</h2>
-    <div class="sub">Ajuste ingredientes, % de inclusão e o <b>preço do saco comprado com entrega na fazenda</b>. Se der para buscar mais barato em outro lugar, toque em 🚚 e informe o <b>preço na origem</b> e os dados da viagem — o app mostra se compensa buscar.</div>
+    <div class="sub">Ajuste ingredientes, % de inclusão e preço do saco. Clique em 🚚 para calcular o frete de um ingrediente buscado na origem.</div>
 
     <div class="lote-name">
       <label for="loteInput">Nome do lote</label>
@@ -908,7 +1117,7 @@ footer.note {
           <tr>
             <th style="width:auto">Ingrediente</th>
             <th class="col-pct">% inclusão</th>
-            <th class="col-preco">Preço saco na fazenda (R$)</th>
+            <th class="col-preco">Preço saco origem (R$)</th>
             <th class="col-peso">Peso saco (kg)</th>
             <th class="col-kg">R$ / kg</th>
             <th class="col-frete-btn"></th>
@@ -927,17 +1136,17 @@ footer.note {
 
   <div class="card">
     <h2>Custo do lote agora</h2>
-    <div class="sub">Comparação: tudo comprado com entrega na fazenda x buscando na origem os ingredientes marcados com 🚚 (preço na origem + frete).</div>
+    <div class="sub">Comparação direta: composição sem considerar frete x composição com o frete calculado nos ingredientes marcados com 🚚.</div>
 
     <div class="result-pair">
       <div class="result-panel sem">
-        <div class="tag">Comprando na fazenda</div>
+        <div class="tag">Sem frete</div>
         <div class="val-kg mono" id="resKgSem">—</div>
         <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoSem">—</span></div>
         <div class="mini-row"><span>Tonelada</span><span id="resTonSem">—</span></div>
       </div>
       <div class="result-panel com">
-        <div class="tag">🚚 Buscando na origem</div>
+        <div class="tag">Com frete</div>
         <div class="val-kg mono" id="resKgCom">—</div>
         <div class="mini-row"><span>Saco 30 kg</span><span id="resSacoCom">—</span></div>
         <div class="mini-row"><span>Tonelada</span><span id="resTonCom">—</span></div>
@@ -981,8 +1190,8 @@ footer.note {
           <tr>
             <th>Data</th>
             <th>Lote</th>
-            <th style="text-align:right">Na fazenda (R$/kg)</th>
-            <th style="text-align:right">Buscando (R$/kg)</th>
+            <th style="text-align:right">Sem frete (R$/kg)</th>
+            <th style="text-align:right">Com frete (R$/kg)</th>
             <th></th>
           </tr>
         </thead>
@@ -1123,7 +1332,7 @@ footer.note {
 
 </main>
 
-<footer class="note">Vaqueiro Prateado — funciona sem internet; os lançamentos vão para a planilha da fazenda quando houver sinal.</footer>
+<footer class="note">Vaqueiro Prateado · versão 01/10/2026 — funciona sem internet; os lançamentos vão para a planilha da fazenda quando houver sinal.</footer>
 <script>
 /* ═══════════════════════════════════════════════════════
    PAINEL FAZENDA CONQUISTA
@@ -1134,7 +1343,7 @@ footer.note {
    ═══════════════════════════════════════════════════════ */
 
 const PIQ_POR_MOD = { A: 18, B: 14, C: 17, D: 20 };
-// lista real de piquetes de cada módulo (o Módulo D vai do 00 ao 19)
+// lista real de piquetes de cada módulo (Módulo D: 1 a 20 — o antigo 00 virou o 20)
 function numsDoModulo(mod) {
   return Object.keys((typeof PIQUETES_GEO !== 'undefined' && PIQUETES_GEO[mod]) || {})
     .map(n => parseInt(n, 10)).sort((a, b) => a - b);
@@ -1149,7 +1358,7 @@ const MOD_FAIXA = {
 const MAX_DIAS = 3;
 
 const $ = id => document.getElementById(id);
-const hoje = () => new Date().toISOString().split('T')[0];
+const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const dias = (a, b) => Math.floor((new Date(b || hoje()) - new Date(a)) / 86400000);
 const fmtData = d => { if(!d) return '—'; const [y,m,dd]=String(d).split('-'); return dd&&m&&y?`${dd}/${m}/${y.slice(2)}`:d; };
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
@@ -1172,6 +1381,11 @@ let SANIDADE = { produtos: [], aplicacoes: [] };
 let PESO = { animais: [], sessaoInfo: {} };
 let modAtual = 'A';
 
+// antigo D-00 → D-20 (vale para dado local, da planilha e de planilha importada)
+function piqueteNovo(modulo, piquete) {
+  const p = parseInt(piquete, 10);
+  return (String(modulo).trim().toUpperCase() === 'D' && p === 0) ? '20' : String(isNaN(p) ? piquete : p);
+}
 function carregarLocal(chave, padrao) {
   try { const v = localStorage.getItem(chave); return v ? JSON.parse(v) : padrao; }
   catch(e) { return padrao; }
@@ -1206,6 +1420,22 @@ function recalcularLotes() {
   });
   // piquete ocupado agora não está em descanso
   LOTES.forEach(l => { delete PIQ_DESCANSO[l.modulo + '-' + parseInt(l.piquete, 10)]; });
+  LOTES.forEach(l => { l.cabecasEntrada = l.cabecas; l.cabecas = cabecasAtuais(l); });
+}
+// contagem lançada depois da entrada substitui o número; morte desconta
+function cabecasAtuais(l) {
+  const mov = MOVIMENTACOES.find(m => m.id === l.id);
+  const ts0 = mov ? (mov.ts || 0) : 0;
+  let n = l.cabecas;
+  OCORRENCIAS.filter(o => o.lote === l.nome && (o.tipo === 'contagem' || o.tipo === 'morte') &&
+      (String(o.data) > String(l.entrada) || (String(o.data) === String(l.entrada) && (o.ts || 0) > ts0)))
+    .sort((a, b) => String(a.data).localeCompare(String(b.data)) || (a.ts || 0) - (b.ts || 0))
+    .forEach(o => {
+      const q = parseInt(o.qtd, 10);
+      if (o.tipo === 'contagem') { if (!isNaN(q) && q >= 0) n = q; }
+      else if (n != null) n = Math.max(0, n - (isNaN(q) || q < 1 ? 1 : q));
+    });
+  return n;
 }
 
 window.addEventListener('load', () => {
@@ -1232,7 +1462,9 @@ function irPara(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
   document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('on'));
   $('v-' + view).classList.add('on');
-  document.querySelector(`nav.tabs button[data-view="${view}"]`).classList.add('on');
+  const bt = document.querySelector(`nav.tabs button[data-view="${view}"]`);
+  if (bt) bt.classList.add('on');
+  if (typeof aoMudarAba === 'function') aoMudarAba(view);
 }
 
 
@@ -1240,7 +1472,7 @@ function irPara(view) {
 /* Dataset real dos piquetes — extraído do mapa georreferenciado (KML) da fazenda.
    Formato: {modulo: {numero: [hectares, perimetro_m, [[lon,lat],...]]}}.
    Coordenadas em WGS84 (graus). Projetadas localmente para SVG na função proj(). */
-const PIQUETES_GEO = {"A":{"17":[7.36,1312,[[-35.854771085889,-9.14935130949416],[-35.8563792053412,-9.14959062162741],[-35.8576011741785,-9.15020143649412],[-35.8585799275146,-9.15009016943164],[-35.8592500756132,-9.15150345722492],[-35.8575682214089,-9.15137305963792],[-35.8570226299517,-9.15131943609614],[-35.8565257330244,-9.15142746275261],[-35.8545295513428,-9.15034989721939],[-35.854541008519,-9.15027018104209],[-35.8545561702681,-9.15004891415087],[-35.8545352834127,-9.14982558581081],[-35.8544938264026,-9.14974062298411],[-35.8544299419153,-9.14942186339298],[-35.8546517988605,-9.14949167045251],[-35.854771085889,-9.14935130949416]]],"16":[9.11,1574,[[-35.8576833469492,-9.15313957243314],[-35.8572351686388,-9.15337358666561],[-35.8562068802598,-9.15424989429355],[-35.8556854364684,-9.15365556061202],[-35.8544950008776,-9.15063541061402],[-35.8545300160144,-9.15034852849288],[-35.8565301693125,-9.15144182874805],[-35.8565396577066,-9.15180524324428],[-35.8568875171761,-9.15202989650752],[-35.8573161129523,-9.1518336288673],[-35.857458147349,-9.15159295949884],[-35.8574515927622,-9.15136559485103],[-35.8592545888957,-9.15151896241959],[-35.8576833469492,-9.15313957243314]]],"18":[7.49,1208,[[-35.8547796779633,-9.14936715822836],[-35.8547871443789,-9.14899127012269],[-35.85470656736,-9.14847222580365],[-35.8545475770527,-9.14800531219418],[-35.8546435848069,-9.14778014871351],[-35.8550101913163,-9.14754568150465],[-35.855360134899,-9.14752976952751],[-35.8558265117423,-9.14769284119461],[-35.8560589726958,-9.14773531587429],[-35.8565233461312,-9.14790959511329],[-35.8567824289694,-9.14796188590858],[-35.8568945617684,-9.14791244187492],[-35.856995346603,-9.14747923967023],[-35.8572536702555,-9.14746419297675],[-35.8578905090831,-9.14758677399729],[-35.8580688229589,-9.14837680103511],[-35.8581743454074,-9.14898389314896],[-35.8583810483083,-9.14944813274251],[-35.8575859157787,-9.14937113261352],[-35.8568257381396,-9.14952936979212],[-35.8563601830004,-9.14958224289316],[-35.8547796779633,-9.14936715822836]]],"1":[5.14,1014,[[-35.8441270942076,-9.15486663861381],[-35.8437517150439,-9.15619050164689],[-35.843129709704,-9.15705725909683],[-35.8426768168645,-9.15675907237163],[-35.8418473986876,-9.15690620435186],[-35.8421388903033,-9.15639571163183],[-35.842128193372,-9.15608320358131],[-35.8421366391327,-9.1557812653502],[-35.8419627638812,-9.15554038568363],[-35.8414923909833,-9.15524461005849],[-35.8416830423079,-9.15453386029023],[-35.8417888993796,-9.1546327999094],[-35.841853241479,-9.15463386915469],[-35.8419012050998,-9.1545828808838],[-35.8419410897235,-9.15450546220626],[-35.8441270942076,-9.15486663861381]]],"2":[4.11,918,[[-35.8416783562648,-9.15451712314705],[-35.8414270385231,-9.1553935740189],[-35.8400873704661,-9.15491989028279],[-35.8385766823706,-9.15415617019164],[-35.8389505204695,-9.15302101121592],[-35.8416783562648,-9.15451712314705]]],"3":[3.14,1017,[[-35.8417209682693,-9.15383713225271],[-35.8417267073474,-9.15441671524221],[-35.841693721561,-9.15453666096693],[-35.8403759007173,-9.15381045598087],[-35.8389565490282,-9.15302594773206],[-35.8390259602294,-9.15269310950097],[-35.8391981392572,-9.15145373243156],[-35.8393354498009,-9.1515694227999],[-35.8395082966552,-9.15181162480473],[-35.839545185702,-9.15210213411892],[-35.8398010569655,-9.1525509818925],[-35.8411380493472,-9.15346349446536],[-35.8413543758141,-9.15348894941912],[-35.8413080513759,-9.15374166425952],[-35.8417209682693,-9.15383713225271]]],"4":[3.28,823,[[-35.8417314973379,-9.15440902632346],[-35.8417221181581,-9.15383638415222],[-35.8417854305211,-9.15356486983161],[-35.8420233647228,-9.15360817248341],[-35.8427943159454,-9.15331720475915],[-35.8431716852538,-9.15307608224301],[-35.8433082750863,-9.15278469919115],[-35.844127304644,-9.15486835915097],[-35.8419401734652,-9.1545012623355],[-35.8419057163825,-9.15438170325919],[-35.8418345218412,-9.1543449362767],[-35.8417314973379,-9.15440902632346]]],"15":[13.56,1780,[[-35.8544969833518,-9.15063617529692],[-35.8553090758635,-9.15272011261272],[-35.8556848027412,-9.15364739598748],[-35.8562098969609,-9.15424981735339],[-35.8527033839622,-9.15710847274812],[-35.8518106009994,-9.1556346534743],[-35.8534306652578,-9.15340450539162],[-35.8543584932756,-9.15168497537112],[-35.8544026136629,-9.15120898354822],[-35.8544171791498,-9.15062690099449],[-35.8544969833518,-9.15063617529692]]],"6":[3.93,841,[[-35.8441300681839,-9.15488856898917],[-35.8441145631173,-9.15477984483589],[-35.8458100415054,-9.15390321334528],[-35.8458678223438,-9.15390054983305],[-35.8460860526722,-9.15441510370111],[-35.846227570137,-9.15461611934108],[-35.8463103646809,-9.15490998332261],[-35.8464229031474,-9.15546250894111],[-35.8437940037966,-9.15602966940604],[-35.8441300681839,-9.15488856898917]]],"7":[8.45,1287,[[-35.8437033681667,-9.15940680962401],[-35.8432177885876,-9.15818652206526],[-35.8431957625787,-9.15782585735797],[-35.8431416928804,-9.15707819008505],[-35.8437583414927,-9.1561904193119],[-35.8438068452609,-9.15603081859986],[-35.8464125331109,-9.15545775476469],[-35.8467806603217,-9.15559305204079],[-35.8454853815236,-9.15729239512344],[-35.8442377010808,-9.15907555361139],[-35.8437033681667,-9.15940680962401]]],"8":[6.22,1275,[[-35.8467740357989,-9.15558984111015],[-35.8464636221169,-9.15547727642371],[-35.846309605147,-9.1547440220066],[-35.8462554405443,-9.1545619819995],[-35.8461320944587,-9.15435317266507],[-35.8458898106968,-9.15386639962443],[-35.8454827422053,-9.15364861276768],[-35.8455483513039,-9.15358495601624],[-35.8452610649928,-9.15334477851066],[-35.8451969963311,-9.1533805989476],[-35.8450779651518,-9.15280344925596],[-35.8449785426767,-9.15263317152297],[-35.8449062445085,-9.15256241027052],[-35.8448288018886,-9.15246716879281],[-35.8451067416379,-9.15213633627676],[-35.8451276403131,-9.15195677578729],[-35.8455525625737,-9.15138444170802],[-35.846010585179,-9.1518062093585],[-35.8465866840902,-9.15332369983343],[-35.8481469811081,-9.15372937225915],[-35.8467740357989,-9.15558984111015]]],"9":[6.58,1073,[[-35.8481466398428,-9.15372872175648],[-35.846578945634,-9.15332839643773],[-35.8460131063606,-9.15179907873032],[-35.8455553900683,-9.15138594702923],[-35.8456137287234,-9.1511066803311],[-35.8458213909627,-9.1508674780148],[-35.8462907960257,-9.15062327712388],[-35.8463707711366,-9.15039703783168],[-35.8466933183644,-9.15049812113598],[-35.8470541534108,-9.15070348788921],[-35.8474605062774,-9.15114915633345],[-35.8473984626853,-9.15120385430099],[-35.8476674950818,-9.15162996723981],[-35.8486362363146,-9.15294539753483],[-35.8481466398428,-9.15372872175648]]],"10":[10.43,1620,[[-35.8479201287058,-9.15146553159261],[-35.8480690525318,-9.15134797955423],[-35.8482152283075,-9.15115935945424],[-35.8484850048116,-9.1509880754064],[-35.849450263245,-9.15073323207096],[-35.8513696823583,-9.15015068929679],[-35.8515253075874,-9.15096276276785],[-35.851812285677,-9.15218637668055],[-35.8519133241999,-9.15260352075629],[-35.852043560764,-9.152981601132],[-35.8520610836299,-9.15344174632087],[-35.8516653020847,-9.15375635837873],[-35.8508890340626,-9.15393731243345],[-35.8500251157373,-9.15257916850439],[-35.8496587748646,-9.15160921055606],[-35.8486397958895,-9.15294505307713],[-35.8476678190413,-9.15162738280275],[-35.8479201287058,-9.15146553159261]]],"11":[8.84,1517,[[-35.850424844732,-9.14768285711204],[-35.8513677319566,-9.15015623617672],[-35.8492955171078,-9.15078146286015],[-35.8488300293941,-9.15088357452184],[-35.8484866847885,-9.15098876883001],[-35.848229853557,-9.15115698920131],[-35.8480630976944,-9.15134761911838],[-35.8479218171414,-9.15145719161639],[-35.8475948684567,-9.15107463994612],[-35.847467778937,-9.15115646370954],[-35.8473199793011,-9.15097085068989],[-35.8470810736308,-9.15070966501485],[-35.846739856484,-9.1505284533822],[-35.8463597888747,-9.15038724990341],[-35.8466622026611,-9.1499165622933],[-35.8476691052761,-9.15010392400252],[-35.8481740968622,-9.14996443391708],[-35.848515325158,-9.14967356436255],[-35.8487004754181,-9.14936817893767],[-35.8495107040613,-9.14869501913855],[-35.8500007193708,-9.14798501632344],[-35.850424844732,-9.14768285711204]]],"12":[10.04,1258,[[-35.8514037532932,-9.14704983639214],[-35.8521441532963,-9.14707252954643],[-35.8533349704972,-9.14782131457182],[-35.8536135339764,-9.14817631005809],[-35.8541001241993,-9.14928652202487],[-35.8542794271915,-9.14939997899408],[-35.8544066891013,-9.14985288390142],[-35.8513913987795,-9.15024825985144],[-35.8504377930824,-9.14771116921956],[-35.8514037532932,-9.14704983639214]]],"13":[5.07,1007,[[-35.8517656576004,-9.15211368795439],[-35.851909036086,-9.15218876885663],[-35.8514302148311,-9.15022914871405],[-35.85440850926588,-9.14987516260862],[-35.85444112043653,-9.150036918050375],[-35.85444741586716,-9.150229833787987],[-35.85443009473481,-9.150763479343224],[-35.85325729329355,-9.151436742369604],[-35.8518950481646,-9.15220306870657],[-35.8517656576004,-9.15211368795439]]],"14":[8.09,1471,[[-35.8507949402038,-9.15396627294906],[-35.8516562264058,-9.15376376167502],[-35.8520652282514,-9.15343559653474],[-35.8520435134853,-9.1529635506081],[-35.85193196913043,-9.152554549235107],[-35.85186839185081,-9.15225732290024],[-35.8544311423514,-9.15064130277931],[-35.854395695448,-9.15121983867412],[-35.8543496462,-9.15169527472835],[-35.8534135921489,-9.15344208535005],[-35.8518163410137,-9.15562664547864],[-35.8507949402038,-9.15396627294906]]],"5":[3.68,936,[[-35.8433872896206,-9.15263951900987],[-35.8438976131618,-9.15246708441385],[-35.8443263875505,-9.15249291647281],[-35.8446189297154,-9.15258846494353],[-35.8447793806457,-9.1525312955722],[-35.8447987195381,-9.15257295140395],[-35.8449499228906,-9.1526872793702],[-35.8450620788963,-9.15298865306587],[-35.8451442961581,-9.15343779935353],[-35.8447373953135,-9.15373939669551],[-35.8448377246685,-9.15390836615686],[-35.8452667818434,-9.15381449090816],[-35.8454233498352,-9.15369158050612],[-35.8458210196171,-9.15390096577181],[-35.8441069175231,-9.15478813872089],[-35.8433128682192,-9.15279191360272],[-35.8433872896206,-9.15263951900987]]]},"B":{"1":[3.82,757,[[-35.8525455622095,-9.14490942736286],[-35.8524818405231,-9.14515993557654],[-35.8524291161806,-9.14605702147183],[-35.8524390717426,-9.14648532299526],[-35.8521288576742,-9.14699606927016],[-35.8516033295792,-9.14701462016525],[-35.8505999520096,-9.14559282835348],[-35.8510759878813,-9.14481578285053],[-35.8518997117328,-9.14471508627818],[-35.8519693551138,-9.14473541001672],[-35.8525455622095,-9.14490942736286]]],"2":[3.04,756,[[-35.8506046080978,-9.14560702274502],[-35.851606169151,-9.14702099262522],[-35.8513583735743,-9.14703714616735],[-35.8509588664773,-9.14724922584641],[-35.8506231927928,-9.14742065002104],[-35.8501309198223,-9.14776641894402],[-35.84909121816219,-9.146574920579102],[-35.84951082002763,-9.146382415893076],[-35.84979912627227,-9.146323200513638],[-35.85011632614862,-9.1462181710671],[-35.8506046080978,-9.14560702274502]]],"3":[4.12,1102,[[-35.8481881372911,-9.1487569325955],[-35.84848538627226,-9.148477540836742],[-35.8485875114762,-9.14814408471038],[-35.84865399422929,-9.147628201976115],[-35.84865375898686,-9.147034537909475],[-35.84884111869815,-9.146733590165688],[-35.84910044290294,-9.146570211827557],[-35.8498297983577,-9.14741426373101],[-35.8497980667331,-9.14745970913462],[-35.8497884643232,-9.14750831619803],[-35.8498244654786,-9.14757869849945],[-35.8499019298145,-9.14761350451225],[-35.8499637708843,-9.14757756250397],[-35.8501263273773,-9.14775588206852],[-35.8500885541544,-9.14779201757861],[-35.8500316403908,-9.1478489913202],[-35.8499307544372,-9.14792168156587],[-35.8498450553072,-9.14798414698602],[-35.8497409090722,-9.14808868636401],[-35.8496310239414,-9.14822674376207],[-35.8495447156426,-9.1483500429381],[-35.8494704731566,-9.14845869518883],[-35.8493915524201,-9.14860762653324],[-35.8493535270359,-9.14872005550311],[-35.8492802033923,-9.14878580393983],[-35.8491549944937,-9.14887151815483],[-35.8490047246744,-9.1489912987212],[-35.8488764906602,-9.14909303266927],[-35.8487333447566,-9.14924199767708],[-35.8486012011685,-9.1493905593328],[-35.8484731813942,-9.14955368627014],[-35.8483540040406,-9.14968403964501],[-35.8482209851283,-9.1497933952315],[-35.848041894915,-9.14989002570008],[-35.8479311754221,-9.1499487412175],[-35.847802640704,-9.1500007812204],[-35.8476673161526,-9.15000349715444],[-35.8475494068747,-9.14997737673713],[-35.8474198206964,-9.14994042795186],[-35.8473144771157,-9.14989860572558],[-35.8471594777967,-9.14983302672671],[-35.8472313772494,-9.1497730514153],[-35.8473720792807,-9.14972292118725],[-35.8475208053823,-9.14963999834356],[-35.8476048821839,-9.14957378141691],[-35.8476369457501,-9.14946396739932],[-35.8476681650506,-9.14939702649571],[-35.8476243009058,-9.14929919555492],[-35.8476363078272,-9.14918811812619],[-35.8476840499538,-9.1491217745919],[-35.8477994862705,-9.14900829980932],[-35.8480775756557,-9.14894824587542],[-35.8480276173565,-9.1487667962203],[-35.8481881372911,-9.1487569325955]]],"8":[2.55,763,[[-35.84125123226702,-9.150491982384892],[-35.84054325208436,-9.149983303956557],[-35.84055574283848,-9.149933004595068],[-35.84050856647827,-9.149896933728215],[-35.84043186623669,-9.149889916435631],[-35.84034283297732,-9.149971200742796],[-35.84028370754873,-9.150058610467239],[-35.84026737017871,-9.150098818483105],[-35.84016897489889,-9.150100954974697],[-35.84008769089665,-9.150091483752895],[-35.83999046795113,-9.150130306895306],[-35.83992119633731,-9.150165646104915],[-35.83985356202961,-9.150161058229804],[-35.83982530537182,-9.1501090047602],[-35.83989082382637,-9.150017197466566],[-35.83996006440753,-9.149923566341124],[-35.84000345012177,-9.149851097662665],[-35.84007871733787,-9.149808508254825],[-35.84015179052595,-9.149764761403583],[-35.84016458074571,-9.149696936511894],[-35.84014778749541,-9.149614497477351],[-35.84004758881821,-9.149624516760294],[-35.84011245650634,-9.14922983254746],[-35.84025022211434,-9.149249927430821],[-35.84039985220767,-9.149041037070353],[-35.84065800892272,-9.148959297754315],[-35.84114305519496,-9.149009430380332],[-35.84143771982844,-9.148892007310081],[-35.8417170422041,-9.148717112152355],[-35.84179710854623,-9.149194214619472],[-35.84189012154694,-9.149772632703984],[-35.84177222164779,-9.149832861970435],[-35.84156522351445,-9.150346459479053],[-35.84142507031716,-9.150315292180402],[-35.84134220798015,-9.15034817199533],[-35.84128292826884,-9.15041101978795],[-35.84125123226702,-9.150491982384892]]],"14":[2.9,1215,[[-35.84393338762209,-9.143746346682413],[-35.84428137242374,-9.143617726853288],[-35.84442626458485,-9.143359106956405],[-35.84477706905152,-9.141852720715763],[-35.84495128293465,-9.142206320519879],[-35.84487420596359,-9.143286921541135],[-35.84497015991428,-9.143382295866589],[-35.84526854365586,-9.143330845916621],[-35.84573970137402,-9.143201237642389],[-35.84620581023317,-9.142908015287274],[-35.8464046827437,-9.142658388302356],[-35.84641278960435,-9.142556148277354],[-35.84639027796673,-9.142213373686202],[-35.84648223815338,-9.142015029568611],[-35.84672024602777,-9.141954286363253],[-35.84682056399195,-9.142461253378963],[-35.846820374748,-9.142992798527283],[-35.84658300536812,-9.143269854440282],[-35.84585869554683,-9.143795173311016],[-35.8444821468632,-9.14403859341007],[-35.8438915884664,-9.14406494739867],[-35.84393338762209,-9.143746346682413]]],"13":[3.24,1032,[[-35.84264312361746,-9.139659780322306],[-35.84233071766719,-9.14365137093668],[-35.84223827367245,-9.143632097320104],[-35.84181136419247,-9.141579573450391],[-35.84127929652858,-9.139889169627502],[-35.84264312361746,-9.139659780322306]]],"11":[2.21,1045,[[-35.84221610175975,-9.143668045466994],[-35.84218668223659,-9.14387190899862],[-35.84224733043651,-9.143879922790179],[-35.84219193933808,-9.145051121692132],[-35.8419753676249,-9.146861180312772],[-35.84169878621336,-9.146852372187372],[-35.8417014169074,-9.14499582649845],[-35.84166235115354,-9.144038868070439],[-35.84148700786677,-9.142405285696727],[-35.84221610175975,-9.143668045466994]]],"12":[2.94,1319,[[-35.84086937972469,-9.139694939895156],[-35.84106604368002,-9.13991624233403],[-35.84127937984339,-9.139886095596863],[-35.84179954075019,-9.141527981585797],[-35.84223934200055,-9.143627464881078],[-35.8422106233078,-9.143660618480645],[-35.84148890110023,-9.14240258074434],[-35.84143577892917,-9.14204562079396],[-35.84129859446433,-9.141081414293575],[-35.84069749135237,-9.140250545226714],[-35.8391632243263,-9.13938977284491],[-35.83956199712731,-9.13906935106204],[-35.84086937972469,-9.139694939895156]]],"10":[2.92,1011,[[-35.84219172006662,-9.145047640080746],[-35.84224869117459,-9.143880522783196],[-35.84231619713503,-9.143885501260923],[-35.84232616777754,-9.143644826220422],[-35.84261470795931,-9.14374207127242],[-35.84390552127699,-9.143756841818025],[-35.8439315284667,-9.143744069665052],[-35.84388961491518,-9.144060536533098],[-35.84288766532385,-9.144891640553343],[-35.84235630122616,-9.146191079681385],[-35.84236366665864,-9.146409452822637],[-35.84249435945385,-9.146740487901265],[-35.84248156397941,-9.146872039324695],[-35.84197523413272,-9.146860216800404],[-35.84219172006662,-9.145047640080746]]],"9":[2.45,763,[[-35.84249557813055,-9.14863492274615],[-35.84228501218294,-9.149420980763464],[-35.84189975888788,-9.14980852068464],[-35.84187736483513,-9.149710183447299],[-35.84171860706169,-9.14871968815571],[-35.84167628230922,-9.148557245269116],[-35.84168671051047,-9.146845654193363],[-35.84248446003389,-9.146871452013368],[-35.84249557813055,-9.14863492274615]]],"7":[4.98,1308,[[-35.84089138265565,-9.152851669928374],[-35.84004011070853,-9.151108191974886],[-35.83961535655278,-9.150230512335234],[-35.83927597956821,-9.149324762517093],[-35.83889311288923,-9.14926740520015],[-35.83885609275373,-9.149037013437464],[-35.84010353148071,-9.149230978026305],[-35.84003815202763,-9.14961133642205],[-35.84013533612902,-9.149615352577937],[-35.84016689444211,-9.14967836091512],[-35.84014940155892,-9.149765126462565],[-35.83999808429464,-9.14985306589803],[-35.83982324718514,-9.150096739272005],[-35.83984821988624,-9.150138134275288],[-35.83992248542743,-9.150169044629862],[-35.84007829742817,-9.150090783912372],[-35.84026161349318,-9.150101168959882],[-35.84028987281245,-9.150047838998946],[-35.84033970451502,-9.149967372764795],[-35.84042817446559,-9.149886209420554],[-35.84051118058303,-9.149901186382518],[-35.84055231772864,-9.149932013821388],[-35.84054024822076,-9.14998279225565],[-35.84125249868941,-9.150487483413482],[-35.84127384999688,-9.150577930791902],[-35.8413309148112,-9.1506521867581],[-35.84138074558133,-9.15067730464329],[-35.84144172278064,-9.150688792738766],[-35.84149607153517,-9.15068210877305],[-35.8415550388912,-9.1506582418096],[-35.84155403010752,-9.151248841854134],[-35.84185848480514,-9.151686051461581],[-35.84106594738211,-9.152869314703064],[-35.84102610842525,-9.152843072833127],[-35.84097777261879,-9.152833044643412],[-35.84093478882425,-9.15283464019064],[-35.84089138265565,-9.152851669928374]]],"6":[3.01,1003,[[-35.84083872884095,-9.152927106507036],[-35.84082894685759,-9.152994774830132],[-35.84086775592942,-9.15304533385346],[-35.84083298336197,-9.153089790883175],[-35.84006849007226,-9.152586017866925],[-35.8397407513663,-9.152119996578692],[-35.83948830673683,-9.15160644355647],[-35.83920201926673,-9.151327407063032],[-35.83889653105486,-9.149270933811366],[-35.83927148759034,-9.149325618624127],[-35.83956135560545,-9.150106689188446],[-35.84089365706956,-9.152851068396126],[-35.84084651666064,-9.152885166868714],[-35.84083872884095,-9.152927106507036]]],"4":[2.96,882,[[-35.8444421025774,-9.150914944548287],[-35.84452220735407,-9.151378705437848],[-35.84469898344314,-9.151893287777899],[-35.84492012776372,-9.152151888077478],[-35.84480525105545,-9.152367859534474],[-35.84460288375971,-9.15241884459243],[-35.84438170724443,-9.152312977167337],[-35.84385610172456,-9.152311962318759],[-35.84317491034456,-9.15255568133779],[-35.84293520392316,-9.153056302062476],[-35.84254060099546,-9.153212004116341],[-35.84305521257059,-9.15156026648211],[-35.84284354656339,-9.15147422781818],[-35.84292079304571,-9.151394499543088],[-35.843245891213,-9.15118312394148],[-35.84407550081374,-9.151151056002645],[-35.8444421025774,-9.150914944548287]]],"5":[2.89,749,[[-35.84185883555694,-9.151688723024268],[-35.842026013364,-9.151782928403826],[-35.84222702614299,-9.151769358197882],[-35.84267267930596,-9.151639883386112],[-35.8428414973826,-9.151476155299067],[-35.84305452412431,-9.15156120465694],[-35.84254021729483,-9.153205527952545],[-35.84184416826002,-9.15347507202234],[-35.84116191573104,-9.153273698678664],[-35.8408284517599,-9.153084440137263],[-35.84086405569715,-9.153049366685284],[-35.84089291728085,-9.15307046481298],[-35.84092308895295,-9.153091678909801],[-35.84095470367717,-9.153097143022165],[-35.84099178322122,-9.153094284790308],[-35.84102365715938,-9.15308504002668],[-35.84106124283845,-9.153063470047424],[-35.84110047003213,-9.153005526863778],[-35.84110301046942,-9.152953583116044],[-35.84109795620056,-9.152921035347513],[-35.84106509372055,-9.15286537028717],[-35.84185883555694,-9.151688723024268]]]},"C":{"1":[3.93,913,[[-35.8456512400756,-9.14992748226815],[-35.8452128542467,-9.15031432014194],[-35.8444095648519,-9.1508535295825],[-35.8443084850876,-9.15055023239569],[-35.8438327687343,-9.15002529517549],[-35.8432431694213,-9.1503455194682],[-35.8433833940657,-9.14933370311435],[-35.8439506445735,-9.14903795826137],[-35.8441973157964,-9.14891607910798],[-35.8444642000339,-9.1486763797107],[-35.8447032356751,-9.14807294230778],[-35.8456512400756,-9.14992748226815]]],"2":[4.55,954,[[-35.8472874299437,-9.14883313456884],[-35.8469580427448,-9.14883295153125],[-35.8467433625913,-9.14895197423197],[-35.8469196757356,-9.14921877985607],[-35.8462555115698,-9.14921858520851],[-35.846070245433,-9.14940169881258],[-35.8458580919209,-9.1497520505867],[-35.8456530385281,-9.14992188787162],[-35.8447033251697,-9.14807027081814],[-35.8448536342904,-9.1477574803426],[-35.8455493011634,-9.14740531689899],[-35.8458510471981,-9.14716962021699],[-35.8475306784676,-9.14877396881391],[-35.8474052062594,-9.14879152455497],[-35.8472874299437,-9.14883313456884]]],"3":[5.41,923,[[-35.8465986615189,-9.1465039167544],[-35.8470365456115,-9.1459448528245],[-35.8486823490366,-9.14738964927755],[-35.8485893572754,-9.14814776591568],[-35.8481786951771,-9.14875633059783],[-35.8475315760058,-9.14877912842111],[-35.8458531189207,-9.14716606246937],[-35.8465986615189,-9.1465039167544]]],"4":[5.16,957,[[-35.8486811856721,-9.14739205370593],[-35.8470366091777,-9.1459457805875],[-35.8478892370172,-9.14527956353219],[-35.8488069496671,-9.14483289832985],[-35.8503963097954,-9.14589915976846],[-35.850183702086,-9.14631556126946],[-35.8495117311743,-9.14646148631352],[-35.8486975345433,-9.1471124037756],[-35.8486811856721,-9.14739205370593]]],"5":[4.13,900,[[-35.8504658859507,-9.14332680616482],[-35.852002443003,-9.14469609242119],[-35.8510671066889,-9.14481526542968],[-35.8503986250611,-9.14589848310932],[-35.8489882748105,-9.1449606589515],[-35.8504658859507,-9.14332680616482]]],"6":[4.38,860,[[-35.8504702082144,-9.14331897146505],[-35.8507049631466,-9.14313326844738],[-35.8509783364182,-9.14276045595183],[-35.8514444055328,-9.1422579519553],[-35.8523303008893,-9.14305970979141],[-35.8532119082,-9.14366904881048],[-35.8525923434101,-9.14491657521178],[-35.8520078983212,-9.1447242681064],[-35.8504702082144,-9.14331897146505]]],"7":[4.87,868,[[-35.8523335795439,-9.14306670113403],[-35.8514377038772,-9.14225422474685],[-35.851762490604,-9.14192013769022],[-35.8526002902469,-9.14093945406917],[-35.8528234141758,-9.14112770019383],[-35.8536624197441,-9.14135837815363],[-35.853953725575,-9.141704779111],[-35.8540432622573,-9.14206667620066],[-35.8539752099961,-9.14259049125139],[-35.8534698673022,-9.14303580265536],[-35.8532136895787,-9.14364983203131],[-35.8523335795439,-9.14306670113403]]],"8":[4.46,846,[[-35.8498548157965,-9.14059340722668],[-35.8498730910829,-9.14051061553844],[-35.8502635231732,-9.14032714048487],[-35.851024387321,-9.13963309618532],[-35.8517168040617,-9.14002322096051],[-35.8526049434126,-9.14093601756925],[-35.851869278202,-9.14180571627064],[-35.8514439010639,-9.14225845992312],[-35.8498548157965,-9.14059340722668]]],"9":[5.03,920,[[-35.8483277786739,-9.14145493078691],[-35.8490144528814,-9.14093194844809],[-35.8494370408456,-9.14070304822205],[-35.8498577829834,-9.14059519586285],[-35.850710565528,-9.14149189964907],[-35.8514439010639,-9.14225845992312],[-35.8509799013006,-9.14276887705307],[-35.8507063882271,-9.14313786703938],[-35.8504651439064,-9.14330837771569],[-35.8483277786739,-9.14145493078691]]],"10":[3.74,975,[[-35.8488071168121,-9.14483459617438],[-35.8489539270582,-9.14459845271003],[-35.8489947238258,-9.14428063183004],[-35.8489907011124,-9.14397467230429],[-35.8489126972828,-9.14361036828937],[-35.8482631754661,-9.14212883379641],[-35.8483040087505,-9.14147082465493],[-35.8504747903803,-9.14332661071177],[-35.8500106039907,-9.14385037038319],[-35.8489881939968,-9.14495979834473],[-35.8488071168121,-9.14483459617438]]],"11":[5.75,1192,[[-35.8490877488322,-9.14080653387268],[-35.8485799064826,-9.13949852077191],[-35.848417136185,-9.13917182181612],[-35.8480510859144,-9.13886911838999],[-35.8473096944845,-9.13719862641141],[-35.8477075637102,-9.13745799541781],[-35.8483905274385,-9.13790305619924],[-35.8490199639962,-9.13829754771105],[-35.8510303469589,-9.13962892770455],[-35.8502767714875,-9.14030543830811],[-35.8498690611779,-9.14050837745047],[-35.8490877488322,-9.14080653387268]]],"12":[7.8,1526,[[-35.8489757248633,-9.14086157446724],[-35.8463174346974,-9.13890489990711],[-35.846281396104,-9.1385724984354],[-35.8460278717797,-9.13795677006865],[-35.8457562464653,-9.13782446582891],[-35.8456109092842,-9.13745360647457],[-35.8452398823967,-9.1368609708423],[-35.8449423492589,-9.13574178812894],[-35.8473083237145,-9.13720220267924],[-35.848052493797,-9.13888788412896],[-35.8484235433248,-9.13918310905618],[-35.848589681302,-9.1395102255339],[-35.8490894489679,-9.14080499926372],[-35.8489757248633,-9.14086157446724]]],"13":[6.74,1457,[[-35.8467014645176,-9.141977772489],[-35.8466672912055,-9.14167766136943],[-35.8466739181408,-9.14136836196395],[-35.8469598295596,-9.14081909636674],[-35.8465598982256,-9.14040295178489],[-35.8465441664572,-9.1400945705002],[-35.8466311841239,-9.13994843044402],[-35.8469078044813,-9.1397438706893],[-35.8470187812143,-9.1394193667874],[-35.8489763796703,-9.14086198853974],[-35.8483122532994,-9.14135146405305],[-35.8482406610198,-9.14127128273239],[-35.8480858298183,-9.14128179293818],[-35.8480271080166,-9.14136966147921],[-35.8480102869676,-9.14145770368293],[-35.8481417602821,-9.14154900422713],[-35.8480984276725,-9.14186256935941],[-35.8482070536107,-9.14246358375348],[-35.8485858716852,-9.14322036234887],[-35.8488518306184,-9.14373966786866],[-35.8489216173225,-9.14441606875542],[-35.8467543998157,-9.14219000755583],[-35.8467014645176,-9.141977772489]]],"14":[7.22,1202,[[-35.8459019883109,-9.14378821408168],[-35.8466057039974,-9.14324860516584],[-35.8468185354234,-9.14299931130401],[-35.8468229063919,-9.14253545146508],[-35.8467638696482,-9.14217989457004],[-35.8489255820554,-9.14442740679841],[-35.8487539968969,-9.14477181319758],[-35.8480338954953,-9.1451256403912],[-35.8469833578852,-9.14589528884573],[-35.845277203887,-9.14390943330404],[-35.8459019883109,-9.14378821408168]]],"15":[8.19,1219,[[-35.8438830525846,-9.14407994366508],[-35.844377063783,-9.14404254623899],[-35.8452657752964,-9.14391182077188],[-35.8469860282938,-9.14589210983681],[-35.8467102938109,-9.14621142962176],[-35.8465814962813,-9.14612759600382],[-35.8464249889991,-9.14614913683835],[-35.8463873980827,-9.14622940586362],[-35.8463704073778,-9.1463396117692],[-35.846418114029,-9.14642434326492],[-35.8465531758571,-9.14644567964181],[-35.8465882620673,-9.14650460893754],[-35.8455041397698,-9.14735241506322],[-35.8432070135771,-9.14465570634165],[-35.8438830525846,-9.14407994366508]]],"16":[6.45,1143,[[-35.8455153648344,-9.14734854838009],[-35.8448004982651,-9.14765818950912],[-35.8443114147154,-9.14869796693655],[-35.84244895323,-9.1460329260287],[-35.8428831515588,-9.14489101664092],[-35.8431938682029,-9.14464330420899],[-35.8455153648344,-9.14734854838009]]],"17":[7.87,1521,[[-35.8443077206541,-9.14869763844988],[-35.8433141619544,-9.14927381760403],[-35.8431805295706,-9.1503821161857],[-35.8432531744815,-9.15109902096708],[-35.8427273602445,-9.15149100636677],[-35.8424717477548,-9.15162230295993],[-35.8423177676444,-9.15167070688969],[-35.8418836591918,-9.15167590756217],[-35.841676733545,-9.15133188649805],[-35.8416469123484,-9.15040607893972],[-35.8418863750116,-9.14977495350843],[-35.8422882429404,-9.14942487824739],[-35.8424818748512,-9.14861590859605],[-35.8424817870379,-9.14677187253928],[-35.8423661939096,-9.14639086044773],[-35.8423575100047,-9.14619351080132],[-35.8424505589167,-9.14602423374058],[-35.8443077206541,-9.14869763844988]]]},"D":{"0":[8.98,1236,[[-35.8378736037149,-9.13366910730596],[-35.8378851195291,-9.13242703923328],[-35.8381689322601,-9.13077842658461],[-35.8398847001956,-9.13202029258341],[-35.8403840140256,-9.13242393318073],[-35.8412995927861,-9.13327842568963],[-35.840433299918,-9.13458141742637],[-35.8398748696641,-9.13440974030548],[-35.8378736037149,-9.13366910730596]]],"1":[4.14,845,[[-35.8402446814197,-9.14879352154162],[-35.8401149110748,-9.14876805650139],[-35.8402334848051,-9.14840340188717],[-35.8403355676998,-9.14757459082779],[-35.8405367282377,-9.14632017955561],[-35.841697649548,-9.14656226508272],[-35.8416777054207,-9.14802206437153],[-35.8416840430274,-9.14856043014132],[-35.8417110474465,-9.14872181630063],[-35.8414622379849,-9.14888218126561],[-35.8411420313968,-9.14901811349229],[-35.84066422947291,-9.14896008506342],[-35.84046118235236,-9.149025295458722],[-35.8404044178878,-9.14903937521253],[-35.8402446814197,-9.14879352154162]]],"2":[4.53,972,[[-35.8416703068237,-9.14404159189362],[-35.8417044626186,-9.14456182534056],[-35.8416967360044,-9.14656070403292],[-35.8405293392345,-9.1463332937176],[-35.8402570076557,-9.14514988475404],[-35.8398063998043,-9.14452172865326],[-35.8392577482752,-9.14407650435368],[-35.8416703068237,-9.14404159189362]]],"3":[7.05,1044,[[-35.8387983437901,-9.14378927901755],[-35.8387397628739,-9.14342030387237],[-35.8388787682754,-9.14320000644125],[-35.8394171926341,-9.14179242432678],[-35.8413638871836,-9.14162451845113],[-35.8416525748683,-9.1440397784622],[-35.8392528499041,-9.14408340067553],[-35.8387983437901,-9.14378927901755]]],"4":[7.54,1200,[[-35.8423274645598,-9.14364554085257],[-35.8426087695445,-9.14135708120856],[-35.8426376717036,-9.13967153168972],[-35.8436435204705,-9.1408180953327],[-35.84421083941,-9.14140958069537],[-35.844761196076,-9.14183620552869],[-35.8447086427638,-9.14214757262379],[-35.8446952383661,-9.14227268861529],[-35.8446795532418,-9.1424385333389],[-35.8445978857301,-9.14274318674547],[-35.8445648192548,-9.14287636986451],[-35.8445242142703,-9.1430425320104],[-35.8445001292544,-9.14316886905363],[-35.8444443507164,-9.14335192179593],[-35.8443023038907,-9.1435859027421],[-35.8439297871936,-9.143745047561],[-35.842615088865,-9.14373899669359],[-35.8423274645598,-9.14364554085257]]],"5":[6.53,1439,[[-35.8439622126976,-9.14047748075077],[-35.8443924735043,-9.14070343753281],[-35.845023349988,-9.14083569832954],[-35.846765212109,-9.14059305628854],[-35.8468498930172,-9.14067917505674],[-35.8468847736389,-9.14072560576314],[-35.8469240290954,-9.14077572847154],[-35.8469446979855,-9.14084070210807],[-35.8469237218918,-9.14090491637937],[-35.8468816359959,-9.14100025700572],[-35.8468226364685,-9.14110596398257],[-35.8467682400308,-9.14118836094923],[-35.8467172343064,-9.14127077503384],[-35.8466816065966,-9.14133848188608],[-35.8466473262207,-9.1414066273927],[-35.8466269593318,-9.14151360961992],[-35.8466087608059,-9.14166903526895],[-35.8466077997585,-9.14179476023786],[-35.8465695380745,-9.14191249722049],[-35.8465404605526,-9.14197701516017],[-35.8464937851439,-9.14204390852604],[-35.8464485147228,-9.14212184918778],[-35.8464008845696,-9.14222226313218],[-35.8464037824774,-9.14229676278012],[-35.8464198670189,-9.14236024627163],[-35.8464383614678,-9.14248562472955],[-35.8464231781521,-9.14259401132412],[-35.8463994076408,-9.142673948655],[-35.8463528437635,-9.1427627386319],[-35.8462533815742,-9.14287069861925],[-35.8461731275703,-9.14294813415505],[-35.8460264183906,-9.14303514606846],[-35.845879322159,-9.14313554410815],[-35.8457307469996,-9.14320494217788],[-35.8455828629259,-9.14325464174912],[-35.8454089476009,-9.14329933381484],[-35.8451633014474,-9.14334660364369],[-35.8449775963811,-9.14338651964699],[-35.8448961211454,-9.14330816196825],[-35.8449003762228,-9.14319765690476],[-35.8449718728019,-9.14221338741819],[-35.8448033246421,-9.14185970486046],[-35.8442214771431,-9.14142373636539],[-35.8436486306383,-9.14081926998425],[-35.8426376717036,-9.13967153168972],[-35.8439622126976,-9.14047748075077]]],"6":[6.87,1247,[[-35.8425297358336,-9.13885633052525],[-35.8455328733792,-9.13916172112435],[-35.8460652713653,-9.13940581992105],[-35.846449540851,-9.13940991087023],[-35.8469930621442,-9.13941054025342],[-35.8469162904986,-9.13971269996017],[-35.8466115916374,-9.13991762262898],[-35.8465117505319,-9.14011212871189],[-35.8465546215515,-9.14040016203919],[-35.8467588824576,-9.14059103402843],[-35.8450286843047,-9.14083790253079],[-35.8443979621759,-9.14070530748582],[-35.8439707061323,-9.14048038077238],[-35.8426393698043,-9.13967449333791],[-35.8426653641614,-9.13959402139338],[-35.8426861338693,-9.13953476833019],[-35.8427078160049,-9.13947428022225],[-35.8427257655872,-9.13943971288343],[-35.8427333579861,-9.13941263940458],[-35.8427409511062,-9.13936556645357],[-35.8427340306999,-9.13931095093629],[-35.8426979947542,-9.13924741245954],[-35.8426640648835,-9.1392152119317],[-35.8426144786608,-9.13912758779187],[-35.8425643422957,-9.13906985890091],[-35.8425354340029,-9.13901469808913],[-35.8425204299721,-9.13893581996786],[-35.8425194478457,-9.13889520412896],[-35.8425297358336,-9.13885633052525]]],"7":[5.93,1235,[[-35.842790831851,-9.13766763612278],[-35.8441232523898,-9.1379661095562],[-35.8451622042232,-9.13751793213291],[-35.8455839810893,-9.13750623924102],[-35.8457566668373,-9.13782606163593],[-35.8460259998733,-9.13795942313054],[-35.8462666850369,-9.1385615275843],[-35.8463099341141,-9.13890612583564],[-35.8469803899627,-9.13940694479149],[-35.8460682903109,-9.1394055194243],[-35.8455370565537,-9.13916756762339],[-35.8425368129759,-9.13885669706528],[-35.8426668794554,-9.13858816257013],[-35.8426835324726,-9.13834533260695],[-35.8426577233126,-9.13794585156787],[-35.8426488595267,-9.13776900405627],[-35.842790831851,-9.13766763612278]]],"8":[7.52,1185,[[-35.8426595461755,-9.13736134413863],[-35.8426828885057,-9.13720349515531],[-35.8426567925715,-9.13705039066575],[-35.8426132791697,-9.13688209809871],[-35.8425653460409,-9.13677612823519],[-35.8427196339931,-9.13678870826362],[-35.8428123916387,-9.13673997509242],[-35.8427777192631,-9.13669083276458],[-35.8427055538816,-9.13667149278013],[-35.8430950226426,-9.13454587497887],[-35.8439975987252,-9.13512457261948],[-35.8447976391161,-9.1356348753369],[-35.8448303554534,-9.13583731841379],[-35.8450489728367,-9.13636877174695],[-35.8451198720569,-9.13660253965636],[-35.8451935364943,-9.13689379698724],[-35.845592854775,-9.13750998418593],[-35.8454686573167,-9.13749763247806],[-35.845179217399,-9.13751727126894],[-35.8448535574726,-9.13765423882422],[-35.8441282394637,-9.13796961851016],[-35.8427890028182,-9.13766257136824],[-35.8426496017244,-9.1377669323847],[-35.8426595461755,-9.13736134413863]]],"9":[5.75,1037,[[-35.8425684963449,-9.13677875828389],[-35.8424979055462,-9.13669181512129],[-35.8423964400187,-9.13664094452489],[-35.8422915041328,-9.13664162385573],[-35.8422299925832,-9.13677954426396],[-35.8416064532215,-9.13562386054726],[-35.8404471168134,-9.13457700745469],[-35.8413020846519,-9.13330123989534],[-35.8430914797364,-9.1345552453917],[-35.8427071259916,-9.13666561906509],[-35.8425684963449,-9.13677875828389]]],"10":[4.19,887,[[-35.8404367140738,-9.13456763239292],[-35.8416082290478,-9.13563306362727],[-35.8422284517375,-9.13677041613574],[-35.8421850413374,-9.13684289664436],[-35.8421392892183,-9.13690300675799],[-35.8421174068786,-9.13698376949403],[-35.8406667937614,-9.13709112201865],[-35.84049958591,-9.13637480285972],[-35.8403899450735,-9.1361946841765],[-35.8401328118703,-9.13598236118519],[-35.8398596787263,-9.13514309553349],[-35.8398718427479,-9.1344236493152],[-35.8404367140738,-9.13456763239292]]],"11":[5.02,1068,[[-35.8412045044115,-9.13874258616497],[-35.8409083482583,-9.13797786577528],[-35.8406752637774,-9.13708542550316],[-35.8421198098642,-9.13698745113692],[-35.8421258013086,-9.13707238989225],[-35.8421627553687,-9.13710145019154],[-35.8422496542593,-9.13710271803035],[-35.8423017921247,-9.13706562804468],[-35.8423028918903,-9.13698443808926],[-35.8422628262601,-9.13685716384588],[-35.8423267402565,-9.13681627667205],[-35.842370899835,-9.1366896163024],[-35.8424398833764,-9.13674101500781],[-35.8425368400388,-9.13680298529336],[-35.8425581461968,-9.13692522633403],[-35.8425848453242,-9.1370786653581],[-35.8426082951694,-9.13736269265228],[-35.8424129809523,-9.13736833460518],[-35.8424025898474,-9.13774944511023],[-35.8426317940091,-9.1377624126269],[-35.8426281251815,-9.13787567893683],[-35.8426283653,-9.13811220316529],[-35.8426316135345,-9.13842834879635],[-35.8426083901677,-9.13858471302242],[-35.8425388207138,-9.13874848805345],[-35.8424903292648,-9.13888012873849],[-35.8425023789228,-9.13898812153447],[-35.8425084412185,-9.13907278610404],[-35.8425873669209,-9.13917116397031],[-35.8426761506178,-9.13934591742061],[-35.8426781519549,-9.13942373755578],[-35.8426478780694,-9.13953349466596],[-35.8426108266698,-9.13967697168081],[-35.8415608686673,-9.13984015876917],[-35.8412045044115,-9.13874258616497]]],"12":[3.5,803,[[-35.8410621335769,-9.13991756305914],[-35.8408675890568,-9.13970409587067],[-35.8401657260987,-9.13936566081028],[-35.8395818455625,-9.13906695852581],[-35.8394396997301,-9.13902218583743],[-35.8392833095153,-9.13891980849505],[-35.8391716269219,-9.13884143570374],[-35.8390983390459,-9.13868816389811],[-35.8390575467412,-9.13845361848914],[-35.8390497262936,-9.13827818581962],[-35.8391172662895,-9.1382148979818],[-35.8390699948758,-9.13811640172187],[-35.8409200506294,-9.13799707909521],[-35.8412167226981,-9.1387718175755],[-35.8415542538933,-9.13984892770102],[-35.8410621335769,-9.13991756305914]]],"13":[6.09,1015,[[-35.8390952021081,-9.1381279981545],[-35.8389627995623,-9.13789895717223],[-35.8386205123523,-9.13777231022799],[-35.8385460558068,-9.1376915645323],[-35.8383801241951,-9.13746090076716],[-35.8380658625747,-9.1370846246421],[-35.8380075437606,-9.1369197186727],[-35.8398674214957,-9.13512360473225],[-35.8399150828249,-9.13530464317379],[-35.8399730902288,-9.13556290956476],[-35.8401431800584,-9.13597695029848],[-35.8403871349422,-9.13616201566301],[-35.8404811816418,-9.13632827409653],[-35.8409065057325,-9.13799631313753],[-35.8390952021081,-9.1381279981545]]],"14":[5.39,1015,[[-35.8380118543319,-9.13692776149532],[-35.8377196684812,-9.13709804775577],[-35.8377526787343,-9.13524336924884],[-35.8378662390778,-9.13367947483574],[-35.8398768954602,-9.13441275386903],[-35.839868335085,-9.13512680883507],[-35.8380118543319,-9.13692776149532]]],"15":[2.74,828,[[-35.8378367968128,-9.13939972752689],[-35.8377217615775,-9.13711606414514],[-35.8378534805929,-9.13702335548878],[-35.8380047797694,-9.13691491647686],[-35.838054086115,-9.13706980553484],[-35.8382594872317,-9.13732522690008],[-35.8384148232684,-9.13750567101854],[-35.8386033956579,-9.13773166768052],[-35.8383987235062,-9.13792105312337],[-35.83846521451,-9.13807998060095],[-35.8385821715119,-9.13819422880746],[-35.8387462736861,-9.13831620721614],[-35.8388176721996,-9.13842463954994],[-35.8390465024216,-9.13828112982339],[-35.8390594172796,-9.13837265641684],[-35.8390679921354,-9.1385224395677],[-35.8390955041747,-9.13869868659694],[-35.8391582279926,-9.13881879546396],[-35.8393056227949,-9.13893101577181],[-35.8394513504865,-9.13901557141929],[-35.8384954022937,-9.13946559327613],[-35.8383004762096,-9.13940233213932],[-35.8378367968128,-9.13939972752689]]],"16":[4.15,871,[[-35.8390713207464,-9.13933355548632],[-35.8407361286069,-9.14023587953616],[-35.8412849124376,-9.14105637177403],[-35.8413758061323,-9.14162378964077],[-35.8394261192534,-9.1417978723925],[-35.8390713207464,-9.13933355548632]]],"17":[5.64,1166,[[-35.8394029254056,-9.14179368595764],[-35.8388751515583,-9.14320994818174],[-35.8387287914282,-9.14341161456371],[-35.8387800129545,-9.14378986036694],[-35.8383856443555,-9.14358583559103],[-35.8378866347469,-9.14052092314611],[-35.8378323505112,-9.13940335296409],[-35.8383249021868,-9.139417355064],[-35.8384896766762,-9.13946502598221],[-35.8387885551508,-9.13939508817149],[-35.8390713391176,-9.13932934099868],[-35.8394029254056,-9.14179368595764]]],"18":[4.65,1259,[[-35.8397069962728,-9.14868596938613],[-35.8388048351749,-9.14867731039347],[-35.8383937938445,-9.14358757868556],[-35.8387442198456,-9.14409706264546],[-35.8392837947504,-9.14503049790323],[-35.8395073925213,-9.1458279367061],[-35.8396207840737,-9.1479684376164],[-35.8397069962728,-9.14868596938613]]],"19":[4.69,1326,[[-35.8398179446692,-9.14869278630471],[-35.8397099762314,-9.14868886177349],[-35.8396257124629,-9.14800977773902],[-35.8395111343509,-9.14582020010467],[-35.8392822921178,-9.14502140814867],[-35.8387798692628,-9.14414028967026],[-35.8383833651584,-9.14357246848684],[-35.8386478043445,-9.14372495068138],[-35.8391058493025,-9.143964580889],[-35.8397825042722,-9.14450215352406],[-35.8402700365299,-9.14517140053898],[-35.8405279164662,-9.14632872737377],[-35.84023694747,-9.14839815130803],[-35.8401144487423,-9.14876782538318],[-35.8398179446692,-9.14869278630471]]]}};
+const PIQUETES_GEO = {"A":{"17":[7.36,1312,[[-35.854771085889,-9.14935130949416],[-35.8563792053412,-9.14959062162741],[-35.8576011741785,-9.15020143649412],[-35.8585799275146,-9.15009016943164],[-35.8592500756132,-9.15150345722492],[-35.8575682214089,-9.15137305963792],[-35.8570226299517,-9.15131943609614],[-35.8565257330244,-9.15142746275261],[-35.8545295513428,-9.15034989721939],[-35.854541008519,-9.15027018104209],[-35.8545561702681,-9.15004891415087],[-35.8545352834127,-9.14982558581081],[-35.8544938264026,-9.14974062298411],[-35.8544299419153,-9.14942186339298],[-35.8546517988605,-9.14949167045251],[-35.854771085889,-9.14935130949416]]],"16":[9.11,1574,[[-35.8576833469492,-9.15313957243314],[-35.8572351686388,-9.15337358666561],[-35.8562068802598,-9.15424989429355],[-35.8556854364684,-9.15365556061202],[-35.8544950008776,-9.15063541061402],[-35.8545300160144,-9.15034852849288],[-35.8565301693125,-9.15144182874805],[-35.8565396577066,-9.15180524324428],[-35.8568875171761,-9.15202989650752],[-35.8573161129523,-9.1518336288673],[-35.857458147349,-9.15159295949884],[-35.8574515927622,-9.15136559485103],[-35.8592545888957,-9.15151896241959],[-35.8576833469492,-9.15313957243314]]],"18":[7.49,1208,[[-35.8547796779633,-9.14936715822836],[-35.8547871443789,-9.14899127012269],[-35.85470656736,-9.14847222580365],[-35.8545475770527,-9.14800531219418],[-35.8546435848069,-9.14778014871351],[-35.8550101913163,-9.14754568150465],[-35.855360134899,-9.14752976952751],[-35.8558265117423,-9.14769284119461],[-35.8560589726958,-9.14773531587429],[-35.8565233461312,-9.14790959511329],[-35.8567824289694,-9.14796188590858],[-35.8568945617684,-9.14791244187492],[-35.856995346603,-9.14747923967023],[-35.8572536702555,-9.14746419297675],[-35.8578905090831,-9.14758677399729],[-35.8580688229589,-9.14837680103511],[-35.8581743454074,-9.14898389314896],[-35.8583810483083,-9.14944813274251],[-35.8575859157787,-9.14937113261352],[-35.8568257381396,-9.14952936979212],[-35.8563601830004,-9.14958224289316],[-35.8547796779633,-9.14936715822836]]],"1":[5.14,1014,[[-35.8441270942076,-9.15486663861381],[-35.8437517150439,-9.15619050164689],[-35.843129709704,-9.15705725909683],[-35.8426768168645,-9.15675907237163],[-35.8418473986876,-9.15690620435186],[-35.8421388903033,-9.15639571163183],[-35.842128193372,-9.15608320358131],[-35.8421366391327,-9.1557812653502],[-35.8419627638812,-9.15554038568363],[-35.8414923909833,-9.15524461005849],[-35.8416830423079,-9.15453386029023],[-35.8417888993796,-9.1546327999094],[-35.841853241479,-9.15463386915469],[-35.8419012050998,-9.1545828808838],[-35.8419410897235,-9.15450546220626],[-35.8441270942076,-9.15486663861381]]],"2":[4.11,918,[[-35.8416783562648,-9.15451712314705],[-35.8414270385231,-9.1553935740189],[-35.8400873704661,-9.15491989028279],[-35.8385766823706,-9.15415617019164],[-35.8389505204695,-9.15302101121592],[-35.8416783562648,-9.15451712314705]]],"3":[3.14,1017,[[-35.8417209682693,-9.15383713225271],[-35.8417267073474,-9.15441671524221],[-35.841693721561,-9.15453666096693],[-35.8403759007173,-9.15381045598087],[-35.8389565490282,-9.15302594773206],[-35.8390259602294,-9.15269310950097],[-35.8391981392572,-9.15145373243156],[-35.8393354498009,-9.1515694227999],[-35.8395082966552,-9.15181162480473],[-35.839545185702,-9.15210213411892],[-35.8398010569655,-9.1525509818925],[-35.8411380493472,-9.15346349446536],[-35.8413543758141,-9.15348894941912],[-35.8413080513759,-9.15374166425952],[-35.8417209682693,-9.15383713225271]]],"4":[3.28,823,[[-35.8417314973379,-9.15440902632346],[-35.8417221181581,-9.15383638415222],[-35.8417854305211,-9.15356486983161],[-35.8420233647228,-9.15360817248341],[-35.8427943159454,-9.15331720475915],[-35.8431716852538,-9.15307608224301],[-35.8433082750863,-9.15278469919115],[-35.844127304644,-9.15486835915097],[-35.8419401734652,-9.1545012623355],[-35.8419057163825,-9.15438170325919],[-35.8418345218412,-9.1543449362767],[-35.8417314973379,-9.15440902632346]]],"15":[13.56,1780,[[-35.8544969833518,-9.15063617529692],[-35.8553090758635,-9.15272011261272],[-35.8556848027412,-9.15364739598748],[-35.8562098969609,-9.15424981735339],[-35.8527033839622,-9.15710847274812],[-35.8518106009994,-9.1556346534743],[-35.8534306652578,-9.15340450539162],[-35.8543584932756,-9.15168497537112],[-35.8544026136629,-9.15120898354822],[-35.8544171791498,-9.15062690099449],[-35.8544969833518,-9.15063617529692]]],"6":[3.93,841,[[-35.8441300681839,-9.15488856898917],[-35.8441145631173,-9.15477984483589],[-35.8458100415054,-9.15390321334528],[-35.8458678223438,-9.15390054983305],[-35.8460860526722,-9.15441510370111],[-35.846227570137,-9.15461611934108],[-35.8463103646809,-9.15490998332261],[-35.8464229031474,-9.15546250894111],[-35.8437940037966,-9.15602966940604],[-35.8441300681839,-9.15488856898917]]],"7":[8.45,1287,[[-35.8437033681667,-9.15940680962401],[-35.8432177885876,-9.15818652206526],[-35.8431957625787,-9.15782585735797],[-35.8431416928804,-9.15707819008505],[-35.8437583414927,-9.1561904193119],[-35.8438068452609,-9.15603081859986],[-35.8464125331109,-9.15545775476469],[-35.8467806603217,-9.15559305204079],[-35.8454853815236,-9.15729239512344],[-35.8442377010808,-9.15907555361139],[-35.8437033681667,-9.15940680962401]]],"8":[6.22,1275,[[-35.8467740357989,-9.15558984111015],[-35.8464636221169,-9.15547727642371],[-35.846309605147,-9.1547440220066],[-35.8462554405443,-9.1545619819995],[-35.8461320944587,-9.15435317266507],[-35.8458898106968,-9.15386639962443],[-35.8454827422053,-9.15364861276768],[-35.8455483513039,-9.15358495601624],[-35.8452610649928,-9.15334477851066],[-35.8451969963311,-9.1533805989476],[-35.8450779651518,-9.15280344925596],[-35.8449785426767,-9.15263317152297],[-35.8449062445085,-9.15256241027052],[-35.8448288018886,-9.15246716879281],[-35.8451067416379,-9.15213633627676],[-35.8451276403131,-9.15195677578729],[-35.8455525625737,-9.15138444170802],[-35.846010585179,-9.1518062093585],[-35.8465866840902,-9.15332369983343],[-35.8481469811081,-9.15372937225915],[-35.8467740357989,-9.15558984111015]]],"9":[6.58,1073,[[-35.8481466398428,-9.15372872175648],[-35.846578945634,-9.15332839643773],[-35.8460131063606,-9.15179907873032],[-35.8455553900683,-9.15138594702923],[-35.8456137287234,-9.1511066803311],[-35.8458213909627,-9.1508674780148],[-35.8462907960257,-9.15062327712388],[-35.8463707711366,-9.15039703783168],[-35.8466933183644,-9.15049812113598],[-35.8470541534108,-9.15070348788921],[-35.8474605062774,-9.15114915633345],[-35.8473984626853,-9.15120385430099],[-35.8476674950818,-9.15162996723981],[-35.8486362363146,-9.15294539753483],[-35.8481466398428,-9.15372872175648]]],"10":[10.43,1620,[[-35.8479201287058,-9.15146553159261],[-35.8480690525318,-9.15134797955423],[-35.8482152283075,-9.15115935945424],[-35.8484850048116,-9.1509880754064],[-35.849450263245,-9.15073323207096],[-35.8513696823583,-9.15015068929679],[-35.8515253075874,-9.15096276276785],[-35.851812285677,-9.15218637668055],[-35.8519133241999,-9.15260352075629],[-35.852043560764,-9.152981601132],[-35.8520610836299,-9.15344174632087],[-35.8516653020847,-9.15375635837873],[-35.8508890340626,-9.15393731243345],[-35.8500251157373,-9.15257916850439],[-35.8496587748646,-9.15160921055606],[-35.8486397958895,-9.15294505307713],[-35.8476678190413,-9.15162738280275],[-35.8479201287058,-9.15146553159261]]],"11":[8.84,1517,[[-35.850424844732,-9.14768285711204],[-35.8513677319566,-9.15015623617672],[-35.8492955171078,-9.15078146286015],[-35.8488300293941,-9.15088357452184],[-35.8484866847885,-9.15098876883001],[-35.848229853557,-9.15115698920131],[-35.8480630976944,-9.15134761911838],[-35.8479218171414,-9.15145719161639],[-35.8475948684567,-9.15107463994612],[-35.847467778937,-9.15115646370954],[-35.8473199793011,-9.15097085068989],[-35.8470810736308,-9.15070966501485],[-35.846739856484,-9.1505284533822],[-35.8463597888747,-9.15038724990341],[-35.8466622026611,-9.1499165622933],[-35.8476691052761,-9.15010392400252],[-35.8481740968622,-9.14996443391708],[-35.848515325158,-9.14967356436255],[-35.8487004754181,-9.14936817893767],[-35.8495107040613,-9.14869501913855],[-35.8500007193708,-9.14798501632344],[-35.850424844732,-9.14768285711204]]],"12":[10.04,1258,[[-35.8514037532932,-9.14704983639214],[-35.8521441532963,-9.14707252954643],[-35.8533349704972,-9.14782131457182],[-35.8536135339764,-9.14817631005809],[-35.8541001241993,-9.14928652202487],[-35.8542794271915,-9.14939997899408],[-35.8544066891013,-9.14985288390142],[-35.8513913987795,-9.15024825985144],[-35.8504377930824,-9.14771116921956],[-35.8514037532932,-9.14704983639214]]],"13":[5.07,1007,[[-35.8517656576004,-9.15211368795439],[-35.851909036086,-9.15218876885663],[-35.8514302148311,-9.15022914871405],[-35.85440850926588,-9.14987516260862],[-35.85444112043653,-9.150036918050375],[-35.85444741586716,-9.150229833787987],[-35.85443009473481,-9.150763479343224],[-35.85325729329355,-9.151436742369604],[-35.8518950481646,-9.15220306870657],[-35.8517656576004,-9.15211368795439]]],"14":[8.09,1471,[[-35.8507949402038,-9.15396627294906],[-35.8516562264058,-9.15376376167502],[-35.8520652282514,-9.15343559653474],[-35.8520435134853,-9.1529635506081],[-35.85193196913043,-9.152554549235107],[-35.85186839185081,-9.15225732290024],[-35.8544311423514,-9.15064130277931],[-35.854395695448,-9.15121983867412],[-35.8543496462,-9.15169527472835],[-35.8534135921489,-9.15344208535005],[-35.8518163410137,-9.15562664547864],[-35.8507949402038,-9.15396627294906]]],"5":[3.68,936,[[-35.8433872896206,-9.15263951900987],[-35.8438976131618,-9.15246708441385],[-35.8443263875505,-9.15249291647281],[-35.8446189297154,-9.15258846494353],[-35.8447793806457,-9.1525312955722],[-35.8447987195381,-9.15257295140395],[-35.8449499228906,-9.1526872793702],[-35.8450620788963,-9.15298865306587],[-35.8451442961581,-9.15343779935353],[-35.8447373953135,-9.15373939669551],[-35.8448377246685,-9.15390836615686],[-35.8452667818434,-9.15381449090816],[-35.8454233498352,-9.15369158050612],[-35.8458210196171,-9.15390096577181],[-35.8441069175231,-9.15478813872089],[-35.8433128682192,-9.15279191360272],[-35.8433872896206,-9.15263951900987]]]},"B":{"1":[3.82,757,[[-35.8525455622095,-9.14490942736286],[-35.8524818405231,-9.14515993557654],[-35.8524291161806,-9.14605702147183],[-35.8524390717426,-9.14648532299526],[-35.8521288576742,-9.14699606927016],[-35.8516033295792,-9.14701462016525],[-35.8505999520096,-9.14559282835348],[-35.8510759878813,-9.14481578285053],[-35.8518997117328,-9.14471508627818],[-35.8519693551138,-9.14473541001672],[-35.8525455622095,-9.14490942736286]]],"2":[3.04,756,[[-35.8506046080978,-9.14560702274502],[-35.851606169151,-9.14702099262522],[-35.8513583735743,-9.14703714616735],[-35.8509588664773,-9.14724922584641],[-35.8506231927928,-9.14742065002104],[-35.8501309198223,-9.14776641894402],[-35.84909121816219,-9.146574920579102],[-35.84951082002763,-9.146382415893076],[-35.84979912627227,-9.146323200513638],[-35.85011632614862,-9.1462181710671],[-35.8506046080978,-9.14560702274502]]],"3":[4.12,1102,[[-35.8481881372911,-9.1487569325955],[-35.84848538627226,-9.148477540836742],[-35.8485875114762,-9.14814408471038],[-35.84865399422929,-9.147628201976115],[-35.84865375898686,-9.147034537909475],[-35.84884111869815,-9.146733590165688],[-35.84910044290294,-9.146570211827557],[-35.8498297983577,-9.14741426373101],[-35.8497980667331,-9.14745970913462],[-35.8497884643232,-9.14750831619803],[-35.8498244654786,-9.14757869849945],[-35.8499019298145,-9.14761350451225],[-35.8499637708843,-9.14757756250397],[-35.8501263273773,-9.14775588206852],[-35.8500885541544,-9.14779201757861],[-35.8500316403908,-9.1478489913202],[-35.8499307544372,-9.14792168156587],[-35.8498450553072,-9.14798414698602],[-35.8497409090722,-9.14808868636401],[-35.8496310239414,-9.14822674376207],[-35.8495447156426,-9.1483500429381],[-35.8494704731566,-9.14845869518883],[-35.8493915524201,-9.14860762653324],[-35.8493535270359,-9.14872005550311],[-35.8492802033923,-9.14878580393983],[-35.8491549944937,-9.14887151815483],[-35.8490047246744,-9.1489912987212],[-35.8488764906602,-9.14909303266927],[-35.8487333447566,-9.14924199767708],[-35.8486012011685,-9.1493905593328],[-35.8484731813942,-9.14955368627014],[-35.8483540040406,-9.14968403964501],[-35.8482209851283,-9.1497933952315],[-35.848041894915,-9.14989002570008],[-35.8479311754221,-9.1499487412175],[-35.847802640704,-9.1500007812204],[-35.8476673161526,-9.15000349715444],[-35.8475494068747,-9.14997737673713],[-35.8474198206964,-9.14994042795186],[-35.8473144771157,-9.14989860572558],[-35.8471594777967,-9.14983302672671],[-35.8472313772494,-9.1497730514153],[-35.8473720792807,-9.14972292118725],[-35.8475208053823,-9.14963999834356],[-35.8476048821839,-9.14957378141691],[-35.8476369457501,-9.14946396739932],[-35.8476681650506,-9.14939702649571],[-35.8476243009058,-9.14929919555492],[-35.8476363078272,-9.14918811812619],[-35.8476840499538,-9.1491217745919],[-35.8477994862705,-9.14900829980932],[-35.8480775756557,-9.14894824587542],[-35.8480276173565,-9.1487667962203],[-35.8481881372911,-9.1487569325955]]],"8":[2.55,763,[[-35.84125123226702,-9.150491982384892],[-35.84054325208436,-9.149983303956557],[-35.84055574283848,-9.149933004595068],[-35.84050856647827,-9.149896933728215],[-35.84043186623669,-9.149889916435631],[-35.84034283297732,-9.149971200742796],[-35.84028370754873,-9.150058610467239],[-35.84026737017871,-9.150098818483105],[-35.84016897489889,-9.150100954974697],[-35.84008769089665,-9.150091483752895],[-35.83999046795113,-9.150130306895306],[-35.83992119633731,-9.150165646104915],[-35.83985356202961,-9.150161058229804],[-35.83982530537182,-9.1501090047602],[-35.83989082382637,-9.150017197466566],[-35.83996006440753,-9.149923566341124],[-35.84000345012177,-9.149851097662665],[-35.84007871733787,-9.149808508254825],[-35.84015179052595,-9.149764761403583],[-35.84016458074571,-9.149696936511894],[-35.84014778749541,-9.149614497477351],[-35.84004758881821,-9.149624516760294],[-35.84011245650634,-9.14922983254746],[-35.84025022211434,-9.149249927430821],[-35.84039985220767,-9.149041037070353],[-35.84065800892272,-9.148959297754315],[-35.84114305519496,-9.149009430380332],[-35.84143771982844,-9.148892007310081],[-35.8417170422041,-9.148717112152355],[-35.84179710854623,-9.149194214619472],[-35.84189012154694,-9.149772632703984],[-35.84177222164779,-9.149832861970435],[-35.84156522351445,-9.150346459479053],[-35.84142507031716,-9.150315292180402],[-35.84134220798015,-9.15034817199533],[-35.84128292826884,-9.15041101978795],[-35.84125123226702,-9.150491982384892]]],"14":[2.9,1215,[[-35.84393338762209,-9.143746346682413],[-35.84428137242374,-9.143617726853288],[-35.84442626458485,-9.143359106956405],[-35.84477706905152,-9.141852720715763],[-35.84495128293465,-9.142206320519879],[-35.84487420596359,-9.143286921541135],[-35.84497015991428,-9.143382295866589],[-35.84526854365586,-9.143330845916621],[-35.84573970137402,-9.143201237642389],[-35.84620581023317,-9.142908015287274],[-35.8464046827437,-9.142658388302356],[-35.84641278960435,-9.142556148277354],[-35.84639027796673,-9.142213373686202],[-35.84648223815338,-9.142015029568611],[-35.84672024602777,-9.141954286363253],[-35.84682056399195,-9.142461253378963],[-35.846820374748,-9.142992798527283],[-35.84658300536812,-9.143269854440282],[-35.84585869554683,-9.143795173311016],[-35.8444821468632,-9.14403859341007],[-35.8438915884664,-9.14406494739867],[-35.84393338762209,-9.143746346682413]]],"13":[3.24,1032,[[-35.84264312361746,-9.139659780322306],[-35.84233071766719,-9.14365137093668],[-35.84223827367245,-9.143632097320104],[-35.84181136419247,-9.141579573450391],[-35.84127929652858,-9.139889169627502],[-35.84264312361746,-9.139659780322306]]],"11":[2.21,1045,[[-35.84221610175975,-9.143668045466994],[-35.84218668223659,-9.14387190899862],[-35.84224733043651,-9.143879922790179],[-35.84219193933808,-9.145051121692132],[-35.8419753676249,-9.146861180312772],[-35.84169878621336,-9.146852372187372],[-35.8417014169074,-9.14499582649845],[-35.84166235115354,-9.144038868070439],[-35.84148700786677,-9.142405285696727],[-35.84221610175975,-9.143668045466994]]],"12":[2.94,1319,[[-35.84086937972469,-9.139694939895156],[-35.84106604368002,-9.13991624233403],[-35.84127937984339,-9.139886095596863],[-35.84179954075019,-9.141527981585797],[-35.84223934200055,-9.143627464881078],[-35.8422106233078,-9.143660618480645],[-35.84148890110023,-9.14240258074434],[-35.84143577892917,-9.14204562079396],[-35.84129859446433,-9.141081414293575],[-35.84069749135237,-9.140250545226714],[-35.8391632243263,-9.13938977284491],[-35.83956199712731,-9.13906935106204],[-35.84086937972469,-9.139694939895156]]],"10":[2.92,1011,[[-35.84219172006662,-9.145047640080746],[-35.84224869117459,-9.143880522783196],[-35.84231619713503,-9.143885501260923],[-35.84232616777754,-9.143644826220422],[-35.84261470795931,-9.14374207127242],[-35.84390552127699,-9.143756841818025],[-35.8439315284667,-9.143744069665052],[-35.84388961491518,-9.144060536533098],[-35.84288766532385,-9.144891640553343],[-35.84235630122616,-9.146191079681385],[-35.84236366665864,-9.146409452822637],[-35.84249435945385,-9.146740487901265],[-35.84248156397941,-9.146872039324695],[-35.84197523413272,-9.146860216800404],[-35.84219172006662,-9.145047640080746]]],"9":[2.45,763,[[-35.84249557813055,-9.14863492274615],[-35.84228501218294,-9.149420980763464],[-35.84189975888788,-9.14980852068464],[-35.84187736483513,-9.149710183447299],[-35.84171860706169,-9.14871968815571],[-35.84167628230922,-9.148557245269116],[-35.84168671051047,-9.146845654193363],[-35.84248446003389,-9.146871452013368],[-35.84249557813055,-9.14863492274615]]],"7":[4.98,1308,[[-35.84089138265565,-9.152851669928374],[-35.84004011070853,-9.151108191974886],[-35.83961535655278,-9.150230512335234],[-35.83927597956821,-9.149324762517093],[-35.83889311288923,-9.14926740520015],[-35.83885609275373,-9.149037013437464],[-35.84010353148071,-9.149230978026305],[-35.84003815202763,-9.14961133642205],[-35.84013533612902,-9.149615352577937],[-35.84016689444211,-9.14967836091512],[-35.84014940155892,-9.149765126462565],[-35.83999808429464,-9.14985306589803],[-35.83982324718514,-9.150096739272005],[-35.83984821988624,-9.150138134275288],[-35.83992248542743,-9.150169044629862],[-35.84007829742817,-9.150090783912372],[-35.84026161349318,-9.150101168959882],[-35.84028987281245,-9.150047838998946],[-35.84033970451502,-9.149967372764795],[-35.84042817446559,-9.149886209420554],[-35.84051118058303,-9.149901186382518],[-35.84055231772864,-9.149932013821388],[-35.84054024822076,-9.14998279225565],[-35.84125249868941,-9.150487483413482],[-35.84127384999688,-9.150577930791902],[-35.8413309148112,-9.1506521867581],[-35.84138074558133,-9.15067730464329],[-35.84144172278064,-9.150688792738766],[-35.84149607153517,-9.15068210877305],[-35.8415550388912,-9.1506582418096],[-35.84155403010752,-9.151248841854134],[-35.84185848480514,-9.151686051461581],[-35.84106594738211,-9.152869314703064],[-35.84102610842525,-9.152843072833127],[-35.84097777261879,-9.152833044643412],[-35.84093478882425,-9.15283464019064],[-35.84089138265565,-9.152851669928374]]],"6":[3.01,1003,[[-35.84083872884095,-9.152927106507036],[-35.84082894685759,-9.152994774830132],[-35.84086775592942,-9.15304533385346],[-35.84083298336197,-9.153089790883175],[-35.84006849007226,-9.152586017866925],[-35.8397407513663,-9.152119996578692],[-35.83948830673683,-9.15160644355647],[-35.83920201926673,-9.151327407063032],[-35.83889653105486,-9.149270933811366],[-35.83927148759034,-9.149325618624127],[-35.83956135560545,-9.150106689188446],[-35.84089365706956,-9.152851068396126],[-35.84084651666064,-9.152885166868714],[-35.84083872884095,-9.152927106507036]]],"4":[2.96,882,[[-35.8444421025774,-9.150914944548287],[-35.84452220735407,-9.151378705437848],[-35.84469898344314,-9.151893287777899],[-35.84492012776372,-9.152151888077478],[-35.84480525105545,-9.152367859534474],[-35.84460288375971,-9.15241884459243],[-35.84438170724443,-9.152312977167337],[-35.84385610172456,-9.152311962318759],[-35.84317491034456,-9.15255568133779],[-35.84293520392316,-9.153056302062476],[-35.84254060099546,-9.153212004116341],[-35.84305521257059,-9.15156026648211],[-35.84284354656339,-9.15147422781818],[-35.84292079304571,-9.151394499543088],[-35.843245891213,-9.15118312394148],[-35.84407550081374,-9.151151056002645],[-35.8444421025774,-9.150914944548287]]],"5":[2.89,749,[[-35.84185883555694,-9.151688723024268],[-35.842026013364,-9.151782928403826],[-35.84222702614299,-9.151769358197882],[-35.84267267930596,-9.151639883386112],[-35.8428414973826,-9.151476155299067],[-35.84305452412431,-9.15156120465694],[-35.84254021729483,-9.153205527952545],[-35.84184416826002,-9.15347507202234],[-35.84116191573104,-9.153273698678664],[-35.8408284517599,-9.153084440137263],[-35.84086405569715,-9.153049366685284],[-35.84089291728085,-9.15307046481298],[-35.84092308895295,-9.153091678909801],[-35.84095470367717,-9.153097143022165],[-35.84099178322122,-9.153094284790308],[-35.84102365715938,-9.15308504002668],[-35.84106124283845,-9.153063470047424],[-35.84110047003213,-9.153005526863778],[-35.84110301046942,-9.152953583116044],[-35.84109795620056,-9.152921035347513],[-35.84106509372055,-9.15286537028717],[-35.84185883555694,-9.151688723024268]]]},"C":{"1":[3.93,913,[[-35.8456512400756,-9.14992748226815],[-35.8452128542467,-9.15031432014194],[-35.8444095648519,-9.1508535295825],[-35.8443084850876,-9.15055023239569],[-35.8438327687343,-9.15002529517549],[-35.8432431694213,-9.1503455194682],[-35.8433833940657,-9.14933370311435],[-35.8439506445735,-9.14903795826137],[-35.8441973157964,-9.14891607910798],[-35.8444642000339,-9.1486763797107],[-35.8447032356751,-9.14807294230778],[-35.8456512400756,-9.14992748226815]]],"2":[4.55,954,[[-35.8472874299437,-9.14883313456884],[-35.8469580427448,-9.14883295153125],[-35.8467433625913,-9.14895197423197],[-35.8469196757356,-9.14921877985607],[-35.8462555115698,-9.14921858520851],[-35.846070245433,-9.14940169881258],[-35.8458580919209,-9.1497520505867],[-35.8456530385281,-9.14992188787162],[-35.8447033251697,-9.14807027081814],[-35.8448536342904,-9.1477574803426],[-35.8455493011634,-9.14740531689899],[-35.8458510471981,-9.14716962021699],[-35.8475306784676,-9.14877396881391],[-35.8474052062594,-9.14879152455497],[-35.8472874299437,-9.14883313456884]]],"3":[5.41,923,[[-35.8465986615189,-9.1465039167544],[-35.8470365456115,-9.1459448528245],[-35.8486823490366,-9.14738964927755],[-35.8485893572754,-9.14814776591568],[-35.8481786951771,-9.14875633059783],[-35.8475315760058,-9.14877912842111],[-35.8458531189207,-9.14716606246937],[-35.8465986615189,-9.1465039167544]]],"4":[5.16,957,[[-35.8486811856721,-9.14739205370593],[-35.8470366091777,-9.1459457805875],[-35.8478892370172,-9.14527956353219],[-35.8488069496671,-9.14483289832985],[-35.8503963097954,-9.14589915976846],[-35.850183702086,-9.14631556126946],[-35.8495117311743,-9.14646148631352],[-35.8486975345433,-9.1471124037756],[-35.8486811856721,-9.14739205370593]]],"5":[4.13,900,[[-35.8504658859507,-9.14332680616482],[-35.852002443003,-9.14469609242119],[-35.8510671066889,-9.14481526542968],[-35.8503986250611,-9.14589848310932],[-35.8489882748105,-9.1449606589515],[-35.8504658859507,-9.14332680616482]]],"6":[4.38,860,[[-35.8504702082144,-9.14331897146505],[-35.8507049631466,-9.14313326844738],[-35.8509783364182,-9.14276045595183],[-35.8514444055328,-9.1422579519553],[-35.8523303008893,-9.14305970979141],[-35.8532119082,-9.14366904881048],[-35.8525923434101,-9.14491657521178],[-35.8520078983212,-9.1447242681064],[-35.8504702082144,-9.14331897146505]]],"7":[4.87,868,[[-35.8523335795439,-9.14306670113403],[-35.8514377038772,-9.14225422474685],[-35.851762490604,-9.14192013769022],[-35.8526002902469,-9.14093945406917],[-35.8528234141758,-9.14112770019383],[-35.8536624197441,-9.14135837815363],[-35.853953725575,-9.141704779111],[-35.8540432622573,-9.14206667620066],[-35.8539752099961,-9.14259049125139],[-35.8534698673022,-9.14303580265536],[-35.8532136895787,-9.14364983203131],[-35.8523335795439,-9.14306670113403]]],"8":[4.46,846,[[-35.8498548157965,-9.14059340722668],[-35.8498730910829,-9.14051061553844],[-35.8502635231732,-9.14032714048487],[-35.851024387321,-9.13963309618532],[-35.8517168040617,-9.14002322096051],[-35.8526049434126,-9.14093601756925],[-35.851869278202,-9.14180571627064],[-35.8514439010639,-9.14225845992312],[-35.8498548157965,-9.14059340722668]]],"9":[5.03,920,[[-35.8483277786739,-9.14145493078691],[-35.8490144528814,-9.14093194844809],[-35.8494370408456,-9.14070304822205],[-35.8498577829834,-9.14059519586285],[-35.850710565528,-9.14149189964907],[-35.8514439010639,-9.14225845992312],[-35.8509799013006,-9.14276887705307],[-35.8507063882271,-9.14313786703938],[-35.8504651439064,-9.14330837771569],[-35.8483277786739,-9.14145493078691]]],"10":[3.74,975,[[-35.8488071168121,-9.14483459617438],[-35.8489539270582,-9.14459845271003],[-35.8489947238258,-9.14428063183004],[-35.8489907011124,-9.14397467230429],[-35.8489126972828,-9.14361036828937],[-35.8482631754661,-9.14212883379641],[-35.8483040087505,-9.14147082465493],[-35.8504747903803,-9.14332661071177],[-35.8500106039907,-9.14385037038319],[-35.8489881939968,-9.14495979834473],[-35.8488071168121,-9.14483459617438]]],"11":[5.75,1192,[[-35.8490877488322,-9.14080653387268],[-35.8485799064826,-9.13949852077191],[-35.848417136185,-9.13917182181612],[-35.8480510859144,-9.13886911838999],[-35.8473096944845,-9.13719862641141],[-35.8477075637102,-9.13745799541781],[-35.8483905274385,-9.13790305619924],[-35.8490199639962,-9.13829754771105],[-35.8510303469589,-9.13962892770455],[-35.8502767714875,-9.14030543830811],[-35.8498690611779,-9.14050837745047],[-35.8490877488322,-9.14080653387268]]],"12":[7.8,1526,[[-35.8489757248633,-9.14086157446724],[-35.8463174346974,-9.13890489990711],[-35.846281396104,-9.1385724984354],[-35.8460278717797,-9.13795677006865],[-35.8457562464653,-9.13782446582891],[-35.8456109092842,-9.13745360647457],[-35.8452398823967,-9.1368609708423],[-35.8449423492589,-9.13574178812894],[-35.8473083237145,-9.13720220267924],[-35.848052493797,-9.13888788412896],[-35.8484235433248,-9.13918310905618],[-35.848589681302,-9.1395102255339],[-35.8490894489679,-9.14080499926372],[-35.8489757248633,-9.14086157446724]]],"13":[6.74,1457,[[-35.8467014645176,-9.141977772489],[-35.8466672912055,-9.14167766136943],[-35.8466739181408,-9.14136836196395],[-35.8469598295596,-9.14081909636674],[-35.8465598982256,-9.14040295178489],[-35.8465441664572,-9.1400945705002],[-35.8466311841239,-9.13994843044402],[-35.8469078044813,-9.1397438706893],[-35.8470187812143,-9.1394193667874],[-35.8489763796703,-9.14086198853974],[-35.8483122532994,-9.14135146405305],[-35.8482406610198,-9.14127128273239],[-35.8480858298183,-9.14128179293818],[-35.8480271080166,-9.14136966147921],[-35.8480102869676,-9.14145770368293],[-35.8481417602821,-9.14154900422713],[-35.8480984276725,-9.14186256935941],[-35.8482070536107,-9.14246358375348],[-35.8485858716852,-9.14322036234887],[-35.8488518306184,-9.14373966786866],[-35.8489216173225,-9.14441606875542],[-35.8467543998157,-9.14219000755583],[-35.8467014645176,-9.141977772489]]],"14":[7.22,1202,[[-35.8459019883109,-9.14378821408168],[-35.8466057039974,-9.14324860516584],[-35.8468185354234,-9.14299931130401],[-35.8468229063919,-9.14253545146508],[-35.8467638696482,-9.14217989457004],[-35.8489255820554,-9.14442740679841],[-35.8487539968969,-9.14477181319758],[-35.8480338954953,-9.1451256403912],[-35.8469833578852,-9.14589528884573],[-35.845277203887,-9.14390943330404],[-35.8459019883109,-9.14378821408168]]],"15":[8.19,1219,[[-35.8438830525846,-9.14407994366508],[-35.844377063783,-9.14404254623899],[-35.8452657752964,-9.14391182077188],[-35.8469860282938,-9.14589210983681],[-35.8467102938109,-9.14621142962176],[-35.8465814962813,-9.14612759600382],[-35.8464249889991,-9.14614913683835],[-35.8463873980827,-9.14622940586362],[-35.8463704073778,-9.1463396117692],[-35.846418114029,-9.14642434326492],[-35.8465531758571,-9.14644567964181],[-35.8465882620673,-9.14650460893754],[-35.8455041397698,-9.14735241506322],[-35.8432070135771,-9.14465570634165],[-35.8438830525846,-9.14407994366508]]],"16":[6.45,1143,[[-35.8455153648344,-9.14734854838009],[-35.8448004982651,-9.14765818950912],[-35.8443114147154,-9.14869796693655],[-35.84244895323,-9.1460329260287],[-35.8428831515588,-9.14489101664092],[-35.8431938682029,-9.14464330420899],[-35.8455153648344,-9.14734854838009]]],"17":[7.87,1521,[[-35.8443077206541,-9.14869763844988],[-35.8433141619544,-9.14927381760403],[-35.8431805295706,-9.1503821161857],[-35.8432531744815,-9.15109902096708],[-35.8427273602445,-9.15149100636677],[-35.8424717477548,-9.15162230295993],[-35.8423177676444,-9.15167070688969],[-35.8418836591918,-9.15167590756217],[-35.841676733545,-9.15133188649805],[-35.8416469123484,-9.15040607893972],[-35.8418863750116,-9.14977495350843],[-35.8422882429404,-9.14942487824739],[-35.8424818748512,-9.14861590859605],[-35.8424817870379,-9.14677187253928],[-35.8423661939096,-9.14639086044773],[-35.8423575100047,-9.14619351080132],[-35.8424505589167,-9.14602423374058],[-35.8443077206541,-9.14869763844988]]]},"D":{"20":[8.98,1236,[[-35.8378736037149,-9.13366910730596],[-35.8378851195291,-9.13242703923328],[-35.8381689322601,-9.13077842658461],[-35.8398847001956,-9.13202029258341],[-35.8403840140256,-9.13242393318073],[-35.8412995927861,-9.13327842568963],[-35.840433299918,-9.13458141742637],[-35.8398748696641,-9.13440974030548],[-35.8378736037149,-9.13366910730596]]],"1":[4.14,845,[[-35.8402446814197,-9.14879352154162],[-35.8401149110748,-9.14876805650139],[-35.8402334848051,-9.14840340188717],[-35.8403355676998,-9.14757459082779],[-35.8405367282377,-9.14632017955561],[-35.841697649548,-9.14656226508272],[-35.8416777054207,-9.14802206437153],[-35.8416840430274,-9.14856043014132],[-35.8417110474465,-9.14872181630063],[-35.8414622379849,-9.14888218126561],[-35.8411420313968,-9.14901811349229],[-35.84066422947291,-9.14896008506342],[-35.84046118235236,-9.149025295458722],[-35.8404044178878,-9.14903937521253],[-35.8402446814197,-9.14879352154162]]],"2":[4.53,972,[[-35.8416703068237,-9.14404159189362],[-35.8417044626186,-9.14456182534056],[-35.8416967360044,-9.14656070403292],[-35.8405293392345,-9.1463332937176],[-35.8402570076557,-9.14514988475404],[-35.8398063998043,-9.14452172865326],[-35.8392577482752,-9.14407650435368],[-35.8416703068237,-9.14404159189362]]],"3":[7.05,1044,[[-35.8387983437901,-9.14378927901755],[-35.8387397628739,-9.14342030387237],[-35.8388787682754,-9.14320000644125],[-35.8394171926341,-9.14179242432678],[-35.8413638871836,-9.14162451845113],[-35.8416525748683,-9.1440397784622],[-35.8392528499041,-9.14408340067553],[-35.8387983437901,-9.14378927901755]]],"4":[7.54,1200,[[-35.8423274645598,-9.14364554085257],[-35.8426087695445,-9.14135708120856],[-35.8426376717036,-9.13967153168972],[-35.8436435204705,-9.1408180953327],[-35.84421083941,-9.14140958069537],[-35.844761196076,-9.14183620552869],[-35.8447086427638,-9.14214757262379],[-35.8446952383661,-9.14227268861529],[-35.8446795532418,-9.1424385333389],[-35.8445978857301,-9.14274318674547],[-35.8445648192548,-9.14287636986451],[-35.8445242142703,-9.1430425320104],[-35.8445001292544,-9.14316886905363],[-35.8444443507164,-9.14335192179593],[-35.8443023038907,-9.1435859027421],[-35.8439297871936,-9.143745047561],[-35.842615088865,-9.14373899669359],[-35.8423274645598,-9.14364554085257]]],"5":[6.53,1439,[[-35.8439622126976,-9.14047748075077],[-35.8443924735043,-9.14070343753281],[-35.845023349988,-9.14083569832954],[-35.846765212109,-9.14059305628854],[-35.8468498930172,-9.14067917505674],[-35.8468847736389,-9.14072560576314],[-35.8469240290954,-9.14077572847154],[-35.8469446979855,-9.14084070210807],[-35.8469237218918,-9.14090491637937],[-35.8468816359959,-9.14100025700572],[-35.8468226364685,-9.14110596398257],[-35.8467682400308,-9.14118836094923],[-35.8467172343064,-9.14127077503384],[-35.8466816065966,-9.14133848188608],[-35.8466473262207,-9.1414066273927],[-35.8466269593318,-9.14151360961992],[-35.8466087608059,-9.14166903526895],[-35.8466077997585,-9.14179476023786],[-35.8465695380745,-9.14191249722049],[-35.8465404605526,-9.14197701516017],[-35.8464937851439,-9.14204390852604],[-35.8464485147228,-9.14212184918778],[-35.8464008845696,-9.14222226313218],[-35.8464037824774,-9.14229676278012],[-35.8464198670189,-9.14236024627163],[-35.8464383614678,-9.14248562472955],[-35.8464231781521,-9.14259401132412],[-35.8463994076408,-9.142673948655],[-35.8463528437635,-9.1427627386319],[-35.8462533815742,-9.14287069861925],[-35.8461731275703,-9.14294813415505],[-35.8460264183906,-9.14303514606846],[-35.845879322159,-9.14313554410815],[-35.8457307469996,-9.14320494217788],[-35.8455828629259,-9.14325464174912],[-35.8454089476009,-9.14329933381484],[-35.8451633014474,-9.14334660364369],[-35.8449775963811,-9.14338651964699],[-35.8448961211454,-9.14330816196825],[-35.8449003762228,-9.14319765690476],[-35.8449718728019,-9.14221338741819],[-35.8448033246421,-9.14185970486046],[-35.8442214771431,-9.14142373636539],[-35.8436486306383,-9.14081926998425],[-35.8426376717036,-9.13967153168972],[-35.8439622126976,-9.14047748075077]]],"6":[6.87,1247,[[-35.8425297358336,-9.13885633052525],[-35.8455328733792,-9.13916172112435],[-35.8460652713653,-9.13940581992105],[-35.846449540851,-9.13940991087023],[-35.8469930621442,-9.13941054025342],[-35.8469162904986,-9.13971269996017],[-35.8466115916374,-9.13991762262898],[-35.8465117505319,-9.14011212871189],[-35.8465546215515,-9.14040016203919],[-35.8467588824576,-9.14059103402843],[-35.8450286843047,-9.14083790253079],[-35.8443979621759,-9.14070530748582],[-35.8439707061323,-9.14048038077238],[-35.8426393698043,-9.13967449333791],[-35.8426653641614,-9.13959402139338],[-35.8426861338693,-9.13953476833019],[-35.8427078160049,-9.13947428022225],[-35.8427257655872,-9.13943971288343],[-35.8427333579861,-9.13941263940458],[-35.8427409511062,-9.13936556645357],[-35.8427340306999,-9.13931095093629],[-35.8426979947542,-9.13924741245954],[-35.8426640648835,-9.1392152119317],[-35.8426144786608,-9.13912758779187],[-35.8425643422957,-9.13906985890091],[-35.8425354340029,-9.13901469808913],[-35.8425204299721,-9.13893581996786],[-35.8425194478457,-9.13889520412896],[-35.8425297358336,-9.13885633052525]]],"7":[5.93,1235,[[-35.842790831851,-9.13766763612278],[-35.8441232523898,-9.1379661095562],[-35.8451622042232,-9.13751793213291],[-35.8455839810893,-9.13750623924102],[-35.8457566668373,-9.13782606163593],[-35.8460259998733,-9.13795942313054],[-35.8462666850369,-9.1385615275843],[-35.8463099341141,-9.13890612583564],[-35.8469803899627,-9.13940694479149],[-35.8460682903109,-9.1394055194243],[-35.8455370565537,-9.13916756762339],[-35.8425368129759,-9.13885669706528],[-35.8426668794554,-9.13858816257013],[-35.8426835324726,-9.13834533260695],[-35.8426577233126,-9.13794585156787],[-35.8426488595267,-9.13776900405627],[-35.842790831851,-9.13766763612278]]],"8":[7.52,1185,[[-35.8426595461755,-9.13736134413863],[-35.8426828885057,-9.13720349515531],[-35.8426567925715,-9.13705039066575],[-35.8426132791697,-9.13688209809871],[-35.8425653460409,-9.13677612823519],[-35.8427196339931,-9.13678870826362],[-35.8428123916387,-9.13673997509242],[-35.8427777192631,-9.13669083276458],[-35.8427055538816,-9.13667149278013],[-35.8430950226426,-9.13454587497887],[-35.8439975987252,-9.13512457261948],[-35.8447976391161,-9.1356348753369],[-35.8448303554534,-9.13583731841379],[-35.8450489728367,-9.13636877174695],[-35.8451198720569,-9.13660253965636],[-35.8451935364943,-9.13689379698724],[-35.845592854775,-9.13750998418593],[-35.8454686573167,-9.13749763247806],[-35.845179217399,-9.13751727126894],[-35.8448535574726,-9.13765423882422],[-35.8441282394637,-9.13796961851016],[-35.8427890028182,-9.13766257136824],[-35.8426496017244,-9.1377669323847],[-35.8426595461755,-9.13736134413863]]],"9":[5.75,1037,[[-35.8425684963449,-9.13677875828389],[-35.8424979055462,-9.13669181512129],[-35.8423964400187,-9.13664094452489],[-35.8422915041328,-9.13664162385573],[-35.8422299925832,-9.13677954426396],[-35.8416064532215,-9.13562386054726],[-35.8404471168134,-9.13457700745469],[-35.8413020846519,-9.13330123989534],[-35.8430914797364,-9.1345552453917],[-35.8427071259916,-9.13666561906509],[-35.8425684963449,-9.13677875828389]]],"10":[4.19,887,[[-35.8404367140738,-9.13456763239292],[-35.8416082290478,-9.13563306362727],[-35.8422284517375,-9.13677041613574],[-35.8421850413374,-9.13684289664436],[-35.8421392892183,-9.13690300675799],[-35.8421174068786,-9.13698376949403],[-35.8406667937614,-9.13709112201865],[-35.84049958591,-9.13637480285972],[-35.8403899450735,-9.1361946841765],[-35.8401328118703,-9.13598236118519],[-35.8398596787263,-9.13514309553349],[-35.8398718427479,-9.1344236493152],[-35.8404367140738,-9.13456763239292]]],"11":[5.02,1068,[[-35.8412045044115,-9.13874258616497],[-35.8409083482583,-9.13797786577528],[-35.8406752637774,-9.13708542550316],[-35.8421198098642,-9.13698745113692],[-35.8421258013086,-9.13707238989225],[-35.8421627553687,-9.13710145019154],[-35.8422496542593,-9.13710271803035],[-35.8423017921247,-9.13706562804468],[-35.8423028918903,-9.13698443808926],[-35.8422628262601,-9.13685716384588],[-35.8423267402565,-9.13681627667205],[-35.842370899835,-9.1366896163024],[-35.8424398833764,-9.13674101500781],[-35.8425368400388,-9.13680298529336],[-35.8425581461968,-9.13692522633403],[-35.8425848453242,-9.1370786653581],[-35.8426082951694,-9.13736269265228],[-35.8424129809523,-9.13736833460518],[-35.8424025898474,-9.13774944511023],[-35.8426317940091,-9.1377624126269],[-35.8426281251815,-9.13787567893683],[-35.8426283653,-9.13811220316529],[-35.8426316135345,-9.13842834879635],[-35.8426083901677,-9.13858471302242],[-35.8425388207138,-9.13874848805345],[-35.8424903292648,-9.13888012873849],[-35.8425023789228,-9.13898812153447],[-35.8425084412185,-9.13907278610404],[-35.8425873669209,-9.13917116397031],[-35.8426761506178,-9.13934591742061],[-35.8426781519549,-9.13942373755578],[-35.8426478780694,-9.13953349466596],[-35.8426108266698,-9.13967697168081],[-35.8415608686673,-9.13984015876917],[-35.8412045044115,-9.13874258616497]]],"12":[3.5,803,[[-35.8410621335769,-9.13991756305914],[-35.8408675890568,-9.13970409587067],[-35.8401657260987,-9.13936566081028],[-35.8395818455625,-9.13906695852581],[-35.8394396997301,-9.13902218583743],[-35.8392833095153,-9.13891980849505],[-35.8391716269219,-9.13884143570374],[-35.8390983390459,-9.13868816389811],[-35.8390575467412,-9.13845361848914],[-35.8390497262936,-9.13827818581962],[-35.8391172662895,-9.1382148979818],[-35.8390699948758,-9.13811640172187],[-35.8409200506294,-9.13799707909521],[-35.8412167226981,-9.1387718175755],[-35.8415542538933,-9.13984892770102],[-35.8410621335769,-9.13991756305914]]],"13":[6.09,1015,[[-35.8390952021081,-9.1381279981545],[-35.8389627995623,-9.13789895717223],[-35.8386205123523,-9.13777231022799],[-35.8385460558068,-9.1376915645323],[-35.8383801241951,-9.13746090076716],[-35.8380658625747,-9.1370846246421],[-35.8380075437606,-9.1369197186727],[-35.8398674214957,-9.13512360473225],[-35.8399150828249,-9.13530464317379],[-35.8399730902288,-9.13556290956476],[-35.8401431800584,-9.13597695029848],[-35.8403871349422,-9.13616201566301],[-35.8404811816418,-9.13632827409653],[-35.8409065057325,-9.13799631313753],[-35.8390952021081,-9.1381279981545]]],"14":[5.39,1015,[[-35.8380118543319,-9.13692776149532],[-35.8377196684812,-9.13709804775577],[-35.8377526787343,-9.13524336924884],[-35.8378662390778,-9.13367947483574],[-35.8398768954602,-9.13441275386903],[-35.839868335085,-9.13512680883507],[-35.8380118543319,-9.13692776149532]]],"15":[2.74,828,[[-35.8378367968128,-9.13939972752689],[-35.8377217615775,-9.13711606414514],[-35.8378534805929,-9.13702335548878],[-35.8380047797694,-9.13691491647686],[-35.838054086115,-9.13706980553484],[-35.8382594872317,-9.13732522690008],[-35.8384148232684,-9.13750567101854],[-35.8386033956579,-9.13773166768052],[-35.8383987235062,-9.13792105312337],[-35.83846521451,-9.13807998060095],[-35.8385821715119,-9.13819422880746],[-35.8387462736861,-9.13831620721614],[-35.8388176721996,-9.13842463954994],[-35.8390465024216,-9.13828112982339],[-35.8390594172796,-9.13837265641684],[-35.8390679921354,-9.1385224395677],[-35.8390955041747,-9.13869868659694],[-35.8391582279926,-9.13881879546396],[-35.8393056227949,-9.13893101577181],[-35.8394513504865,-9.13901557141929],[-35.8384954022937,-9.13946559327613],[-35.8383004762096,-9.13940233213932],[-35.8378367968128,-9.13939972752689]]],"16":[4.15,871,[[-35.8390713207464,-9.13933355548632],[-35.8407361286069,-9.14023587953616],[-35.8412849124376,-9.14105637177403],[-35.8413758061323,-9.14162378964077],[-35.8394261192534,-9.1417978723925],[-35.8390713207464,-9.13933355548632]]],"17":[5.64,1166,[[-35.8394029254056,-9.14179368595764],[-35.8388751515583,-9.14320994818174],[-35.8387287914282,-9.14341161456371],[-35.8387800129545,-9.14378986036694],[-35.8383856443555,-9.14358583559103],[-35.8378866347469,-9.14052092314611],[-35.8378323505112,-9.13940335296409],[-35.8383249021868,-9.139417355064],[-35.8384896766762,-9.13946502598221],[-35.8387885551508,-9.13939508817149],[-35.8390713391176,-9.13932934099868],[-35.8394029254056,-9.14179368595764]]],"18":[4.65,1259,[[-35.8397069962728,-9.14868596938613],[-35.8388048351749,-9.14867731039347],[-35.8383937938445,-9.14358757868556],[-35.8387442198456,-9.14409706264546],[-35.8392837947504,-9.14503049790323],[-35.8395073925213,-9.1458279367061],[-35.8396207840737,-9.1479684376164],[-35.8397069962728,-9.14868596938613]]],"19":[4.69,1326,[[-35.8398179446692,-9.14869278630471],[-35.8397099762314,-9.14868886177349],[-35.8396257124629,-9.14800977773902],[-35.8395111343509,-9.14582020010467],[-35.8392822921178,-9.14502140814867],[-35.8387798692628,-9.14414028967026],[-35.8383833651584,-9.14357246848684],[-35.8386478043445,-9.14372495068138],[-35.8391058493025,-9.143964580889],[-35.8397825042722,-9.14450215352406],[-35.8402700365299,-9.14517140053898],[-35.8405279164662,-9.14632872737377],[-35.84023694747,-9.14839815130803],[-35.8401144487423,-9.14876782538318],[-35.8398179446692,-9.14869278630471]]]}};
 const PIQUETES_GEO_SAOJORGE = {"1":{"1":[4.48,1014,[[-35.8683443233971,-9.15024447038721],[-35.8675767031297,-9.15024758968773],[-35.8672592173272,-9.1502197169263],[-35.8667917909953,-9.15005917527089],[-35.8666390888797,-9.14979312327355],[-35.8665635403195,-9.14953459975336],[-35.8663272316458,-9.14944149812579],[-35.8662316257588,-9.14952856265876],[-35.8660354144149,-9.14949551602359],[-35.8657963636654,-9.14936072241815],[-35.8656655987848,-9.14925026050764],[-35.8658429459171,-9.14908425278284],[-35.866016936954,-9.14864222233649],[-35.8661466048703,-9.14828650688179],[-35.8664480100006,-9.14742552945783],[-35.8665732046597,-9.14715419239614],[-35.8673039359805,-9.14845572455922],[-35.8674558513187,-9.14878216996757],[-35.8678507487018,-9.14944335262777],[-35.8682710417421,-9.14963186602703],[-35.8683443233971,-9.15024447038721]]],"2":[6.12,1215,[[-35.8685569091811,-9.14965505183116],[-35.868277249019,-9.14963452509381],[-35.8678473688884,-9.14943750741731],[-35.8674628764153,-9.14879513541648],[-35.8673019416588,-9.1484442914026],[-35.8665870755688,-9.14716605250583],[-35.8664079716392,-9.14654067541136],[-35.8659481546441,-9.14610364674398],[-35.8661584666854,-9.14595255859],[-35.8661483347268,-9.14564853256824],[-35.8665598402574,-9.14549822543565],[-35.8669288390282,-9.14541635112427],[-35.867163512674,-9.14531935943674],[-35.8673802703516,-9.14530052497301],[-35.868218295747,-9.14779367767832],[-35.8685569091811,-9.14965505183116]]],"3":[6.29,1215,[[-35.8685576021191,-9.14964943689066],[-35.8682189747725,-9.14778905407135],[-35.867382140423,-9.14530055522315],[-35.8674589218114,-9.1452882265581],[-35.8675833658111,-9.14531875398935],[-35.8678790418023,-9.14555696091822],[-35.8682563484766,-9.14597823220382],[-35.8684152836767,-9.14604319634519],[-35.8684953363236,-9.14605548700557],[-35.8686522870449,-9.14617022292072],[-35.8688620075743,-9.14622720846517],[-35.8698425818193,-9.14669389835186],[-35.8699228457007,-9.14674945165569],[-35.8699901865589,-9.14681044114879],[-35.8701200306188,-9.1470549129049],[-35.8701933831586,-9.14722873436042],[-35.8694808996375,-9.14859002945667],[-35.8685576021191,-9.14964943689066]]],"4":[5.3,1064,[[-35.8704957234705,-9.14830015397937],[-35.8705587787572,-9.14847668877685],[-35.870694076021,-9.14880188100656],[-35.8708737421086,-9.14904309833258],[-35.8712670145043,-9.14923848488363],[-35.8705538221392,-9.15094828013878],[-35.8703322403845,-9.15078912454829],[-35.8700480389834,-9.15061941276893],[-35.8699009164382,-9.15026325182265],[-35.8696141544377,-9.15016628654322],[-35.8693926486668,-9.15005123187843],[-35.868964316864,-9.14995220964863],[-35.8685609392697,-9.14964593869133],[-35.8694810809632,-9.14858468263717],[-35.8701886795558,-9.14725295662892],[-35.8705115959466,-9.14805208769834],[-35.8704957234705,-9.14830015397937]]]},"2":{"1":[4.2,853,[[-35.869232567358,-9.15280556113559],[-35.8673981552237,-9.15072567002042],[-35.8675124902286,-9.15040762654894],[-35.8680025731193,-9.15038675354349],[-35.8682227638017,-9.15030238729143],[-35.8684075150163,-9.15032126561172],[-35.8685796960413,-9.15035345323559],[-35.8688934387963,-9.15030344813977],[-35.8693841624152,-9.15065057609007],[-35.869573078823,-9.15081463458421],[-35.8696803062318,-9.15119663543752],[-35.8697450659014,-9.15177270668037],[-35.8699596941423,-9.1520336909433],[-35.869232567358,-9.15280556113559]]],"2":[4.31,925,[[-35.8690983603212,-9.15297352155836],[-35.8663571741162,-9.15315962322737],[-35.8673759817744,-9.15071943191609],[-35.8692291275582,-9.15280238388735],[-35.8690983603212,-9.15297352155836]]],"3":[4.1,888,[[-35.8681699343028,-9.15480259983325],[-35.867391892018,-9.15443926502709],[-35.8669427219232,-9.1542662411719],[-35.8659870491854,-9.15402085120696],[-35.8663604021463,-9.15316433171024],[-35.8691069155188,-9.15297948525719],[-35.8681699343028,-9.15480259983325]]],"5":[4.13,879,[[-35.8693853979422,-9.15295275809059],[-35.8692271975289,-9.15280190065933],[-35.8699573107052,-9.15203583060995],[-35.8704115965824,-9.15223983363006],[-35.8717147322447,-9.15218542950035],[-35.8709529343115,-9.15465136926774],[-35.8693853979422,-9.15295275809059]]],"4":[5.44,947,[[-35.8691100593546,-9.1529771124701],[-35.8692591597743,-9.1531316028228],[-35.8693806139464,-9.15295080057911],[-35.8709500481234,-9.15466144874645],[-35.8697433659111,-9.15600112599117],[-35.8681695750025,-9.15481006091197],[-35.8691100593546,-9.1529771124701]]]}};
 const COR_MOD = { A:'#e5484d', B:'#30a46c', C:'#f2820b', D:'#3b82f6' };
 
@@ -1517,6 +1749,7 @@ function renderPainelPiquete() {
       🔄 ${oc ? 'Mover este lote' : 'Registrar entrada neste piquete'}
     </button>
     <button class="btn btn-out" style="width:100%;margin-top:8px" onclick="abrirModalOcorrencia('${mod}', '${num}')">⚠ Registrar ocorrência aqui</button>
+    <button class="btn btn-out" style="width:100%;margin-top:8px" onclick="historicoFiltrado('${nomePiq}')">📜 Histórico deste piquete</button>
   `;
 }
 
@@ -1552,14 +1785,14 @@ function renderOcorrencias() {
     el.innerHTML = `<div class="empty"><div class="ico">✓</div><p>Nenhuma ocorrência registrada.</p></div>`;
     return;
   }
-  const icones = { morte: '⚫', doenca: '🤒', outro: '⚠' };
-  const labels = { morte: 'Animal morto', doenca: 'Animal doente', outro: 'Ocorrência' };
+  const icones = { morte: '⚫', doenca: '🤒', outro: '⚠', contagem: '🔢' };
+  const labels = { morte: 'Animal morto', doenca: 'Animal doente', outro: 'Ocorrência', contagem: 'Contagem' };
   el.innerHTML = OCORRENCIAS.slice().sort((a,b) => b.data.localeCompare(a.data)).slice(0, 12).map(o => `
     <div class="oc-item">
       <span class="oc-ico">${icones[o.tipo] || '⚠'}</span>
       <div class="info">
         <b>${labels[o.tipo] || 'Ocorrência'} — ${o.modulo}-${String(o.piquete).padStart(2,'0')}</b>
-        <span>${o.lote ? o.lote + ' · ' : ''}${o.obs || 'sem observação'}</span>
+        <span>${o.lote ? o.lote + ' · ' : ''}${o.qtd != null && o.qtd !== '' ? (o.tipo === 'contagem' ? o.qtd + ' cab. · ' : o.qtd + ' animal(is) · ') : ''}${o.obs || 'sem observação'}</span>
       </div>
       <span class="when">${fmtData(o.data)}</span>
     </div>`).join('');
@@ -1575,6 +1808,7 @@ function configurarLancamentos() {
 }
 
 function abrirModalMovimento(nomeLotePreset, modDestinoPreset, piqDestinoPreset) {
+  if (typeof lancarIniciar === 'function') { lancarIniciar(nomeLotePreset, modDestinoPreset, piqDestinoPreset); return; }
   const lote = LOTES.find(l => l.nome === nomeLotePreset);
   $('mv-lote').value = nomeLotePreset || '';
   $('mv-data').value = hoje();
@@ -1754,6 +1988,7 @@ function enfileirarEnvio(tipo, registro) {
 }
 
 function renderFilaEnvio() {
+  if (typeof lnStatus === 'function') lnStatus();
   const badge = $('fila-badge');
   if (!badge) return;
   const n = FILA_ENVIO.length;
@@ -1809,6 +2044,7 @@ async function postNuvem(item) {
 // script antigo só entende mudança de piquete; v2 entende ocorrência/estoque; exclusão precisa da v3
 function podeEnviar(i) {
   if (i.tipo === 'exclusao') return !!SYNC.v3;
+  if (i.tipo === 'lote' || i.tipo === 'auditoria' || (i.registro && i.registro.editado_em)) return !!SYNC.v4;
   return SYNC.v2 || i.tipo === 'movimento';
 }
 let _enviando = false;
@@ -1859,32 +2095,45 @@ function mesclarDaNuvem(j) {
     OCORRENCIAS = OCORRENCIAS.filter(o => !lix.has(String(o.id)));
     if (MOVIMENTACOES.length !== n0 || OCORRENCIAS.length !== o0) mudou = true;
   }
+  // registros com envio pendente aqui não são sobrescritos pelo que ainda está na planilha
+  const pend = new Set(FILA_ENVIO.filter(i => i.tipo !== 'exclusao' && i.registro).map(i => String(i.registro.id)));
   const porId = new Map(MOVIMENTACOES.map(m => [m.id, m]));
   (j.movimentos || []).forEach(r => {
-    if (!r.id || !r.modulo || bloq.has(String(r.id))) return;
+    if (!r.id || !r.modulo || bloq.has(String(r.id)) || pend.has(String(r.id))) return;
     const rec = {
       id: String(r.id), lote: String(r.lote || '').trim(), modulo: String(r.modulo).trim().toUpperCase(),
-      piquete: String(parseInt(r.piquete, 10)), entrada: normData(r.entrada), saida: normData(r.saida) || null,
+      piquete: piqueteNovo(r.modulo, r.piquete), entrada: normData(r.entrada), saida: normData(r.saida) || null,
       cabecas: parseInt(r.cabecas, 10) || null, obs: r.obs || '', ts: Number(r.ts) || 0
     };
     if (!rec.lote || !rec.entrada || isNaN(parseInt(rec.piquete, 10))) return;
+    rec.editado_em = Number(r.editado_em) || 0;
+    if (rec.editado_em) { rec.editado_por = r.editado_por || ''; rec.versao = parseInt(r.versao, 10) || 1; }
+    if (r.saida_motivo) rec.saida_motivo = r.saida_motivo;
     const loc = porId.get(rec.id);
     if (!loc) { MOVIMENTACOES.push(rec); porId.set(rec.id, rec); mudou = true; }
+    else if (rec.editado_em > (loc.editado_em || 0)) { Object.keys(loc).forEach(k => { if (!(k in rec)) delete loc[k]; }); Object.assign(loc, rec); mudou = true; }
     else if (rec.saida && !loc.saida) { loc.saida = rec.saida; mudou = true; }
   });
-  const ocIds = new Set(OCORRENCIAS.map(o => o.id));
+  const ocPorId = new Map(OCORRENCIAS.map(o => [String(o.id), o]));
   (j.ocorrencias || []).forEach(r => {
-    if (!r.id || ocIds.has(String(r.id)) || bloq.has(String(r.id))) return;
-    OCORRENCIAS.push({ id: String(r.id), modulo: String(r.modulo || '').toUpperCase(), piquete: String(parseInt(r.piquete, 10)),
-      data: normData(r.data), tipo: r.tipo || 'outro', obs: r.obs || '', lote: r.lote || '', ts: Number(r.ts) || 0 });
-    ocIds.add(String(r.id)); mudou = true;
+    if (!r.id || bloq.has(String(r.id)) || pend.has(String(r.id))) return;
+    const rec = { id: String(r.id), modulo: String(r.modulo || '').toUpperCase(), piquete: piqueteNovo(r.modulo, r.piquete),
+      data: normData(r.data), tipo: r.tipo || 'outro', obs: r.obs || '', lote: r.lote || '', ts: Number(r.ts) || 0 };
+    if (r.qtd !== undefined && r.qtd !== '') rec.qtd = parseInt(r.qtd, 10);
+    rec.editado_em = Number(r.editado_em) || 0;
+    if (rec.editado_em) { rec.editado_por = r.editado_por || ''; rec.versao = parseInt(r.versao, 10) || 1; }
+    const loc = ocPorId.get(rec.id);
+    if (!loc) { OCORRENCIAS.push(rec); ocPorId.set(rec.id, rec); mudou = true; }
+    else if (rec.editado_em > (loc.editado_em || 0)) { Object.assign(loc, rec); mudou = true; }
   });
+  if (typeof window.mesclarExtrasNuvem === 'function' && window.mesclarExtrasNuvem(j, bloq, pend)) mudou = true;
   if (typeof window.mesclarEstoqueNuvem === 'function' && Array.isArray(j.estoque)) window.mesclarEstoqueNuvem(j.estoque, lix);
   if (mudou) {
     salvarLocal('vp_movimentacoes', MOVIMENTACOES);
     salvarLocal('vp_ocorrencias', OCORRENCIAS);
     recalcularLotes(); renderLotes(); renderMapaSVG(); renderPainelPiquete();
     if (!$('modal-movimento').classList.contains('open')) popularPiquetesDestino();
+    if (typeof lnAtualizar === 'function') lnAtualizar();
   }
   return mudou;
 }
@@ -1895,16 +2144,16 @@ async function buscarDaNuvem() {
   const txt = await r.text();
   let j = null; try { j = JSON.parse(txt); } catch (_) {}
   if (!j || !Array.isArray(j.movimentos)) { setSync({ v2: false, estado: 'antigo', msg: 'Atualize o Apps Script para a v2 para os aparelhos compartilharem os lançamentos.' }); return; }
-  const eraV2 = SYNC.v2, eraV3 = SYNC.v3;
-  setSync({ v2: true, v3: (+j.versao || 0) >= 3 });
+  const eraV2 = SYNC.v2, eraV3 = SYNC.v3, eraV4 = SYNC.v4;
+  setSync({ v2: true, v3: (+j.versao || 0) >= 3, v4: (+j.versao || 0) >= 4 });
   mesclarDaNuvem(j);
-  if (((!eraV2) || (!eraV3 && SYNC.v3)) && FILA_ENVIO.length) await tentarEnviarFila();   // libera o que estava esperando versão nova
+  if (((!eraV2) || (!eraV3 && SYNC.v3) || (!eraV4 && SYNC.v4)) && FILA_ENVIO.length) await tentarEnviarFila();   // libera o que estava esperando versão nova
   const travados = FILA_ENVIO.filter(podeEnviar).length;
   setSync({ ultimaBusca: Date.now(), estado: travados ? 'erro' : 'ok', msg: travados ? SYNC.msg : msgEspera() });
 }
 function msgEspera() {
   const n = FILA_ENVIO.filter(i => !podeEnviar(i)).length;
-  return n ? `${n} exclusão(ões) esperando o Apps Script v3 na planilha — ficam guardadas aqui.` : '';
+  return n ? `${n} correção(ões)/exclusão(ões) esperando o Apps Script v4 na planilha — ficam guardadas aqui.` : '';
 }
 let _sincronizando = false;
 async function sincronizarAgora(silencioso) {
@@ -2152,7 +2401,7 @@ function processarPlanilhaRotacao(file) {
       let entradaStr = entradaRaw instanceof Date ? entradaRaw.toISOString().split('T')[0] : String(entradaRaw||'');
       const saidaRaw = r[col('Saída')];
       let saidaStr = saidaRaw instanceof Date ? saidaRaw.toISOString().split('T')[0] : (saidaRaw ? String(saidaRaw) : null);
-      const piqueteNum = String(r[col('Piquete')] || '').replace(/^[A-D]-?/, '');
+      const piqueteNum = piqueteNovo(r[col('Módulo')] || '', String(r[col('Piquete')] || '').replace(/^[A-D]-?/, ''));
       const nome = r[col('Lote')];
 
       // evita duplicar se essa mesma movimentação (lote+entrada+piquete) já foi importada antes
@@ -2256,6 +2505,970 @@ function processarPlanilhaRotacao(file) {
   </div>
 </div>
 
+<!-- Modais: ficha do histórico, PIN, edição -->
+<div class="modal-bg" id="modal-ficha"><div class="modal-card" id="ficha-corpo"></div></div>
+<div class="modal-bg" id="modal-edicao"><div class="modal-card" id="edicao-corpo"></div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   ATUALIZAÇÃO 01/10/2026 — LANÇAR · HISTÓRICO · CORREÇÕES
+   - Lançar: o vaqueiro só ESCOLHE (lote, piquete) — não digita nome de lote,
+     não exclui nada. 4 toques: lote → o que aconteceu → para onde → confirmar.
+   - Histórico: tudo o que foi lançado, com busca e filtros.
+   - Correções (área separada, sem PIN): trocar lote, corrigir campos, anular, juntar lotes,
+     criar/arquivar lote. Todo ajuste vira registro na aba Auditoria.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+(function migrarD20() {   // antigo D-00 → D-20, uma vez por aparelho, e manda a correção para a planilha
+  if (carregarLocal('vp_mig_d20', false)) return;
+  let n = 0;
+  [['movimento', MOVIMENTACOES], ['ocorrencia', OCORRENCIAS]].forEach(([tipo, lista]) => lista.forEach(r => {
+    if (String(r.modulo).toUpperCase() === 'D' && parseInt(r.piquete, 10) === 0) {
+      r.piquete = '20'; r.editado_em = Date.now(); r.editado_por = 'ajuste D-00→D-20'; r.versao = (parseInt(r.versao, 10) || 1) + 1;
+      enfileirarEnvio(tipo, { ...r }); n++;
+    }
+  }));
+  if (n) { salvarLocal('vp_movimentacoes', MOVIMENTACOES); salvarLocal('vp_ocorrencias', OCORRENCIAS); }
+  salvarLocal('vp_mig_d20', true);
+})();
+
+let LOTES_CAD = carregarLocal('vp_lotes_cad', []);   // {id,nome,ativo,cabecas,obs,criado_em,ts,editado_em,editado_por,versao}
+let AUDITORIA = carregarLocal('vp_auditoria', []);   // {id,quando,aparelho,alvo,registro_id,acao,resumo,antes,depois,motivo,ts}
+
+const escH = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const normTxt = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const piqNome = (m, p) => `${m}-${String(parseInt(p, 10)).padStart(2, '0')}`;
+const ORDEM_MOD = ['A', 'D', 'C', 'B'];
+function dataLocal(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }   // ordem do peso (A mais leve → B mais pesado)
+
+function salvarCad() { salvarLocal('vp_lotes_cad', LOTES_CAD); }
+function salvarAud() { salvarLocal('vp_auditoria', AUDITORIA); }
+function marcarEditado(r) { r.editado_em = Date.now(); r.editado_por = nomeAparelho(); r.versao = (parseInt(r.versao, 10) || 1) + 1; }
+
+function registrarAuditoria(o) {
+  const a = {
+    id: uid(), quando: new Date().toISOString(), aparelho: nomeAparelho(),
+    alvo: o.alvo || '', registro_id: o.registro_id || '', acao: o.acao || '', resumo: o.resumo || '',
+    antes: o.antes ? JSON.stringify(o.antes) : '', depois: o.depois ? JSON.stringify(o.depois) : '',
+    motivo: o.motivo || '', ts: Date.now()
+  };
+  AUDITORIA.push(a); salvarAud();
+  enfileirarEnvio('auditoria', a);
+  return a;
+}
+
+/* ── lotes ── */
+function todosNomesLote() {
+  const m = new Map();
+  MOVIMENTACOES.forEach(x => { if (x.lote) m.set(normTxt(x.lote), x.lote); });
+  LOTES_CAD.forEach(x => { if (x.nome) m.set(normTxt(x.nome), x.nome); });
+  return [...m.values()].sort((a, b) => a.localeCompare(b, 'pt-BR', { numeric: true }));
+}
+function cadDoLote(nome) { return LOTES_CAD.find(c => normTxt(c.nome) === normTxt(nome)); }
+function lotesDisponiveis() {
+  const campo = LOTES.slice().sort((a, b) => ORDEM_MOD.indexOf(a.modulo) - ORDEM_MOD.indexOf(b.modulo) || parseInt(a.piquete, 10) - parseInt(b.piquete, 10))
+    .map(l => ({ nome: l.nome, modulo: l.modulo, piquete: l.piquete, entrada: l.entrada, cabecas: l.cabecas, movId: l.id, noCampo: true }));
+  const noCampo = new Set(campo.map(l => normTxt(l.nome)));
+  const espera = LOTES_CAD.filter(c => c.ativo !== false && !noCampo.has(normTxt(c.nome)))
+    .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { numeric: true }))
+    .map(c => ({ nome: c.nome, cabecas: c.cabecas || null, noCampo: false }));
+  return { campo, espera };
+}
+
+/* ── movimentos ── */
+function registrarMovimento({ lote, data, modulo, piquete, cabecas, obs }) {
+  const doLote = MOVIMENTACOES.filter(m => m.lote === lote).sort(ordemMov);
+  const fechados = [];
+  doLote.forEach((m, i) => {
+    if (!m.saida) { m.saida = doLote[i + 1] ? doLote[i + 1].entrada : data; fechados.push(m); }
+  });
+  const novo = { id: uid(), lote, modulo, piquete: String(parseInt(piquete, 10)), entrada: data, saida: null, cabecas: cabecas || null, obs: obs || '', ts: Date.now() };
+  MOVIMENTACOES.push(novo);
+  salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+  fechados.forEach(m => enfileirarEnvio('movimento', { ...m }));
+  enfileirarEnvio('movimento', novo);
+  return novo;
+}
+// refaz as datas de saída de um lote depois de uma correção.
+// reabrir = datas de entrada que deixaram de existir nesse lote (a saída do último volta a ficar aberta)
+function refecharPeriodos(nome, reabrir) {
+  const l = MOVIMENTACOES.filter(m => m.lote === nome).sort(ordemMov);
+  const mud = [];
+  l.forEach((m, i) => {
+    const p = l[i + 1];
+    if (p) {
+      if (m.saida !== p.entrada) { m.saida = p.entrada; marcarEditado(m); mud.push(m); }
+    } else if (m.saida && !m.saida_motivo && reabrir && reabrir.has(m.saida)) {
+      m.saida = null; marcarEditado(m); mud.push(m);
+    }
+  });
+  return mud;
+}
+// segue a NUMERAÇÃO dos piquetes (o vaqueiro pode escolher outro se precisar)
+function proximoSugerido(mod, numAtual) {
+  const nums = numsDoModulo(mod);
+  const livre = n => !ocupacaoAtual(mod, n);
+  let base = numAtual;
+  if (base == null) {   // entrando no módulo: continua de onde o último lote passou
+    const ult = MOVIMENTACOES.filter(m => m.modulo === mod).sort(ordemMov).pop();
+    if (!ult) return nums.find(livre) ?? null;
+    base = parseInt(ult.piquete, 10);
+  }
+  const i = nums.indexOf(parseInt(base, 10));
+  for (let s = 1; s <= nums.length; s++) { const n = nums[(i + s + nums.length) % nums.length]; if (livre(n) && n !== numAtual) return n; }
+  return null;
+}
+function _sugeridoPorHistorico(mod, numAtual) {
+  const nums = numsDoModulo(mod);
+  const livre = n => !ocupacaoAtual(mod, n);
+  if (numAtual != null) {
+    const cont = {}, porLote = {};
+    MOVIMENTACOES.slice().sort(ordemMov).forEach(m => (porLote[m.lote] = porLote[m.lote] || []).push(m));
+    Object.values(porLote).forEach(l => l.forEach((m, i) => {
+      const p = l[i + 1];
+      if (p && m.modulo === mod && p.modulo === mod && parseInt(m.piquete, 10) === parseInt(numAtual, 10)) {
+        const k = parseInt(p.piquete, 10); cont[k] = (cont[k] || 0) + 1;
+      }
+    }));
+    const cand = Object.entries(cont).sort((a, b) => b[1] - a[1]).map(([k]) => +k).filter(k => nums.includes(k) && livre(k));
+    if (cand.length) return cand[0];
+    const i = nums.indexOf(parseInt(numAtual, 10));
+    for (let s = 1; s <= nums.length; s++) { const n = nums[(i + s + nums.length) % nums.length]; if (livre(n) && n !== parseInt(numAtual, 10)) return n; }
+    return null;
+  }
+  // outro módulo: o piquete livre com mais dias de descanso
+  const livres = nums.filter(livre);
+  if (!livres.length) return null;
+  const desc = n => { const d = PIQ_DESCANSO[mod + '-' + n]; return d ? dias(d) : 9999; };
+  return livres.sort((a, b) => desc(b) - desc(a) || a - b)[0];
+}
+
+/* ══════════════════════════ ABA LANÇAR ══════════════════════════ */
+let LN = null;
+function lnNovo() { LN = { passo: 1, lote: null, acao: null, mod: null, num: null, data: hoje(), dataModo: 'hoje', cab: null, tipoOc: null, qtd: 1, obs: '', juntos: false, destPreset: null, salvo: null }; }
+lnNovo();
+
+function lancarIniciar(nome, mod, num) {
+  lnNovo();
+  irPara('lancar');
+  if (nome) {
+    const d = lotesDisponiveis();
+    const l = d.campo.find(x => x.nome === nome) || d.espera.find(x => x.nome === nome);
+    if (l) {
+      LN.lote = l; LN.acao = 'mover'; LN.cab = l.cabecas || null;
+      if (mod && num != null && num !== '') { LN.mod = mod; LN.num = parseInt(num, 10); LN.passo = 4; }
+      else { LN.mod = l.modulo || 'A'; LN.passo = 3; }
+    }
+  } else if (mod && num != null && num !== '') {
+    LN.destPreset = { mod, num: parseInt(num, 10) };
+  }
+  renderLancar();
+  window.scrollTo(0, 0);
+}
+window.lancarIniciar = lancarIniciar;
+
+function lnVoltar() {
+  if (LN.passo === 4) LN.passo = (LN.acao === 'mover' && !LN.destPreset) ? 3 : (LN.acao === 'mover' ? 1 : 3);
+  else if (LN.passo === 3) LN.passo = LN.lote && LN.lote.noCampo ? 2 : 1;
+  else LN.passo = 1;
+  if (LN.passo === 1) { const p = LN.destPreset; lnNovo(); LN.destPreset = p; }
+  renderLancar();
+}
+
+function lnStatus() {
+  const el = $('ln-status'); if (!el) return;
+  const n = FILA_ENVIO.length;
+  if (!navigator.onLine) { el.className = 'ln-status off'; el.textContent = n ? `Sem internet — ${n} lançamento(s) guardado(s) no celular` : 'Sem internet — pode lançar, fica guardado no celular'; }
+  else if (n) { el.className = 'ln-status pend'; el.textContent = `Enviando ${n} lançamento(s) para a planilha…`; }
+  else { el.className = 'ln-status ok'; el.textContent = '✓ Tudo enviado para a planilha'; }
+}
+window.lnStatus = lnStatus;
+
+function lnCabecalho(titulo, sub) {
+  const voltar = LN.passo > 1 && LN.passo < 5 ? `<button class="ln-voltar" onclick="lnVoltar()">‹ Voltar</button>` : '';
+  const passos = LN.passo < 5 ? `<span class="ln-passo">Passo ${LN.passo} de 4</span>` : '';
+  return `<div class="ln-topo">${voltar}${passos}</div><h2 class="ln-q">${titulo}</h2>${sub ? `<div class="ln-qsub">${sub}</div>` : ''}`;
+}
+function lnResumoLote(l) {
+  if (!l) return '';
+  if (!l.noCampo) return `<b>${escH(l.nome)}</b> · aguardando entrada no pasto${l.cabecas ? ' · ' + l.cabecas + ' cab.' : ''}`;
+  const d = dias(l.entrada);
+  return `<b>${escH(l.nome)}</b> · em ${piqNome(l.modulo, l.piquete)} há ${d} dia(s) · ${l.cabecas || '—'} cab.`;
+}
+
+function renderLancar() {
+  const el = $('lancar-corpo'); if (!el) return;
+  lnStatus();
+  const d = lotesDisponiveis();
+  let h = '';
+  if (LN.passo === 1) {
+    const pre = LN.destPreset;
+    h += lnCabecalho('Qual lote?', pre ? `Escolha o lote que entrou em <b>${piqNome(pre.mod, pre.num)}</b>` : 'Toque no lote que você mexeu');
+    if (!d.campo.length && !d.espera.length) {
+      h += `<div class="ln-vazio">Nenhum lote cadastrado ainda.<br>O gerente cria o lote em <b>✎ Correções → Lotes</b>.</div>`;
+    }
+    h += `<div class="ln-lotes">` + d.campo.map((l, i) => {
+      const dd = dias(l.entrada);
+      const cor = dd > MAX_DIAS ? 'venc' : dd === MAX_DIAS ? 'hoje' : '';
+      return `<button class="ln-lote mod-${l.modulo}" onclick="lnEscolherLote('campo',${i})">
+        <span class="ln-lote-mod">${l.modulo}</span>
+        <span class="ln-lote-info"><b>${escH(l.nome)}</b><small>Piquete ${piqNome(l.modulo, l.piquete)} · ${l.cabecas || '—'} cab.</small></span>
+        <span class="ln-lote-dias ${cor}"><b>${dd}</b><small>dia(s)</small></span>
+      </button>`;
+    }).join('') + `</div>`;
+    if (d.espera.length) {
+      h += `<div class="ln-sep">Aguardando entrar no pasto</div><div class="ln-lotes">` + d.espera.map((l, i) => `
+        <button class="ln-lote espera" onclick="lnEscolherLote('espera',${i})">
+          <span class="ln-lote-mod">＋</span>
+          <span class="ln-lote-info"><b>${escH(l.nome)}</b><small>${l.cabecas ? l.cabecas + ' cab. · ' : ''}ainda sem piquete</small></span>
+        </button>`).join('') + `</div>`;
+    }
+    h += lnBotaoHoje();
+    if (d.campo.length) {
+      LN.mapaMod = LN.mapaMod || (d.campo[0] && d.campo[0].modulo) || 'A';
+      h += `<div class="ln-sep">Ou toque no lote no mapa</div>${lnChipsModulo(LN.mapaMod, 'lnMapaMod')}
+        <div class="ln-map">${lnMapaSVG([LN.mapaMod], 'lote')}</div>`;
+    }
+  } else if (LN.passo === 2) {
+    const l = LN.lote;
+    h += lnCabecalho('O que aconteceu?', lnResumoLote(l));
+    h += `<div class="ln-acoes">
+      <button class="ln-acao mover" onclick="lnEscolherAcao('mover')"><span>🔄</span><b>Mudou de piquete</b><small>o lote foi para outro piquete</small></button>
+      <button class="ln-acao oc" onclick="lnEscolherAcao('ocorrencia')"><span>⚠</span><b>Ocorrência</b><small>animal morto, doente ou outro problema</small></button>
+      <button class="ln-acao cont" onclick="lnEscolherAcao('contagem')"><span>🔢</span><b>Contagem de cabeças</b><small>contou o lote e o número mudou</small></button>
+    </div>`;
+  } else if (LN.passo === 3 && LN.acao === 'mover') {
+    const l = LN.lote;
+    const mod = LN.mod || l.modulo || 'A';
+    const atualNum = l.noCampo && l.modulo === mod ? parseInt(l.piquete, 10) : null;
+    const sug = proximoSugerido(mod, atualNum);
+    LN.sug = sug != null ? { mod, num: sug } : null;
+    h += lnCabecalho(l.noCampo ? 'Para onde foi?' : 'Em qual piquete entrou?', lnResumoLote(l));
+    h += lnChipsModulo(mod, 'lnDestMod');
+    if (sug != null) h += `<button class="ln-sug-btn" onclick="lnEscolherDestino('${mod}',${sug})">Próximo na numeração: <b>${piqNome(mod, sug)}</b> ›</button>`;
+    h += `<div class="ln-map">${lnMapaSVG([mod], 'destino')}</div>`;
+    h += `<div class="ln-sep">Ou toque no número</div><div class="ln-nums">` + numsDoModulo(mod).map(n => {
+      const oc = ocupacaoAtual(mod, n);
+      const aqui = atualNum === n;
+      const desc = !oc && PIQ_DESCANSO[mod + '-' + n] ? dias(PIQ_DESCANSO[mod + '-' + n]) : null;
+      const cls = aqui ? 'aqui' : oc ? 'ocup' : (sug === n ? 'sug' : '');
+      const sub = aqui ? 'está aqui' : oc ? escH(abreviarLote(oc.nome)) : desc != null ? desc + 'd desc.' : 'livre';
+      return `<button class="ln-num ${cls}" ${aqui ? 'disabled' : ''} onclick="lnEscolherDestino('${mod}',${n})"><b>${String(n).padStart(2, '0')}</b><small>${sub}</small></button>`;
+    }).join('') + `</div>`;
+  } else if (LN.passo === 3 && LN.acao === 'ocorrencia') {
+    h += lnCabecalho('Que ocorrência?', lnResumoLote(LN.lote));
+    const tipos = [['morte', '⚫', 'Animal morto'], ['doenca', '🤒', 'Animal doente'], ['outro', '⚠', 'Outro problema']];
+    h += `<div class="ln-tipos">` + tipos.map(([k, ic, t]) => `<button class="ln-tipo ${LN.tipoOc === k ? 'on' : ''}" onclick="lnTipoOc('${k}')"><span>${ic}</span><b>${t}</b></button>`).join('') + `</div>`;
+    if (LN.tipoOc) {
+      if (LN.tipoOc !== 'outro') h += `<div class="ln-campo"><label>Quantos animais?</label>${lnStepper('qtd', LN.qtd)}</div>`;
+      const rap = LN.tipoOc === 'outro' ? ['Cerca quebrada', 'Falta de água', 'Pasto acabou', 'Animal fora do piquete'] : LN.tipoOc === 'doenca' ? ['Mancando', 'Diarreia', 'Bicheira', 'Magro / fraco'] : ['Achado morto', 'Picada de cobra', 'Atolado'];
+      h += `<div class="ln-campo"><label>O que aconteceu? <small>(opcional)</small></label>
+        <div class="ln-rapidos">${rap.map(r => `<button onclick="lnObsRapida(this)" data-t="${escH(r)}">${escH(r)}</button>`).join('')}</div>
+        <input id="ln-obs" type="text" value="${escH(LN.obs)}" placeholder="Escreva se quiser" oninput="LN.obs=this.value"></div>
+        <button class="ln-continuar" onclick="lnIrConfirmar()">Continuar ›</button>`;
+    }
+  } else if (LN.passo === 3 && LN.acao === 'contagem') {
+    h += lnCabecalho('Quantas cabeças tem o lote agora?', lnResumoLote(LN.lote));
+    if (LN.cab == null) LN.cab = LN.lote.cabecas || 0;
+    h += `<div class="ln-campo">${lnStepper('cab', LN.cab)}</div>
+      <div class="ln-campo"><label>Observação <small>(opcional)</small></label><input id="ln-obs" type="text" value="${escH(LN.obs)}" placeholder="Ex.: contado na porteira" oninput="LN.obs=this.value"></div>
+      <button class="ln-continuar" onclick="lnIrConfirmar()">Continuar ›</button>`;
+  } else if (LN.passo === 4) {
+    h += lnCabecalho('Confere e confirma', '');
+    h += `<div class="ln-resumo">${lnTextoResumo()}</div>`;
+    h += `<div class="ln-campo"><label>Quando foi?</label><div class="ln-datas">
+      <button class="${LN.dataModo === 'hoje' ? 'on' : ''}" onclick="lnData('hoje')">Hoje</button>
+      <button class="${LN.dataModo === 'ontem' ? 'on' : ''}" onclick="lnData('ontem')">Ontem</button>
+      <button class="${LN.dataModo === 'outra' ? 'on' : ''}" onclick="lnData('outra')">Outra data</button></div>
+      ${LN.dataModo === 'outra' ? `<input type="date" id="ln-data" value="${LN.data}" max="${hoje()}" onchange="LN.data=this.value;lnAvisos()">` : ''}</div>`;
+    if (LN.acao === 'mover') {
+      if (LN.cab == null) LN.cab = LN.lote.cabecas || null;
+      h += `<div class="ln-campo"><label>Cabeças que foram</label>${lnStepper('cab', LN.cab)}</div>
+        <div class="ln-campo"><label>Observação <small>(opcional)</small></label><input id="ln-obs" type="text" value="${escH(LN.obs)}" placeholder="Ex.: pasto fraco, antecipou" oninput="LN.obs=this.value"></div>`;
+    }
+    h += `<div id="ln-avisos"></div><button class="ln-confirmar" id="ln-confirmar" onclick="lnConfirmar()">✓ CONFIRMAR</button>`;
+  } else if (LN.passo === 5) {
+    const s = LN.salvo || {};
+    h += `<div class="ln-ok"><div class="ln-ok-ico">✓</div><h2>Lançado!</h2><p>${s.txt || ''}</p>
+      <p class="ln-ok-sub">${navigator.onLine ? 'Salvo no celular e enviando para a planilha.' : 'Salvo no celular. Vai para a planilha quando pegar sinal.'}</p>
+      <button class="ln-continuar" onclick="lnNovo();renderLancar()">Fazer outro lançamento</button>
+      ${lnBotaoHoje()}
+      <button class="ln-link" onclick="irPara('mapa')">Ver no mapa</button></div>`;
+  }
+  el.innerHTML = h;
+  if (LN.passo === 4) lnAvisos();
+}
+
+function lnChipsModulo(atual, fn) {
+  return `<div class="ln-mods">${['A', 'B', 'C', 'D'].map(m => `<button class="ln-mod ${m === atual ? 'on-' + m : ''}" onclick="${fn}('${m}')">Mód. ${m}</button>`).join('')}</div>`;
+}
+function lnMapaMod(m) { LN.mapaMod = m; renderLancar(); }
+function lnDestMod(m) { LN.mod = m; renderLancar(); }
+
+function lnStepper(campo, valor) {
+  return `<div class="ln-stepper"><button onclick="lnPasso('${campo}',-1)">−</button>
+    <input id="ln-${campo}" type="number" inputmode="numeric" min="0" value="${valor == null ? '' : valor}" oninput="lnPassoDigitado('${campo}',this.value)">
+    <button onclick="lnPasso('${campo}',1)">+</button></div>`;
+}
+function lnPasso(campo, d) {
+  const v = Math.max(campo === 'qtd' ? 1 : 0, (parseInt(LN[campo], 10) || 0) + d);
+  LN[campo] = v; const i = $('ln-' + campo); if (i) i.value = v;
+  if (LN.passo === 4) lnAvisos();
+}
+function lnPassoDigitado(campo, v) { LN[campo] = v === '' ? null : parseInt(v, 10); if (LN.passo === 4) lnAvisos(); }
+function lnObsRapida(b) { const t = b.dataset.t; LN.obs = LN.obs ? (LN.obs.includes(t) ? LN.obs : LN.obs + '; ' + t) : t; const i = $('ln-obs'); if (i) i.value = LN.obs; }
+function lnData(modo) {
+  LN.dataModo = modo;
+  if (modo === 'hoje') LN.data = hoje();
+  if (modo === 'ontem') { const d = new Date(); d.setDate(d.getDate() - 1); LN.data = dataLocal(d); }
+  renderLancar();
+}
+
+function lnEscolherLote(grupo, i) {
+  const d = lotesDisponiveis();
+  const l = d[grupo][i]; if (!l) return;
+  LN.lote = l; LN.cab = l.cabecas || null;
+  if (LN.destPreset) { LN.acao = 'mover'; LN.mod = LN.destPreset.mod; LN.num = LN.destPreset.num; LN.passo = 4; }
+  else if (!l.noCampo) { LN.acao = 'mover'; LN.mod = 'A'; LN.passo = 3; }
+  else LN.passo = 2;
+  renderLancar(); window.scrollTo(0, 0);
+}
+function lnEscolherAcao(a) {
+  LN.acao = a; LN.passo = 3; LN.obs = '';
+  if (a === 'mover') LN.mod = LN.lote.modulo || 'A';
+  if (a === 'contagem') LN.cab = LN.lote.cabecas || 0;
+  renderLancar(); window.scrollTo(0, 0);
+}
+function lnTipoOc(t) { LN.tipoOc = t; if (!LN.qtd) LN.qtd = 1; renderLancar(); }
+function lnIrConfirmar() {
+  if (LN.acao === 'contagem' && (LN.cab == null || isNaN(LN.cab))) { toastPainel('Informe quantas cabeças'); return; }
+  LN.passo = 4; renderLancar(); window.scrollTo(0, 0);
+}
+function lnEscolherDestino(mod, num) {
+  const l = LN.lote;
+  if (l && l.noCampo && l.modulo === mod && parseInt(l.piquete, 10) === parseInt(num, 10)) { toastPainel('O lote já está nesse piquete'); return; }
+  LN.mod = mod; LN.num = parseInt(num, 10); LN.juntos = false; LN.passo = 4;
+  renderLancar(); window.scrollTo(0, 0);
+}
+function lnTocarMapa(mod, num) {
+  if (LN.passo === 3) return lnEscolherDestino(mod, num);
+  const oc = ocupacaoAtual(mod, num);
+  if (!oc) { toastPainel(`${piqNome(mod, num)} está vazio — toque num piquete com lote`); return; }
+  const d = lotesDisponiveis();
+  const i = d.campo.findIndex(x => x.nome === oc.nome);
+  if (i >= 0) lnEscolherLote('campo', i);
+}
+
+function lnTextoResumo() {
+  const l = LN.lote, nome = `<b>${escH(l.nome)}</b>`;
+  if (LN.acao === 'mover') {
+    const de = l.noCampo ? piqNome(l.modulo, l.piquete) : 'fora do pasto';
+    return `${nome}<div class="ln-seta"><span>${de}</span><i>→</i><span class="dest">${piqNome(LN.mod, LN.num)}</span></div>`;
+  }
+  if (LN.acao === 'ocorrencia') {
+    const t = { morte: '⚫ Animal morto', doenca: '🤒 Animal doente', outro: '⚠ Ocorrência' }[LN.tipoOc];
+    return `${nome} em ${piqNome(l.modulo, l.piquete)}<div class="ln-grande">${t}${LN.tipoOc !== 'outro' ? ' · ' + (LN.qtd || 1) + ' animal(is)' : ''}</div>${LN.obs ? `<div class="ln-obs-res">${escH(LN.obs)}</div>` : ''}`;
+  }
+  return `${nome} em ${piqNome(l.modulo, l.piquete)}<div class="ln-grande">🔢 ${LN.cab} cabeças</div><div class="ln-obs-res">antes: ${l.cabecas == null ? '—' : l.cabecas}</div>`;
+}
+
+function lnValidar() {
+  const erros = [], avisos = [];
+  const l = LN.lote;
+  if (!LN.data) erros.push('Escolha a data.');
+  else if (LN.data > hoje()) erros.push('A data está no futuro.');
+  if (LN.acao === 'mover') {
+    if (l.noCampo && LN.data && LN.data < l.entrada) erros.push(`A data é antes da entrada em ${piqNome(l.modulo, l.piquete)} (${fmtData(l.entrada)}).`);
+    if (!LN.cab || LN.cab < 1) erros.push('Informe quantas cabeças foram.');
+    const oc = ocupacaoAtual(LN.mod, LN.num);
+    if (oc && oc.nome !== l.nome) avisos.push({ tipo: 'juntos', txt: `${piqNome(LN.mod, LN.num)} já está com <b>${escH(oc.nome)}</b>. Os dois lotes vão ficar juntos?` });
+    if (l.noCampo) {
+      const dd = dias(l.entrada, LN.data || hoje());
+      if (dd > MAX_DIAS) avisos.push({ txt: `O lote ficou ${dd} dias em ${piqNome(l.modulo, l.piquete)} (limite ${MAX_DIAS}).` });
+    }
+    if (l.cabecas && LN.cab && LN.cab !== l.cabecas) {
+      const dif = LN.cab - l.cabecas;
+      avisos.push({ txt: `Antes eram ${l.cabecas} cabeças (${dif > 0 ? '+' : ''}${dif}). ${dif < 0 ? 'Se morreu animal, lance a ocorrência também.' : 'Confira a contagem.'}` });
+    }
+  }
+  if (LN.acao !== 'mover' && l.noCampo && LN.data && LN.data < l.entrada) avisos.push({ txt: `A data é antes da entrada do lote em ${piqNome(l.modulo, l.piquete)} (${fmtData(l.entrada)}).` });
+  if (LN.acao === 'contagem' && l.cabecas != null && LN.cab !== l.cabecas) {
+    const dif = LN.cab - l.cabecas;
+    avisos.push({ txt: `Muda de ${l.cabecas} para ${LN.cab} cabeças (${dif > 0 ? '+' : ''}${dif}).` });
+  }
+  return { erros, avisos };
+}
+function lnAvisos() {
+  const el = $('ln-avisos'), b = $('ln-confirmar'); if (!el || !b) return;
+  const { erros, avisos } = lnValidar();
+  el.innerHTML = erros.map(e => `<div class="ln-aviso erro">✕ ${e}</div>`).join('') + avisos.map(a => a.tipo === 'juntos'
+    ? `<label class="ln-aviso alerta"><input type="checkbox" ${LN.juntos ? 'checked' : ''} onchange="LN.juntos=this.checked;lnAvisos()"> ${a.txt} <b>Sim, ficam juntos</b></label>`
+    : `<div class="ln-aviso">⚠ ${a.txt}</div>`).join('');
+  const precisaJuntos = avisos.some(a => a.tipo === 'juntos') && !LN.juntos;
+  b.disabled = erros.length > 0 || precisaJuntos;
+}
+
+function lnConfirmar() {
+  const { erros, avisos } = lnValidar();
+  if (erros.length || (avisos.some(a => a.tipo === 'juntos') && !LN.juntos)) { lnAvisos(); return; }
+  const l = LN.lote;
+  let txt = '';
+  if (LN.acao === 'mover') {
+    registrarMovimento({ lote: l.nome, data: LN.data, modulo: LN.mod, piquete: LN.num, cabecas: LN.cab, obs: LN.obs.trim() });
+    txt = `${escH(l.nome)} → ${piqNome(LN.mod, LN.num)} · ${LN.cab} cab.`;
+  } else {
+    const tipo = LN.acao === 'contagem' ? 'contagem' : LN.tipoOc;
+    const nova = { id: uid(), modulo: l.modulo, piquete: String(parseInt(l.piquete, 10)), data: LN.data, tipo, obs: LN.obs.trim(), lote: l.nome,
+      qtd: tipo === 'contagem' ? LN.cab : (tipo === 'outro' ? null : (LN.qtd || 1)), ts: Date.now() };
+    OCORRENCIAS.push(nova);
+    salvarLocal('vp_ocorrencias', OCORRENCIAS);
+    enfileirarEnvio('ocorrencia', nova);
+    txt = tipo === 'contagem' ? `${escH(l.nome)}: ${LN.cab} cabeças` : `${escH(l.nome)}: ${({ morte: 'animal morto', doenca: 'animal doente', outro: 'ocorrência' })[tipo]} em ${piqNome(l.modulo, l.piquete)}`;
+  }
+  recalcularLotes(); renderLotes(); renderMapaSVG(); renderPainelPiquete();
+  LN.salvo = { txt }; LN.passo = 5;
+  renderLancar(); window.scrollTo(0, 0);
+  clearTimeout(lnConfirmar._t);
+  lnConfirmar._t = setTimeout(() => { if (LN.passo === 5 && document.getElementById('v-lancar').classList.contains('on')) { lnNovo(); renderLancar(); } }, 8000);
+}
+
+/* ── editar só o que foi lançado HOJE (sem excluir) ── */
+function lancadoHoje(r) { return !!r.ts && Number(r.ts) > 1e11 && dataLocal(new Date(Number(r.ts))) === dataLocal(); }
+function lancadosHoje() {
+  return MOVIMENTACOES.filter(lancadoHoje).map(r => ({ alvo: 'movimento', r }))
+    .concat(OCORRENCIAS.filter(lancadoHoje).map(r => ({ alvo: 'ocorrencia', r })))
+    .sort((a, b) => b.r.ts - a.r.ts);
+}
+function lnBotaoHoje() {
+  const n = lancadosHoje().length;
+  return n ? `<button class="ln-edit-hoje" onclick="abrirLancadosHoje()">✎ Editar lançamento de hoje (${n})</button>` : '';
+}
+function abrirLancadosHoje() {
+  const lista = lancadosHoje();
+  const hora = ts => new Date(Number(ts)).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  const txt = x => x.alvo === 'movimento'
+    ? `🔄 ${escH(x.r.lote)} → ${piqNome(x.r.modulo, x.r.piquete)} · ${x.r.cabecas || '—'} cab.`
+    : `${({ morte: '⚫ Animal morto', doenca: '🤒 Animal doente', outro: '⚠ Ocorrência', contagem: '🔢 Contagem' })[x.r.tipo] || '⚠'} · ${escH(x.r.lote || '')} ${piqNome(x.r.modulo, x.r.piquete)}${x.r.qtd != null ? ' · ' + x.r.qtd : ''}`;
+  $('ficha-corpo').innerHTML = `
+    <div class="modal-head"><b>✎ Lançados hoje</b><button class="modal-close" onclick="fecharModal('modal-ficha')">×</button></div>
+    <div class="pin-txt">Toque em Editar para ajustar. Só aparece o que foi lançado hoje; nada pode ser excluído aqui.</div>
+    ${lista.map(x => `<div class="cr-item"><span><b>${txt(x)}</b><small>lançado às ${hora(x.r.ts)}${x.r.editado_em ? ' · já ajustado' : ''}</small></span>
+      <button class="btn btn-out" onclick="fecharModal('modal-ficha');abrirEdicao('${x.alvo}','${escH(x.r.id)}','dia')">✎ Editar</button></div>`).join('') || '<div class="cr-sub">Nada lançado hoje.</div>'}
+    <div class="modal-actions"><button class="btn btn-out" onclick="fecharModal('modal-ficha')">Fechar</button></div>`;
+  $('modal-ficha').classList.add('open');
+}
+
+/* mapa grande da aba Lançar (só toque, sem arrastar) */
+function lnMapaSVG(mods, modo) {
+  let minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+  mods.forEach(mod => Object.values(PIQUETES_GEO[mod] || {}).forEach(([, , coords]) => coords.forEach(p => {
+    const q = proj(p); minx = Math.min(minx, q[0]); maxx = Math.max(maxx, q[0]); miny = Math.min(miny, q[1]); maxy = Math.max(maxy, q[1]);
+  })));
+  if (minx > maxx) return '';
+  const pad = (maxx - minx) * 0.04 + 8;
+  const vb = [minx - pad, miny - pad, (maxx - minx) + 2 * pad, (maxy - miny) + 2 * pad];
+  const escala = Math.max(vb[2], vb[3]);
+  const fsMin = escala / 40, fsMax = escala / 18;
+  const l = LN.lote;
+  let formas = '', textos = '';
+  mods.forEach(mod => Object.entries(PIQUETES_GEO[mod] || {}).forEach(([numK, [ha, , coords]]) => {
+    const num = parseInt(numK, 10);
+    const oc = ocupacaoAtual(mod, num);
+    const aqui = l && l.noCampo && l.modulo === mod && parseInt(l.piquete, 10) === num;
+    let cls = 'ln-piq';
+    if (oc) cls += ' ocup';
+    if (modo === 'destino' && aqui) cls += ' aqui';
+    if (modo === 'destino' && LN.sug && LN.sug.mod === mod && LN.sug.num === num) cls += ' sug';
+    const [cx, cy] = centroidFromCoords(coords);
+    const fs = Math.max(fsMin, Math.min(fsMax, Math.sqrt((ha || 3) * 10000) * 0.3));
+    formas += `<path class="${cls}" d="${pathFromCoords(coords)}" fill="${COR_MOD[mod]}" onclick="lnTocarMapa('${mod}',${num})"></path>`;
+    textos += `<text class="ln-piq-num" x="${cx.toFixed(1)}" y="${(cy + fs * 0.35).toFixed(1)}" font-size="${fs.toFixed(1)}" stroke-width="${(fs * 0.14).toFixed(1)}">${String(num).padStart(2, '0')}</text>`;
+    if (oc) textos += `<text class="ln-piq-lote" x="${cx.toFixed(1)}" y="${(cy + fs * 1.15).toFixed(1)}" font-size="${(fs * 0.55).toFixed(1)}" stroke-width="${(fs * 0.1).toFixed(1)}">${escH(abreviarLote(oc.nome))}</text>`;
+  }));
+  return `<svg class="ln-svg" viewBox="${vb.map(v => v.toFixed(1)).join(' ')}" preserveAspectRatio="xMidYMid meet">${formas}${textos}</svg>`;
+}
+
+/* ══════════════════════════ ABA HISTÓRICO ══════════════════════════ */
+const HS = { q: '', tipo: '', mod: '', lote: '', periodo: 'tudo', de: '', ate: '', soCorr: false, soAnul: false, limite: 100 };
+const HS_TIPOS = { mov: '🔄 Mudança de piquete', oc: '⚠ Ocorrência', cont: '🔢 Contagem', corr: '✎ Correção', est: '📦 Estoque', cocho: '🧮 Custo de ração', san: '💉 Sanidade' };
+let _hsItens = [];
+
+function coletarHistorico() {
+  const itens = [];
+  const porLote = {};
+  MOVIMENTACOES.slice().sort(ordemMov).forEach(m => (porLote[m.lote] = porLote[m.lote] || []).push(m));
+  const anulados = new Set(AUDITORIA.filter(a => a.acao === 'anular').map(a => String(a.registro_id)));
+  Object.values(porLote).forEach(lista => lista.forEach((m, i) => {
+    const saida = m.saida || (lista[i + 1] ? lista[i + 1].entrada : null);
+    const p = piqNome(m.modulo, m.piquete);
+    itens.push({
+      k: 'mov', id: m.id, data: m.entrada, ts: m.ts || 0, mod: m.modulo, lote: m.lote,
+      titulo: `${escH(m.lote)} entrou em ${p}`,
+      sub: `${m.cabecas || '—'} cab.` + (saida ? ` · saiu ${fmtData(saida)} (${dias(m.entrada, saida)} dias)` : ' · está lá agora') + (m.saida_motivo ? ` · ${escH(m.saida_motivo)}` : '') + (m.obs ? ` · ${escH(m.obs)}` : ''),
+      busca: [m.lote, p, p.replace('-', ''), m.modulo + parseInt(m.piquete, 10), m.obs, m.saida_motivo, 'mudanca piquete entrada'].join(' '),
+      corr: !!m.editado_em, alvo: 'movimento', reg: m
+    });
+  }));
+  OCORRENCIAS.forEach(o => {
+    const p = piqNome(o.modulo, o.piquete);
+    const cont = o.tipo === 'contagem';
+    const tit = cont ? `${escH(o.lote || '')}: contagem ${o.qtd ?? '—'} cabeças` : `${({ morte: '⚫ Animal morto', doenca: '🤒 Animal doente', outro: '⚠ Ocorrência' })[o.tipo] || '⚠ Ocorrência'} em ${p}${o.qtd > 1 ? ' · ' + o.qtd + ' animais' : ''}`;
+    itens.push({
+      k: cont ? 'cont' : 'oc', id: o.id, data: o.data, ts: o.ts || 0, mod: o.modulo, lote: o.lote || '',
+      titulo: tit, sub: [cont ? p : (o.lote ? escH(o.lote) : ''), o.obs ? escH(o.obs) : ''].filter(Boolean).join(' · ') || 'sem observação',
+      busca: [o.lote, p, p.replace('-', ''), o.modulo + parseInt(o.piquete, 10), o.obs, o.tipo, ({ morte: 'morto morte', doenca: 'doente doenca', outro: 'outro', contagem: 'contagem cabecas' })[o.tipo]].join(' '),
+      corr: !!o.editado_em, alvo: 'ocorrencia', reg: o
+    });
+  });
+  AUDITORIA.forEach(a => {
+    itens.push({
+      k: 'corr', id: a.id, data: dataLocal(new Date(a.ts || a.quando)), ts: a.ts || Date.parse(a.quando) || 0, mod: '', lote: '',
+      titulo: `✎ ${({ editar: 'Correção', editar_dia: 'Ajuste no mesmo dia', anular: 'Lançamento anulado', juntar: 'Lotes juntados', criar_lote: 'Lote criado', arquivar_lote: 'Lote arquivado', reativar_lote: 'Lote reativado' })[a.acao] || 'Correção'}: ${escH(a.resumo)}`,
+      sub: `${escH(a.aparelho)} · ${new Date(a.ts || a.quando).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}${a.motivo ? ' · motivo: ' + escH(a.motivo) : ''}`,
+      busca: [a.resumo, a.motivo, a.aparelho, a.acao, a.antes, a.depois, 'correcao'].join(' '),
+      corr: true, anul: a.acao === 'anular', reg: a, alvo: 'auditoria'
+    });
+  });
+  carregarLocal('vp_cocho_estoque_registros', []).forEach(r => {
+    const txt = (r.itens || []).filter(x => x.sacos).map(x => `${x.nome || x.insumo} ${x.sacos} sc`).join(' · ');
+    itens.push({ k: 'est', id: r.id, data: r.data, ts: r.timestamp || 0, mod: '', lote: '', titulo: '📦 Contagem de estoque', sub: escH(txt) || 'sem itens', busca: txt + ' estoque deposito', reg: r });
+  });
+  carregarLocal('vp_cocho_registros', []).forEach(r => {
+    const d = new Date(r.timestamp || 0);
+    const data = isNaN(d) ? '' : dataLocal(d);
+    const f = v => (typeof v === 'number' ? 'R$ ' + v.toFixed(2).replace('.', ',') + '/kg' : '—');
+    itens.push({ k: 'cocho', id: r.id, data, ts: r.timestamp || 0, mod: '', lote: '', titulo: `🧮 Custo de ração — ${escH(r.lote)}`, sub: `sem frete ${f(r.custoPorKgSemFrete)} · com frete ${f(r.custoPorKgComFrete)}`, busca: (r.lote || '') + ' custo racao cocho', reg: r });
+  });
+  (SANIDADE.aplicacoes || []).forEach((a, i) => {
+    itens.push({ k: 'san', id: 'san' + i, data: a.data, ts: 0, mod: a.modulo || '', lote: '', titulo: `💉 ${escH(a.produto)}`, sub: [a.modulo ? 'Módulo ' + a.modulo : '', a.qtd ? a.qtd + ' animais' : ''].filter(Boolean).join(' · '), busca: [a.produto, a.tipo, a.modulo].join(' '), reg: a });
+  });
+  itens.forEach(it => { it.buscaN = normTxt(it.busca + ' ' + it.titulo.replace(/<[^>]+>/g, '')); if (anulados.has(String(it.id))) it.anul = true; });
+  return itens.sort((a, b) => String(b.data).localeCompare(String(a.data)) || (b.ts - a.ts));
+}
+
+function renderHistorico() {
+  const f = $('hs-filtros'); if (!f) return;
+  const lotes = todosNomesLote();
+  f.innerHTML = `
+    <div class="hs-busca"><input id="hs-q" type="search" placeholder="Buscar: lote, piquete (D7), observação, produto…" value="${escH(HS.q)}" oninput="hsBusca(this.value)"></div>
+    <div class="chip-row hs-tipos">
+      <button class="filt ${!HS.tipo ? 'on' : ''}" onclick="hsSet('tipo','')">Tudo</button>
+      ${Object.entries(HS_TIPOS).map(([k, t]) => `<button class="filt ${HS.tipo === k ? 'on' : ''}" onclick="hsSet('tipo','${k}')">${t}</button>`).join('')}
+    </div>
+    <details class="hs-mais-filtros" ${HS.mod || HS.lote || HS.periodo !== 'tudo' || HS.soCorr || HS.soAnul || window.innerWidth > 720 ? 'open' : ''}>
+    <summary>Mais filtros (módulo, lote, período)${[HS.mod, HS.lote, HS.periodo !== 'tudo', HS.soCorr, HS.soAnul].filter(Boolean).length ? ' · ' + [HS.mod, HS.lote, HS.periodo !== 'tudo', HS.soCorr, HS.soAnul].filter(Boolean).length + ' ativo(s)' : ''}</summary>
+    <div class="hs-linha">
+      <select onchange="hsSet('mod',this.value)"><option value="">Todos os módulos</option>${['A', 'B', 'C', 'D'].map(m => `<option value="${m}" ${HS.mod === m ? 'selected' : ''}>Módulo ${m}</option>`).join('')}</select>
+      <select onchange="hsSet('lote',this.value)"><option value="">Todos os lotes</option>${lotes.map(n => `<option value="${escH(n)}" ${HS.lote === n ? 'selected' : ''}>${escH(n)}</option>`).join('')}</select>
+      <select onchange="hsSet('periodo',this.value)">
+        ${[['tudo', 'Todo o período'], ['7', 'Últimos 7 dias'], ['30', 'Últimos 30 dias'], ['90', 'Últimos 90 dias'], ['custom', 'Escolher datas…']].map(([v, t]) => `<option value="${v}" ${HS.periodo === v ? 'selected' : ''}>${t}</option>`).join('')}
+      </select>
+    </div>
+    ${HS.periodo === 'custom' ? `<div class="hs-linha"><label>de <input type="date" value="${HS.de}" onchange="hsSet('de',this.value)"></label><label>até <input type="date" value="${HS.ate}" onchange="hsSet('ate',this.value)"></label></div>` : ''}
+    <div class="hs-linha hs-tog">
+      <label><input type="checkbox" ${HS.soCorr ? 'checked' : ''} onchange="hsSet('soCorr',this.checked)"> só corrigidos</label>
+      <label><input type="checkbox" ${HS.soAnul ? 'checked' : ''} onchange="hsSet('soAnul',this.checked)"> só anulados</label>
+      <button class="btn btn-out" onclick="hsLimpar()">Limpar filtros</button>
+      <button class="btn btn-out" onclick="hsExportar()">↓ Exportar CSV</button>
+    </div>
+    </details>`;
+  renderHistoricoLista();
+}
+function hsFiltrados() {
+  const todos = coletarHistorico();
+  const q = normTxt(HS.q);
+  // "d7", "d-07", "d 07" → mesmo piquete
+  const qs = q ? q.split(' ').filter(Boolean).map(t => { const m = t.match(/^([abcd])-?0*(\d{1,2})$/); return m ? [m[1] + '-' + m[2].padStart(2, '0'), m[1] + m[2].padStart(2, '0'), m[1] + parseInt(m[2], 10)] : [t]; }) : [];
+  let de = '', ate = '';
+  if (HS.periodo === 'custom') { de = HS.de; ate = HS.ate; }
+  else if (HS.periodo !== 'tudo') { const d = new Date(); d.setDate(d.getDate() - parseInt(HS.periodo, 10)); de = dataLocal(d); }
+  return todos.filter(it => {
+    if (HS.tipo && it.k !== HS.tipo) return false;
+    if (HS.mod && it.mod !== HS.mod) return false;
+    if (HS.lote && normTxt(it.lote) !== normTxt(HS.lote) && !(it.k === 'corr' && it.buscaN.includes(normTxt(HS.lote)))) return false;
+    if (de && String(it.data) < de) return false;
+    if (ate && String(it.data) > ate) return false;
+    if (HS.soCorr && !it.corr) return false;
+    if (HS.soAnul && !it.anul) return false;
+    if (qs.length && !qs.every(alts => alts.some(a => it.buscaN.includes(a)))) return false;
+    return true;
+  });
+}
+function renderHistoricoLista() {
+  const el = $('hs-lista'); if (!el) return;
+  const lista = hsFiltrados();
+  _hsItens = lista;
+  const mostra = lista.slice(0, HS.limite);
+  let h = `<div class="hs-conta">${lista.length} registro(s)${lista.length > mostra.length ? ` · mostrando ${mostra.length}` : ''}</div>`;
+  if (!lista.length) h += `<div class="empty"><div class="ico">🔎</div><p>Nada encontrado com esses filtros.</p></div>`;
+  let dia = null;
+  mostra.forEach((it, i) => {
+    if (it.data !== dia) {
+      dia = it.data;
+      const dt = new Date(String(dia) + 'T12:00:00');
+      h += `<div class="hs-dia">${isNaN(dt) ? escH(dia || 'sem data') : dt.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' })}</div>`;
+    }
+    h += `<button class="hs-item k-${it.k} ${it.anul ? 'anul' : ''}" onclick="hsAbrir(${i})">
+      <span class="hs-t">${it.titulo}${it.corr && it.k !== 'corr' ? ' <em class="hs-tag">corrigido</em>' : ''}${it.anul ? ' <em class="hs-tag verm">anulado</em>' : ''}</span>
+      <span class="hs-s">${it.sub}</span></button>`;
+  });
+  if (lista.length > mostra.length) h += `<button class="btn btn-out hs-mais" onclick="HS.limite+=100;renderHistoricoLista()">Carregar mais</button>`;
+  el.innerHTML = h;
+}
+let _hsT = null;
+function hsBusca(v) { HS.q = v; HS.limite = 100; clearTimeout(_hsT); _hsT = setTimeout(renderHistoricoLista, 180); }
+function hsSet(k, v) { HS[k] = v; HS.limite = 100; renderHistorico(); }
+function hsLimpar() { Object.assign(HS, { q: '', tipo: '', mod: '', lote: '', periodo: 'tudo', de: '', ate: '', soCorr: false, soAnul: false, limite: 100 }); renderHistorico(); }
+function historicoFiltrado(q, lote) { hsLimpar(); HS.q = q || ''; HS.lote = lote || ''; irPara('historico'); }
+window.historicoFiltrado = historicoFiltrado;
+
+function hsExportar() {
+  const lista = hsFiltrados();
+  const limpa = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+  const cel = s => '"' + limpa(s).replace(/"/g, '""') + '"';
+  const linhas = [['Data', 'Tipo', 'Registro', 'Detalhe', 'Módulo', 'Lote', 'Corrigido', 'Anulado'].join(';')];
+  lista.forEach(it => linhas.push([fmtData(it.data), HS_TIPOS[it.k] || it.k, it.titulo, it.sub, it.mod, it.lote, it.corr ? 'sim' : '', it.anul ? 'sim' : ''].map(cel).join(';')));
+  const blob = new Blob(['﻿' + linhas.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `historico_fazenda_${hoje()}.csv`;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+function hsAbrir(i) {
+  const it = _hsItens[i]; if (!it) return;
+  const r = it.reg || {};
+  const linhas = [];
+  const add = (k, v) => { if (v !== undefined && v !== null && v !== '') linhas.push(`<tr><th>${k}</th><td>${escH(v)}</td></tr>`); };
+  if (it.k === 'mov') {
+    add('Lote', r.lote); add('Piquete', piqNome(r.modulo, r.piquete)); add('Entrada', fmtData(r.entrada)); add('Saída', r.saida ? fmtData(r.saida) : 'ainda no piquete (ou saída pela próxima entrada)');
+    add('Motivo da saída', r.saida_motivo); add('Cabeças', r.cabecas); add('Observação', r.obs);
+  } else if (it.k === 'oc' || it.k === 'cont') {
+    add('Tipo', ({ morte: 'Animal morto', doenca: 'Animal doente', outro: 'Outro', contagem: 'Contagem de cabeças' })[r.tipo] || r.tipo);
+    add('Lote', r.lote); add('Piquete', piqNome(r.modulo, r.piquete)); add('Data', fmtData(r.data)); add(r.tipo === 'contagem' ? 'Cabeças contadas' : 'Quantidade', r.qtd); add('Observação', r.obs);
+  } else if (it.k === 'corr') {
+    add('Ação', r.acao); add('Resumo', r.resumo); add('Motivo', r.motivo); add('Aparelho', r.aparelho); add('Quando', new Date(r.ts || r.quando).toLocaleString('pt-BR'));
+    add('Antes', r.antes); add('Depois', r.depois);
+  } else {
+    linhas.push(`<tr><td colspan="2">${it.sub}</td></tr>`);
+  }
+  if (r.ts && it.k !== 'corr') add('Lançado em', new Date(r.ts).toLocaleString('pt-BR'));
+  if (r.editado_em) add('Última correção', `${new Date(r.editado_em).toLocaleString('pt-BR')} · ${r.editado_por || ''}`);
+  const aud = it.k === 'mov' || it.k === 'oc' || it.k === 'cont' ? AUDITORIA.filter(a => String(a.registro_id) === String(r.id) || (a.acao === 'juntar' && String(a.depois).includes(String(r.id)))).sort((a, b) => b.ts - a.ts) : [];
+  const corrigivel = (it.k === 'mov' || it.k === 'oc' || it.k === 'cont') && !it.anul;
+  $('ficha-corpo').innerHTML = `
+    <div class="modal-head"><b>${it.titulo}</b><button class="modal-close" onclick="fecharModal('modal-ficha')">×</button></div>
+    <table class="ficha-tab">${linhas.join('')}</table>
+    ${aud.length ? `<div class="fld-label">Correções deste registro</div>${aud.map(a => `<div class="ficha-aud">${new Date(a.ts).toLocaleString('pt-BR')} · ${escH(a.aparelho)}<br><b>${escH(a.resumo)}</b>${a.motivo ? '<br>motivo: ' + escH(a.motivo) : ''}</div>`).join('')}` : ''}
+    <div class="modal-actions">
+      <button class="btn btn-out" onclick="fecharModal('modal-ficha')">Fechar</button>
+      ${corrigivel ? `<button class="btn btn-verde" onclick="fecharModal('modal-ficha');abrirEdicao('${it.alvo}','${escH(r.id)}')">✎ Corrigir</button>` : ''}
+    </div>`;
+  $('modal-ficha').classList.add('open');
+}
+function fecharModal(id) { $(id).classList.remove('open'); }
+
+/* ══════════════════════════ ÁREA DE CORREÇÕES ══════════════════════════
+   Sem PIN: é só um lugar separado do Lançar, para não ter erro de manuseio. */
+function comPin(cb) { cb(); }
+function abrirCorrecoes() { irPara('correcoes'); }
+window.abrirCorrecoes = abrirCorrecoes;
+
+/* ══════════════════════════ CORREÇÕES ══════════════════════════ */
+const CR = { q: '' };
+function renderCorrecoes() {
+  const el = $('cr-corpo'); if (!el) return;
+  const nomes = todosNomesLote();
+  const campo = new Set(LOTES.map(l => normTxt(l.nome)));
+  const cadAtivos = LOTES_CAD.filter(c => c.ativo !== false);
+  const arquivados = LOTES_CAD.filter(c => c.ativo === false);
+  const lotesLista = nomes.filter(n => !arquivados.some(a => normTxt(a.nome) === normTxt(n)) || campo.has(normTxt(n)));
+  el.innerHTML = `
+    <div class="cr-aviso">✎ Área de correções — separada do lançamento do dia a dia. Tudo o que muda aqui fica registrado na Auditoria. <button class="btn btn-out" onclick="irPara('lancar')">‹ Voltar ao Lançar</button></div>
+
+    <div class="card">
+      <div class="card-title">1 · CORRIGIR UM LANÇAMENTO</div>
+      <div class="cr-sub">Troque o lote, o piquete, a data ou as cabeças de um lançamento — ou anule um lançamento que não aconteceu. Nada some: o valor antigo fica na Auditoria.</div>
+      <input class="cr-in" type="search" placeholder="Buscar lote, piquete (D7)…" value="${escH(CR.q)}" oninput="CR.q=this.value;renderCrLista()">
+      <div id="cr-lista"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">2 · JUNTAR LOTES (nome errado → nome certo)</div>
+      <div class="cr-sub">Use quando o mesmo lote ficou com dois nomes. Todos os lançamentos do nome errado passam para o nome certo.</div>
+      <div class="cr-grid">
+        <label>Nome errado<select id="cr-j-de"><option value="">—</option>${nomes.map(n => `<option value="${escH(n)}">${escH(n)}</option>`).join('')}</select></label>
+        <label>Passar para<select id="cr-j-para"><option value="">—</option>${nomes.map(n => `<option value="${escH(n)}">${escH(n)}</option>`).join('')}</select></label>
+      </div>
+      <input class="cr-in" id="cr-j-motivo" type="text" placeholder="Motivo (obrigatório)">
+      <button class="btn btn-verde" onclick="juntarLotes()">Juntar lotes</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">3 · LOTES</div>
+      <div class="cr-sub">Criar, arquivar e juntar lote é só aqui. O vaqueiro só escolhe da lista na aba Lançar.</div>
+      <div class="cr-lotes">${lotesLista.map(n => {
+        const l = LOTES.find(x => normTxt(x.nome) === normTxt(n));
+        const st = l ? `no campo · ${piqNome(l.modulo, l.piquete)} · ${l.cabecas || '—'} cab.` : (cadAtivos.some(c => normTxt(c.nome) === normTxt(n)) ? 'aguardando entrada' : 'fora do campo');
+        return `<div class="cr-lote"><span><b>${escH(n)}</b><small>${st}</small></span>${l || cadAtivos.some(c => normTxt(c.nome) === normTxt(n)) ? `<button class="btn btn-out" data-n="${escH(n)}" onclick="arquivarLoteForm(this.dataset.n)">Arquivar</button>` : ''}</div>`;
+      }).join('') || '<div class="cr-sub">Nenhum lote ainda.</div>'}</div>
+      ${arquivados.length ? `<details class="cr-arq"><summary>Arquivados (${arquivados.length})</summary>${arquivados.map(c => `<div class="cr-lote"><span><b>${escH(c.nome)}</b><small>arquivado</small></span><button class="btn btn-out" onclick="reativarLote('${escH(c.id)}')">Reativar</button></div>`).join('')}</details>` : ''}
+      <div class="cr-novo">
+        <div class="fld-label">Criar lote novo</div>
+        <div class="cr-grid">
+          <label>Nome<input id="cr-n-nome" type="text" placeholder="Ex.: Lote 5"></label>
+          <label>Cabeças<input id="cr-n-cab" type="number" inputmode="numeric" min="1"></label>
+        </div>
+        <input class="cr-in" id="cr-n-obs" type="text" placeholder="Observação (ex.: separado na pesagem de 01/10)">
+        <button class="btn btn-verde" onclick="criarLote()">＋ Criar lote</button>
+      </div>
+      <div id="cr-arq-form"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">4 · REGISTRO DE CORREÇÕES (AUDITORIA)</div>
+      <div id="cr-aud">${AUDITORIA.length ? AUDITORIA.slice().sort((a, b) => b.ts - a.ts).slice(0, 30).map(a => `<div class="ficha-aud">${new Date(a.ts).toLocaleString('pt-BR')} · ${escH(a.aparelho)}<br><b>${escH(a.resumo)}</b>${a.motivo ? '<br>motivo: ' + escH(a.motivo) : ''}</div>`).join('') : '<div class="cr-sub">Nenhuma correção ainda.</div>'}</div>
+      <button class="btn btn-out" style="margin-top:10px" onclick="hsLimpar();HS.tipo='corr';irPara('historico')">Ver todas no Histórico</button>
+    </div>
+`;
+  renderCrLista();
+}
+function renderCrLista() {
+  const el = $('cr-lista'); if (!el) return;
+  const q = normTxt(CR.q);
+  const qs = q ? q.split(' ').filter(Boolean).map(t => { const m = t.match(/^([abcd])-?0*(\d{1,2})$/); return m ? [m[1] + '-' + m[2].padStart(2, '0')] : [t]; }) : [];
+  const itens = coletarHistorico().filter(it => (it.k === 'mov' || it.k === 'oc' || it.k === 'cont') && !it.anul)
+    .filter(it => !qs.length || qs.every(alts => alts.some(a => it.buscaN.includes(a)))).slice(0, 40);
+  el.innerHTML = itens.length ? itens.map(it => `<div class="cr-item"><span><b>${it.titulo}</b><small>${fmtData(it.data)} · ${it.sub}</small></span>
+    <button class="btn btn-out" onclick="abrirEdicao('${it.alvo}','${escH(it.reg.id)}')">✎ Corrigir</button></div>`).join('') : '<div class="cr-sub">Nada encontrado.</div>';
+}
+
+function abrirEdicao(alvo, id, modo) {
+  const dia = modo === 'dia';
+  const r = (alvo === 'movimento' ? MOVIMENTACOES : OCORRENCIAS).find(x => String(x.id) === String(id));
+  if (!r) { toastPainel('Lançamento não encontrado'); return; }
+  if (dia && !lancadoHoje(r)) { toastPainel('Só dá para editar o que foi lançado hoje. Fale com o dono.'); return; }
+  let nomes = todosNomesLote();
+  if (dia) { const d = lotesDisponiveis(); nomes = [...new Set(d.campo.map(l => l.nome).concat(d.espera.map(l => l.nome), r.lote ? [r.lote] : []))]; }
+  const optMod = m => ['A', 'B', 'C', 'D'].map(x => `<option value="${x}" ${x === m ? 'selected' : ''}>${x}</option>`).join('');
+  const optPiq = (m, p) => numsDoModulo(m).map(n => `<option value="${n}" ${n === parseInt(p, 10) ? 'selected' : ''}>${piqNome(m, n)}</option>`).join('');
+  const optLote = l => `<option value="">— sem lote —</option>` + nomes.map(n => `<option value="${escH(n)}" ${n === l ? 'selected' : ''}>${escH(n)}</option>`).join('');
+  let campos = '';
+  if (alvo === 'movimento') {
+    campos = `
+      <label class="fld-label">Lote (troque aqui se o vaqueiro escolheu/criou o lote errado)</label><select id="ed-lote">${optLote(r.lote)}</select>
+      <div class="fld-row"><div><label class="fld-label">Módulo</label><select id="ed-mod" onchange="$('ed-piq').innerHTML=numsDoModulo(this.value).map(n=>'<option value=&quot;'+n+'&quot;>'+piqNome(this.value,n)+'</option>').join('')">${optMod(r.modulo)}</select></div>
+      <div><label class="fld-label">Piquete</label><select id="ed-piq">${optPiq(r.modulo, r.piquete)}</select></div></div>
+      <div class="fld-row"><div><label class="fld-label">Entrada</label><input type="date" id="ed-data" value="${escH(r.entrada)}"></div>
+      <div><label class="fld-label">Cabeças</label><input type="number" id="ed-cab" value="${r.cabecas ?? ''}"></div></div>
+      <label class="fld-label">Observação</label><input type="text" id="ed-obs" value="${escH(r.obs || '')}">`;
+  } else {
+    campos = `
+      <label class="fld-label">Tipo</label><select id="ed-tipo">${[['morte', 'Animal morto'], ['doenca', 'Animal doente'], ['outro', 'Outro'], ['contagem', 'Contagem de cabeças']].map(([k, t]) => `<option value="${k}" ${k === r.tipo ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      <label class="fld-label">Lote</label><select id="ed-lote">${optLote(r.lote)}</select>
+      <div class="fld-row"><div><label class="fld-label">Módulo</label><select id="ed-mod" onchange="$('ed-piq').innerHTML=numsDoModulo(this.value).map(n=>'<option value=&quot;'+n+'&quot;>'+piqNome(this.value,n)+'</option>').join('')">${optMod(r.modulo)}</select></div>
+      <div><label class="fld-label">Piquete</label><select id="ed-piq">${optPiq(r.modulo, r.piquete)}</select></div></div>
+      <div class="fld-row"><div><label class="fld-label">Data</label><input type="date" id="ed-data" value="${escH(r.data)}"></div>
+      <div><label class="fld-label">Quantidade / cabeças</label><input type="number" id="ed-cab" value="${r.qtd ?? ''}"></div></div>
+      <label class="fld-label">Observação</label><input type="text" id="ed-obs" value="${escH(r.obs || '')}">`;
+  }
+  $('edicao-corpo').innerHTML = `
+    <div class="modal-head"><b>✎ ${dia ? 'Editar lançamento de hoje' : 'Corrigir ' + (alvo === 'movimento' ? 'mudança de piquete' : 'ocorrência')}</b><button class="modal-close" onclick="fecharModal('modal-edicao')">×</button></div>
+    ${dia ? '<div class="pin-txt">Pode ajustar só o que foi lançado hoje. Lançamento de outro dia, ou que não aconteceu, se corrige em ✎ Correções.</div>' : ''}
+    ${campos}
+    <label class="fld-label">${dia ? 'O que estava errado? (opcional)' : 'Motivo da correção (obrigatório)'}</label><input type="text" id="ed-motivo" placeholder="${dia ? 'Ex.: toquei no piquete errado' : 'Ex.: vaqueiro criou lote novo por engano'}">
+    <div class="modal-actions"><button class="btn btn-out" onclick="fecharModal('modal-edicao')">Cancelar</button><button class="btn btn-verde" onclick="salvarEdicao('${alvo}','${escH(r.id)}','${dia ? 'dia' : ''}')">Salvar ${dia ? 'ajuste' : 'correção'}</button></div>
+    ${dia ? '' : `<button class="btn cr-anular" onclick="anularLancamento('${alvo}','${escH(r.id)}')">Anular este lançamento (não aconteceu)</button>`}`;
+  $('modal-edicao').classList.add('open');
+}
+
+function salvarEdicao(alvo, id, modo) {
+  const dia = modo === 'dia';
+  let motivo = $('ed-motivo').value.trim();
+  if (!motivo && !dia) { toastPainel('Escreva o motivo da correção'); $('ed-motivo').focus(); return; }
+  const lista = alvo === 'movimento' ? MOVIMENTACOES : OCORRENCIAS;
+  const r = lista.find(x => String(x.id) === String(id)); if (!r) return;
+  if (dia) {
+    if (!lancadoHoje(r)) { toastPainel('Só dá para editar o que foi lançado hoje.'); return; }
+    motivo = 'Ajuste no mesmo dia' + (motivo ? ': ' + motivo : '');
+  }
+  const novo = alvo === 'movimento'
+    ? { lote: $('ed-lote').value, modulo: $('ed-mod').value, piquete: String(parseInt($('ed-piq').value, 10)), entrada: $('ed-data').value, cabecas: parseInt($('ed-cab').value, 10) || null, obs: $('ed-obs').value.trim() }
+    : { tipo: $('ed-tipo').value, lote: $('ed-lote').value, modulo: $('ed-mod').value, piquete: String(parseInt($('ed-piq').value, 10)), data: $('ed-data').value, qtd: $('ed-cab').value === '' ? null : parseInt($('ed-cab').value, 10), obs: $('ed-obs').value.trim() };
+  if (alvo === 'movimento' && !novo.lote) { toastPainel('Escolha o lote'); return; }
+  if ((novo.entrada || novo.data) > hoje()) { toastPainel('Data no futuro'); return; }
+  const antes = {}, depois = {};
+  Object.keys(novo).forEach(k => { const a = r[k] == null ? '' : String(r[k]), b = novo[k] == null ? '' : String(novo[k]); if (a !== b) { antes[k] = r[k] ?? null; depois[k] = novo[k]; } });
+  if (!Object.keys(depois).length) { toastPainel('Nada foi alterado'); return; }
+  Object.assign(r, novo); marcarEditado(r);
+  const mudados = [r];
+  if (alvo === 'movimento' && ('lote' in depois || 'entrada' in depois)) {
+    const reabrir = new Set([antes.entrada || r.entrada]);
+    if ('lote' in depois && antes.lote) refecharPeriodos(antes.lote, reabrir).forEach(m => mudados.push(m));
+    refecharPeriodos(r.lote, reabrir).forEach(m => { if (!mudados.includes(m)) mudados.push(m); });
+  }
+  salvarLocal(alvo === 'movimento' ? 'vp_movimentacoes' : 'vp_ocorrencias', lista);
+  if (alvo === 'movimento') salvarLocal('vp_movimentacoes', MOVIMENTACOES);
+  mudados.forEach(m => enfileirarEnvio(alvo, { ...m }));
+  const desc = Object.keys(depois).map(k => `${k}: ${antes[k] ?? '—'} → ${depois[k] ?? '—'}`).join('; ');
+  registrarAuditoria({ alvo, registro_id: r.id, acao: dia ? 'editar_dia' : 'editar', resumo: `${alvo === 'movimento' ? 'Mudança' : 'Ocorrência'} ${piqNome(r.modulo, r.piquete)} ${fmtData(r.entrada || r.data)} — ${desc}`, antes, depois, motivo });
+  fecharModal('modal-edicao');
+  aposCorrecao(dia ? '✓ Lançamento ajustado' : '✓ Correção salva');
+  if (dia && $('v-lancar').classList.contains('on')) { lnNovo(); renderLancar(); }
+}
+
+function anularLancamento(alvo, id) {
+  const motivo = $('ed-motivo').value.trim();
+  if (!motivo) { toastPainel('Escreva o motivo antes de anular'); $('ed-motivo').focus(); return; }
+  const chave = alvo === 'movimento' ? 'vp_movimentacoes' : 'vp_ocorrencias';
+  const getL = () => alvo === 'movimento' ? MOVIMENTACOES : OCORRENCIAS;
+  const r = getL().find(x => String(x.id) === String(id)); if (!r) return;
+  const resumo = alvo === 'movimento' ? `Mudança: ${r.lote} em ${piqNome(r.modulo, r.piquete)} (${fmtData(r.entrada)})` : `Ocorrência ${r.tipo} em ${piqNome(r.modulo, r.piquete)} (${fmtData(r.data)})`;
+  fecharModal('modal-edicao');
+  let snap = [], mudados = [];
+  apagarComDesfazer({
+    texto: 'Lançamento anulado', detalhe: resumo, id: String(id),
+    remover() {
+      if (alvo === 'movimento') {
+        snap = MOVIMENTACOES.filter(m => m.lote === r.lote && m.id !== r.id).map(m => ({ m, saida: m.saida, ed: m.editado_em, v: m.versao, por: m.editado_por }));
+        MOVIMENTACOES = MOVIMENTACOES.filter(m => String(m.id) !== String(id));
+        mudados = refecharPeriodos(r.lote, new Set([r.entrada]));
+      } else OCORRENCIAS = OCORRENCIAS.filter(o => String(o.id) !== String(id));
+      aposCorrecao();
+    },
+    restaurar() {
+      if (alvo === 'movimento') { MOVIMENTACOES.push(r); snap.forEach(s => { s.m.saida = s.saida; s.m.editado_em = s.ed; s.m.versao = s.v; s.m.editado_por = s.por; }); }
+      else OCORRENCIAS.push(r);
+      aposCorrecao();
+    },
+    confirmar() {
+      salvarLocal(chave, getL());
+      enfileirarExclusao(alvo, id, resumo + ' — ' + motivo);
+      mudados.forEach(m => enfileirarEnvio('movimento', { ...m }));
+      registrarAuditoria({ alvo, registro_id: id, acao: 'anular', resumo, antes: r, motivo });
+      aposCorrecao();
+    }
+  });
+}
+
+function juntarLotes() {
+  const de = $('cr-j-de').value, para = $('cr-j-para').value, motivo = $('cr-j-motivo').value.trim();
+  if (!de || !para) { toastPainel('Escolha os dois lotes'); return; }
+  if (de === para) { toastPainel('Escolha lotes diferentes'); return; }
+  if (!motivo) { toastPainel('Escreva o motivo'); return; }
+  const movs = MOVIMENTACOES.filter(m => m.lote === de), ocs = OCORRENCIAS.filter(o => o.lote === de);
+  if (!confirm(`Passar ${movs.length} mudança(s) e ${ocs.length} ocorrência(s) de "${de}" para "${para}"?`)) return;
+  const reabrir = new Set(movs.map(m => m.entrada));
+  const mudados = [];
+  movs.forEach(m => { m.lote = para; marcarEditado(m); mudados.push(m); });
+  refecharPeriodos(para, reabrir).forEach(m => { if (!mudados.includes(m)) mudados.push(m); });
+  ocs.forEach(o => { o.lote = para; marcarEditado(o); enfileirarEnvio('ocorrencia', { ...o }); });
+  mudados.forEach(m => enfileirarEnvio('movimento', { ...m }));
+  const c = cadDoLote(de);
+  if (c) { c.ativo = false; marcarEditado(c); enfileirarEnvio('lote', { ...c }); salvarCad(); }
+  salvarLocal('vp_movimentacoes', MOVIMENTACOES); salvarLocal('vp_ocorrencias', OCORRENCIAS);
+  registrarAuditoria({ alvo: 'movimento', registro_id: '', acao: 'juntar', resumo: `"${de}" juntado em "${para}" (${movs.length} mudanças, ${ocs.length} ocorrências)`, antes: { lote: de }, depois: { lote: para, ids: movs.map(m => m.id).concat(ocs.map(o => o.id)) }, motivo });
+  aposCorrecao(`✓ "${de}" agora é "${para}"`);
+}
+
+function criarLote() {
+  const nome = $('cr-n-nome').value.trim().replace(/\s+/g, ' ');
+  const cab = parseInt($('cr-n-cab').value, 10) || null;
+  const obs = $('cr-n-obs').value.trim();
+  if (!nome) { toastPainel('Dê um nome ao lote'); return; }
+  const existe = todosNomesLote().find(n => normTxt(n) === normTxt(nome));
+  if (existe) {
+    const c = cadDoLote(existe);
+    if (c && c.ativo === false) { toastPainel(`"${existe}" está arquivado — use Reativar`); return; }
+    toastPainel(`Já existe um lote "${existe}"`); return;
+  }
+  const c = { id: uid(), nome, ativo: true, cabecas: cab, obs, criado_em: hoje(), ts: Date.now(), editado_em: Date.now(), editado_por: nomeAparelho(), versao: 1 };
+  LOTES_CAD.push(c); salvarCad();
+  enfileirarEnvio('lote', { ...c });
+  registrarAuditoria({ alvo: 'lote', registro_id: c.id, acao: 'criar_lote', resumo: `Lote "${nome}" criado${cab ? ' com ' + cab + ' cab.' : ''}`, depois: c, motivo: obs });
+  aposCorrecao(`✓ Lote "${nome}" criado — já aparece na aba Lançar`);
+}
+function arquivarLoteForm(nome) {
+  const l = LOTES.find(x => normTxt(x.nome) === normTxt(nome));
+  $('cr-arq-form').innerHTML = `<div class="cr-novo"><div class="fld-label">Arquivar "${escH(nome)}" ${l ? `(sai de ${piqNome(l.modulo, l.piquete)})` : ''}</div>
+    <div class="cr-grid"><label>Data da saída<input type="date" id="cr-a-data" value="${hoje()}" max="${hoje()}"></label>
+    <label>Motivo<select id="cr-a-mot"><option>Venda</option><option>Separado na pesagem</option><option>Juntado a outro lote</option><option>Outro</option></select></label></div>
+    <button class="btn btn-verde" onclick="arquivarLote(this.dataset.n)" data-n="${escH(nome)}">Arquivar lote</button>
+    <button class="btn btn-out" onclick="$('cr-arq-form').innerHTML=''">Cancelar</button></div>`;
+  $('cr-arq-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function arquivarLote(nome) {
+  const data = $('cr-a-data').value, mot = $('cr-a-mot').value;
+  if (!data || data > hoje()) { toastPainel('Data inválida'); return; }
+  const l = LOTES.find(x => normTxt(x.nome) === normTxt(nome));
+  if (l) {
+    if (data < l.entrada) { toastPainel('Data antes da entrada no piquete atual'); return; }
+    const m = MOVIMENTACOES.find(x => x.id === l.id);
+    if (m) { m.saida = data; m.saida_motivo = mot; marcarEditado(m); salvarLocal('vp_movimentacoes', MOVIMENTACOES); enfileirarEnvio('movimento', { ...m }); }
+  }
+  let c = cadDoLote(nome);
+  if (!c) { c = { id: uid(), nome, ativo: false, cabecas: l ? l.cabecas : null, obs: '', criado_em: hoje(), ts: Date.now(), versao: 0 }; LOTES_CAD.push(c); }
+  c.ativo = false; marcarEditado(c); salvarCad(); enfileirarEnvio('lote', { ...c });
+  registrarAuditoria({ alvo: 'lote', registro_id: c.id, acao: 'arquivar_lote', resumo: `Lote "${nome}" arquivado em ${fmtData(data)} (${mot})${l ? ' — saiu de ' + piqNome(l.modulo, l.piquete) : ''}`, motivo: mot });
+  aposCorrecao(`✓ "${nome}" arquivado`);
+}
+function reativarLote(id) {
+  const c = LOTES_CAD.find(x => x.id === id); if (!c) return;
+  c.ativo = true; marcarEditado(c); salvarCad(); enfileirarEnvio('lote', { ...c });
+  registrarAuditoria({ alvo: 'lote', registro_id: c.id, acao: 'reativar_lote', resumo: `Lote "${c.nome}" reativado` });
+  aposCorrecao(`✓ "${c.nome}" reativado`);
+}
+
+function aposCorrecao(msg) {
+  recalcularLotes(); renderLotes(); renderMapaSVG(); renderPainelPiquete();
+  lnAtualizar();
+  if (msg) toastPainel(msg);
+}
+
+/* ── chamado pela sincronização: lotes cadastrados e auditoria vindos da planilha ── */
+window.mesclarExtrasNuvem = function (j, bloq, pend) {
+  let mudou = false;
+  (j.lotes || []).forEach(r => {
+    if (!r.id || bloq.has(String(r.id)) || pend.has(String(r.id))) return;
+    const rec = { id: String(r.id), nome: String(r.nome || '').trim(), ativo: !/^(nao|não|false|0)$/i.test(String(r.ativo).trim()), cabecas: parseInt(r.cabecas, 10) || null,
+      obs: r.obs || '', criado_em: normData(r.criado_em), ts: Number(r.ts) || 0, editado_em: Number(r.editado_em) || 0, editado_por: r.editado_por || '', versao: parseInt(r.versao, 10) || 1 };
+    if (!rec.nome) return;
+    const loc = LOTES_CAD.find(c => c.id === rec.id);
+    if (!loc) { LOTES_CAD.push(rec); mudou = true; }
+    else if (rec.editado_em > (loc.editado_em || 0)) { Object.assign(loc, rec); mudou = true; }
+  });
+  const ids = new Set(AUDITORIA.map(a => String(a.id)));
+  (j.auditoria || []).forEach(r => {
+    if (!r.id || ids.has(String(r.id))) return;
+    AUDITORIA.push({ id: String(r.id), quando: r.quando, aparelho: r.aparelho || '', alvo: r.alvo || '', registro_id: String(r.registro_id || ''), acao: r.acao || '', resumo: r.resumo || '', antes: r.antes || '', depois: r.depois || '', motivo: r.motivo || '', ts: Number(r.ts) || Date.parse(r.quando) || 0 });
+    ids.add(String(r.id)); mudou = true;
+  });
+  if (mudou) { salvarCad(); salvarAud(); }
+  return mudou;
+};
+
+function lnAtualizar() {
+  if ($('v-lancar') && $('v-lancar').classList.contains('on') && LN.passo !== 4 && LN.passo !== 5 && !(LN.passo === 3 && LN.acao !== 'mover')) renderLancar();
+  else lnStatus();
+  if ($('v-historico') && $('v-historico').classList.contains('on')) renderHistoricoLista();
+  if ($('v-correcoes') && $('v-correcoes').classList.contains('on') && !document.querySelector('#v-correcoes input:focus, #v-correcoes select:focus')) renderCorrecoes();
+}
+window.lnAtualizar = lnAtualizar;
+
+function aoMudarAba(view) {
+  if (view === 'lancar') renderLancar();
+  if (view === 'historico') renderHistorico();
+  if (view === 'correcoes') renderCorrecoes();
+  window.scrollTo(0, 0);
+}
+window.aoMudarAba = aoMudarAba;
+
+window.addEventListener('load', () => {
+  renderLancar();
+  window.addEventListener('online', lnStatus);
+  window.addEventListener('offline', lnStatus);
+});
+
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -2314,13 +3527,6 @@ if ('serviceWorker' in navigator) {
     }
   ];
 
-  (function () {
-    var salvo = (typeof carregarLocal === "function") ? carregarLocal("vp_cocho_ingredientes", null) : null;
-    if (Array.isArray(salvo) && salvo.length) ingredientes = salvo;
-    ingredientes.forEach(function (i) { if (i.precoOrigem === undefined) i.precoOrigem = i.precoSaco; });
-  })();
-  function salvarIngredientes() { if (typeof salvarLocal === "function") salvarLocal("vp_cocho_ingredientes", ingredientes); }
-
   var ingBody = document.getElementById("ingBody");
   var pctTotalEl = document.getElementById("pctTotal");
   var loteInput = document.getElementById("loteInput");
@@ -2334,24 +3540,9 @@ if ('serviceWorker' in navigator) {
     return f.numSacas > 0 ? custoTotal / f.numSacas : 0;
   }
 
-  // preço por saco: na fazenda (entregue) ou buscando (preço na origem + frete)
-  function precoSacoBuscando(ing) { return (+ing.precoOrigem || 0) + freteCustoPorSaca(ing); }
-  function precoKgIngrediente(ing, buscando) {
-    var preco = (buscando && ing.freteAtivo) ? precoSacoBuscando(ing) : ing.precoSaco;
+  function precoKgIngrediente(ing, comFrete) {
+    var preco = ing.precoSaco + (comFrete ? freteCustoPorSaca(ing) : 0);
     return ing.pesoSaco ? preco / ing.pesoSaco : 0;
-  }
-  function htmlResultadoFrete(ing) {
-    var frete = freteCustoPorSaca(ing), busc = precoSacoBuscando(ing), local = +ing.precoSaco || 0;
-    var dif = local - busc, n = +ing.frete.numSacas || 0;
-    var h = '<div class="fr-linha"><span>Preço na origem</span><strong>' + fmtBRL(+ing.precoOrigem || 0) + '</strong></div>' +
-      '<div class="fr-linha"><span>+ Frete por saca</span><strong>' + fmtBRL(frete) + '</strong></div>' +
-      '<div class="fr-linha fr-tot"><span>= Buscando na origem</span><strong>' + fmtBRL(busc) + ' / saca</strong></div>' +
-      '<div class="fr-linha"><span>Comprando na fazenda</span><strong>' + fmtBRL(local) + ' / saca</strong></div>';
-    if (!local) h += '<div class="fr-veredito neutro">Informe o preço na fazenda (campo da tabela) para comparar.</div>';
-    else if (Math.abs(dif) < 0.005) h += '<div class="fr-veredito neutro">Empate — tanto faz buscar ou comprar entregue.</div>';
-    else if (dif > 0) h += '<div class="fr-veredito bom">✅ Buscar compensa: economia de <b>' + fmtBRL(dif) + '</b> por saca' + (n > 1 ? ' · <b>' + fmtBRL(dif * n) + '</b> na carga de ' + n + ' sacas' : '') + '.</div>';
-    else h += '<div class="fr-veredito ruim">❌ Não compensa buscar: sai <b>' + fmtBRL(-dif) + '</b> mais caro por saca' + (n > 1 ? ' · ' + fmtBRL(-dif * n) + ' na carga' : '') + '.</div>';
-    return h;
   }
 
   function renderFretePanel(ing, idx) {
@@ -2381,14 +3572,6 @@ if ('serviceWorker' in navigator) {
       box.appendChild(inp);
       grid.appendChild(box);
     }
-    (function () {
-      var box = document.createElement("div"); box.className = "fr-origem";
-      var lbl = document.createElement("label"); lbl.textContent = "Preço do saco na origem (R$)"; box.appendChild(lbl);
-      var inp = document.createElement("input");
-      inp.type = "number"; inp.step = "0.01"; inp.min = "0"; inp.inputMode = "decimal"; inp.value = ing.precoOrigem;
-      inp.addEventListener("input", function () { ing.precoOrigem = parseFloat(inp.value) || 0; recalc(); });
-      box.appendChild(inp); grid.appendChild(box);
-    })();
     field("Distância (km)", "distancia", "1");
     field("Consumo (km/l)", "consumo", "0.1");
     field("Diesel (R$/l)", "diesel", "0.01");
@@ -2399,7 +3582,11 @@ if ('serviceWorker' in navigator) {
 
     var result = document.createElement("div");
     result.className = "frete-result";
-    result.innerHTML = htmlResultadoFrete(ing);
+    var custoFrete = freteCustoPorSaca(ing);
+    var origemMaisFrete = ing.precoSaco + custoFrete;
+    result.innerHTML =
+      "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
+      "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
     wrap.appendChild(result);
 
     var note = document.createElement("div");
@@ -2431,7 +3618,7 @@ if ('serviceWorker' in navigator) {
       tdPct.appendChild(inpPct);
 
       var tdPreco = document.createElement("td");
-      tdPreco.className = "col-preco"; tdPreco.setAttribute("data-label", "Preço saco na fazenda (R$)");
+      tdPreco.className = "col-preco"; tdPreco.setAttribute("data-label", "Preço saco origem (R$)");
       var inpPreco = document.createElement("input");
       inpPreco.type = "number"; inpPreco.step = "0.01"; inpPreco.min = "0"; inpPreco.value = ing.precoSaco;
       inpPreco.addEventListener("input", function () { ing.precoSaco = parseFloat(inpPreco.value) || 0; recalc(); });
@@ -2494,7 +3681,7 @@ if ('serviceWorker' in navigator) {
 
   document.getElementById("addIngBtn").addEventListener("click", function () {
     ingredientes.push({
-      nome: "Novo ingrediente", pct: 0, precoSaco: 0, precoOrigem: 0, pesoSaco: 25,
+      nome: "Novo ingrediente", pct: 0, precoSaco: 0, pesoSaco: 25,
       freteAtivo: false, freteAberto: false,
       frete: { distancia: 0, consumo: 3.5, diesel: 6.69, diaria: 200, numSacas: 1 }
     });
@@ -2532,17 +3719,13 @@ if ('serviceWorker' in navigator) {
     var diffKg = kgCom - kgSem;
     if (Math.abs(diffKg) < 0.001) {
       diffBanner.className = "diff-banner zero";
-      diffBanner.innerHTML = ingredientes.some(function (i) { return i.freteAtivo; })
-        ? "Buscar ou comprar entregue dá o mesmo custo."
-        : "Nenhum ingrediente marcado com 🚚 — os dois valores coincidem.";
+      diffBanner.innerHTML = "Nenhum ingrediente com frete ativo no momento — os dois valores coincidem.";
     } else {
-      var pct = kgSem > 0 ? Math.abs(diffKg / kgSem) * 100 : 0;
-      diffBanner.className = "diff-banner" + (diffKg < 0 ? " bom" : "");
-      diffBanner.innerHTML = (diffKg < 0 ? "✅ Buscar na origem <strong>economiza " : "❌ Buscar na origem sai <strong>mais caro: ") +
-        fmtBRL(Math.abs(diffKg)) + " / kg</strong> (" + pct.toFixed(1).replace(".", ",") + "%) — " +
-        fmtBRL(Math.abs(diffKg) * 30) + (diffKg < 0 ? " a menos" : " a mais") + " por saco de 30 kg de ração.";
+      var pct = kgSem > 0 ? (diffKg / kgSem) * 100 : 0;
+      diffBanner.className = "diff-banner";
+      diffBanner.innerHTML = "O frete adiciona <strong>" + fmtBRL(diffKg) + " / kg</strong> (" +
+        pct.toFixed(1).replace(".", ",") + "%) — " + fmtBRL(diffKg * 30) + " a mais por saco de 30 kg.";
     }
-    salvarIngredientes();
 
     pctTotalEl.textContent = "Total: " + pctSum.toFixed(1).replace(".", ",") + "%";
     pctTotalEl.className = "pct-total " + (Math.abs(pctSum - 100) < 0.05 ? "ok" : "warn");
@@ -2573,7 +3756,11 @@ if ('serviceWorker' in navigator) {
       if (!ing) return;
       var result = row.querySelector(".frete-result");
       if (!result) return;
-      result.innerHTML = htmlResultadoFrete(ing);
+      var custoFrete = freteCustoPorSaca(ing);
+      var origemMaisFrete = ing.precoSaco + custoFrete;
+      result.innerHTML =
+        "<span>Frete por saca: <strong>" + fmtBRL(custoFrete) + "</strong></span>" +
+        "<span>Total buscando: <strong>" + fmtBRL(origemMaisFrete) + "</strong> / saca</span>";
     });
   }
 
@@ -2598,7 +3785,7 @@ if ('serviceWorker' in navigator) {
       custoPorKgComFrete: lastCusto.comFrete,
       ingredientes: ingredientes.map(function (i) {
         return {
-          nome: i.nome, pct: i.pct, precoSaco: i.precoSaco, precoOrigem: i.precoOrigem, pesoSaco: i.pesoSaco,
+          nome: i.nome, pct: i.pct, precoSaco: i.precoSaco, pesoSaco: i.pesoSaco,
           freteAtivo: i.freteAtivo, frete: i.frete
         };
       })
@@ -2670,12 +3857,12 @@ if ('serviceWorker' in navigator) {
       var color = colorFor(loteFilter.value);
       var i1 = document.createElement("div"); i1.className = "legend-item";
       var s1 = document.createElement("span"); s1.className = "swatch"; s1.style.background = color;
-      i1.appendChild(s1); var t1 = document.createElement("span"); t1.textContent = "Na fazenda"; i1.appendChild(t1);
+      i1.appendChild(s1); var t1 = document.createElement("span"); t1.textContent = "Sem frete"; i1.appendChild(t1);
       legendWrap.appendChild(i1);
 
       var i2 = document.createElement("div"); i2.className = "legend-item";
       var s2 = document.createElement("span"); s2.className = "swatch dashed"; s2.style.color = color;
-      i2.appendChild(s2); var t2 = document.createElement("span"); t2.textContent = "Buscando na origem"; i2.appendChild(t2);
+      i2.appendChild(s2); var t2 = document.createElement("span"); t2.textContent = "Com frete"; i2.appendChild(t2);
       legendWrap.appendChild(i2);
       return;
     }
